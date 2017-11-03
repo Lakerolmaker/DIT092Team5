@@ -7,6 +7,8 @@ public class main {
 		System.out.println("Just wanted to try this out n stuff");
 		
 		// hello
+		
+		//: yo
 	}
 
 }
