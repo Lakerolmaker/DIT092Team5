@@ -10,7 +10,12 @@ public class main {
 	public static void main(String[] args) {
 		
 		
+<<<<<<< HEAD
 		
+=======
+		//: yo
+		 //hello
+>>>>>>> eda77c3f29b11400435e05a46866fc08b74771ac
 	}
 
 	public void saveLibrary() {
