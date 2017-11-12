@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Date;
@@ -39,6 +41,8 @@ import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
@@ -46,22 +50,25 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 
 import com.sun.java.swing.plaf.gtk.GTKConstants.Orientation;
 import com.sun.prism.paint.Color;
 import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.Setting;
 import com.sun.xml.internal.ws.api.server.Container;
 
-
+import JackeLibrary.console;
 import UILibrary.*;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 
+import static JackeLibrary.Input.*;
 
 public class UI {
 	
 	public  JFrame frame; 
-	private String framename;
+	public String framename;
 	private  ArrayList<JTextField> activeTextFields = new ArrayList<JTextField>(); 
 	private  ArrayList<JButton> activebuttons = new ArrayList<JButton>(); 
 	private  ArrayList<JLabel> activelabels = new ArrayList<JLabel>(); 
@@ -474,7 +481,7 @@ public class UI {
 			activeSpinners.add(spinner);
 	}
 	
-	public void addGridTable(String ID, int x , int y , int width , int height , Object[][] rowData, Object[] columnNames) {
+	public void addGridTable(String ID, int x , int y , int width ,int height , Object[][] rowData, Object[] columnLabelNames) {
 		
 		JPanel panel = new JPanel();
 		   
@@ -483,8 +490,7 @@ public class UI {
 	   	panel.setBounds(x, y, width, height);
 	  
 	   	
-	   	JTable Table = new JTable(rowData, columnNames);
-	   
+	   	JTable Table = new JTable(rowData, columnLabelNames);
 
 	   	Table.setName(ID);
 	   	
@@ -495,12 +501,36 @@ public class UI {
 	   	Table.setShowGrid(false);
 	   	Table.setOpaque(false);
 	   	Table.setBounds(0, 0, width, height);
+	   	Table.setAutoResizeMode(0);
+	   	
+	   	
+	   	
+	   	
 		panel.add(Table);
 		
 		frame.add(panel);
 		activeGridTable.add(Table);
 		
 		
+	}
+	
+	public void addScrollBox(Component addedObejct , int width , int height) {
+	
+		JPanel panel = new JPanel();
+		   
+		panel.setLayout(null);
+	   	panel.setSize(new Dimension(height, width));
+	   	panel.setBounds(addedObejct.getX(), addedObejct.getY(), height, width);
+		
+		JScrollPane scrollPane = new JScrollPane(addedObejct);
+		scrollPane.setName(addedObejct.getName());
+		scrollPane.setBounds( 0 , 0 , height, width);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		panel.add(scrollPane);
+		
+		frame.add(panel);
 	}
 	
 	public void updateobject(String elementName, String fieldName , int xIncrament ,  int yIncrament) {
@@ -516,8 +546,8 @@ public class UI {
 			selectedField.setBounds(selectedField.getX() + xIncrament, selectedField.getY() + yIncrament, selectedField.getWidth(), selectedField.getHeight());
 			selectedField.updateUI();
 			
-			System.out.print("X : " + selectedField.getX() + "\n");
-			System.out.print("Y : " + selectedField.getY() + "\n\n");
+			console.log("X : " + selectedField.getX() + "\n");
+			console.log("Y : " + selectedField.getY() + "\n\n");
 			
 		}else if(elementName == "button") {
 			JButton selectedButton = null;
@@ -529,8 +559,8 @@ public class UI {
 			selectedButton.setBounds(selectedButton.getX()  + xIncrament, selectedButton.getY() + yIncrament , selectedButton.getWidth() , selectedButton.getHeight() );
 			selectedButton.updateUI();
 			
-			System.out.print("X : " + selectedButton.getX() + "\n");
-			System.out.print("Y : " + selectedButton.getY() + "\n\n");
+			console.log("X : " + selectedButton.getX() + "\n");
+			console.log("Y : " + selectedButton.getY() + "\n\n");
 
 		}else if(elementName == "label") {
 			JLabel selectedLabel = null;
@@ -540,11 +570,11 @@ public class UI {
 		
 					selectedLabel = activelabels.get(i);
 				}	
-			selectedLabel.setBounds(selectedLabel.getX()  + xIncrament, selectedLabel.getY() + yIncrament , selectedLabel.getWidth() , selectedLabel.getHeight() );
+			selectedLabel.getParent().setBounds(selectedLabel.getX()  + xIncrament, selectedLabel.getParent().getY() + yIncrament , selectedLabel.getParent().getWidth() , selectedLabel.getHeight() );
 			selectedLabel.updateUI();
 			
-			System.out.print("X : " + selectedLabel.getX() + "\n");
-			System.out.print("Y : " + selectedLabel.getY() + "\n\n");
+			console.log("X : " + selectedLabel.getParent().getX() + "\n");
+			console.log("Y : " + selectedLabel.getParent().getY() + "\n\n");
 
 		}else if(elementName == "progressBar") {
 			JProgressBar progressBar = null;
@@ -558,15 +588,15 @@ public class UI {
 			progressBar.setBounds(progressBar.getX()  , progressBar.getY()  , progressBar.getWidth() + xIncrament, progressBar.getHeight() + yIncrament);
 			progressBar.updateUI();
 			
-			System.out.print("X : " + progressBar.getX() + "\n");
-			System.out.print("Y : " + progressBar.getY() + "\n\n");
+			console.log("X : " + progressBar.getX() + "\n");
+			console.log("Y : " + progressBar.getY() + "\n\n");
 
 		}else if(elementName == "frame") {
 			
 			frame.setSize(frame.getWidth() + xIncrament, frame.getHeight() + yIncrament);
 			
-			System.out.print("X : " + frame.getWidth() + "\n");
-			System.out.print("Y : " + frame.getHeight() + "\n\n");
+			console.log("X : " + frame.getWidth() + "\n");
+			console.log("Y : " + frame.getHeight() + "\n\n");
 
 		}
 		
@@ -589,6 +619,10 @@ public class UI {
 	public void close() {
 		
 		frame.dispose();
+	}
+	
+	public void update() {
+		frame.repaint();	
 	}
 	
 	public GetterInterface getter = new GetterInterface() {
@@ -1121,12 +1155,41 @@ public class UI {
 
 	
 	};
-	
+
 	public gridInterfacee gridTable = new gridInterfacee() {
 		
+	 public void setGridColor(String ID , java.awt.Color SelectedColor) {
+		 getter.getGridTable(ID).setShowGrid(true);
+		 getter.getGridTable(ID).setBorder(border.color(SelectedColor));
+		 getter.getGridTable(ID).setGridColor(SelectedColor);
+	 }
+		
+	 public void setBackground(String ID , java.awt.Color SelectedColor) {
+		 getter.getGridTable(ID).setBackground(SelectedColor);
+	 }
+	 
+	 public void setSelectModel(String ID , int selectedGridFormats) {
+		 
+		 if(selectedGridFormats == gridSelect.CellSelect) {
+			 getter.getGridTable(ID).setRowSelectionAllowed(true);
+		 }else if(selectedGridFormats == gridSelect.ColumnSelect) {
+			 getter.getGridTable(ID).setColumnSelectionAllowed(true);
+		 }else if(selectedGridFormats == gridSelect.RowSelect) {
+			 getter.getGridTable(ID).setRowSelectionAllowed(true);
+		 }
+		
+		 
+	 }
+	
+	 public void getValues(String ID) {
+		//int column = getter.getGridTable(ID).getSelectedColumn();
+		int[] row = getter.getGridTable(ID).getSelectedRows();
+		console.log(row);
+		//return new GridReturn(0 , row);
+	 }
 
 	};
-	
+		
 }
 
 
