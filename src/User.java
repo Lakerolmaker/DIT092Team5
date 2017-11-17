@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 	import java.util.HashMap;
 	import java.util.Date;
 
@@ -69,8 +68,5 @@
 		public void removeBorrowedBook(Book book) {
 			booksBorrowed.remove(book);
 		}
-=======
-public class User {
->>>>>>> 09b8de99c008536be9b4ab52c7bfb854507ab066
 
 }
