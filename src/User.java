@@ -1,8 +1,10 @@
 
 	import java.util.HashMap;
-	import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Date;
 
 	public class User {
+		
 		private String name;
 		private int ssn;
 		private int userId;
@@ -12,6 +14,7 @@
 		private Object address;
 		
 		private HashMap<Book, Date> booksBorrowed = new HashMap<Book, Date>();
+		static AtomicInteger nextId = new AtomicInteger();
 		
 		User (String name, int userId, double debt, int ssn, int phoneNr, Object adress) {
 			this.name = name;
@@ -50,8 +53,8 @@
 		public void setDebt(double debt) {
 			this.debt = debt;
 		}
-		public void setUserId(int userId) {
-			this.userId = userId;
+		public void setUserId() {
+			this.userId = nextId.incrementAndGet();
 		}
 		public void setPhoneNr(int phoneNr) {
 			this.phoneNr = phoneNr;
