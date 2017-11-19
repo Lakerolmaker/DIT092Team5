@@ -1,12 +1,12 @@
 
-	import java.util.HashMap;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Date;
 
 	public class User {
 		
 		private String name;
-		private int ssn;
+		private int ssn; // What is this ? 
 		private int userId;
 		private int libraryCardNum;
 		private double debt;
