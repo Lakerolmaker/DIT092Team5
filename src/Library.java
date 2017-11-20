@@ -7,9 +7,10 @@ public class Library {
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
-	private ArrayList<User> userDiretory = new ArrayList<User>();
-	private ArrayList<Book> bookDiretory = new ArrayList<Book>();
+	public ArrayList<User> userDiretory = new ArrayList<User>();
+	public ArrayList<Book> bookDiretory = new ArrayList<Book>();
 	
+	public int hello = 0;
 	
 	public void addBook() {
 		
