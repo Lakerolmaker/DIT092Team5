@@ -1,4 +1,4 @@
-
+import java.util.Comparator;
 /***********************************
  * Name of the class: Book
  * 
@@ -80,5 +80,51 @@ public class Book {
 		}
 		return 0;
 	}
+	
+	// ascending order AZ
+	public static Comparator<Book> authorComparatorAZ = new Comparator<Book>() {
+
+		public int compare(Book b1, Book b2) {
+			String authorName1 = b1.getAuthor().toUpperCase();
+			String authorName2 = b2.getAuthor().toUpperCase();
+
+			return authorName1.compareTo(authorName2);
+
+		}
+	};
+
+	// descending order ZA
+	public static Comparator<Book> authorComparatorZA = new Comparator<Book>() {
+
+		public int compare(Book b1, Book b2) {
+			String authorName1 = b1.getAuthor().toUpperCase();
+			String authorName2 = b2.getAuthor().toUpperCase();
+
+			return authorName2.compareTo(authorName1);
+
+		}
+	};
+
+	public static Comparator<Book> nameComparatorAZ = new Comparator<Book>() {
+
+		public int compare(Book b1, Book b2) {
+			String bookName1 = b1.getName().toUpperCase();
+			String bookName2 = b2.getName().toUpperCase();
+
+			return bookName1.compareTo(bookName2);
+
+		}
+	};
+
+	public static Comparator<Book> nameComparatorZA = new Comparator<Book>() {
+
+		public int compare(Book b1, Book b2) {
+			String bookName1 = b1.getName().toUpperCase();
+			String bookName2 = b2.getName().toUpperCase();
+
+			return bookName2.compareTo(bookName1);
+
+		}
+	};
 	 
 }

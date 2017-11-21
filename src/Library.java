@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,6 +9,7 @@ public class Library {
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
+<<<<<<< HEAD
 	ArrayList<Book> books;
 
 	public Library() {
@@ -55,7 +58,66 @@ public class Library {
 
 	}
 	
+=======
+	public ArrayList<User> userDiretory = new ArrayList<User>();
+	public ArrayList<Book> bookDiretory = new ArrayList<Book>();
+	
+	public int hello = 0;
+	
+	public void addBook() {
+		
+	}
+	
+	public void addUser() {
+		
+	}
+	
+	public void loanBook(int userID , int bookID) {
+		
+	}
+	
+	public void returnBook(int userID , int bookID) {
+		
+	}
+	
+	//: sort functions
+	
+	SortInterface sort = new SortInterface() {
 
+		@Override
+		public void alphabetically() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void byAthor() {
+			// TODO Auto-generated method stub
+			
+		}
+>>>>>>> cb4c937b263f09a1d0cc0a28a1e737691774294a
+
+		@Override
+		public void byShelfNumber() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void byGenre() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void byPublisher() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		
+	};
+	
 	public void save() {
 		
 		String json = gson.toJson(main.library);
