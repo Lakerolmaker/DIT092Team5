@@ -1,36 +1,63 @@
-import java.util.Comparator;
 /***********************************
  * Name of the class: Book
  * 
  * Description: Class has getters and setters for all attributes except the setter for id. 
  * toString method
- * compareTo method checks if received object is instance of Book, then compare two books by author.
- * If received object is not instance of book, 0 will be returned.
+ * compareTo method checks if received object is instance of Book, then compares two books by author.
+ * If received object is not instance of Book, 0 will be returned.
  * 
  * @author (Elsada Lagumdzic)
  * 
 ************************************/
+import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class Book {
 
 	private int id;
+	private int isbn;
 	private String name;
 	private String author;
 	private int year;
 	private String category;
 	private int shelf;
 	 
-	public Book(int id, String name, String author, int year, String category, int shelf) {
-		this.id = id;
+	static private AtomicInteger idGen = new AtomicInteger();
+	
+	public Book(int isbn, String name, String author, int year, String category, int shelf) {
+		this.id = idGen.incrementAndGet();
+		this.isbn = isbn;
 		this.name = name;
 		this.author = author;
 		this.year = year;
 		this.category = category;
 		this.shelf = shelf;
 	}
-
+	
+	public Book(int id, int isbn, String name, String author, int year, String category, int shelf) {
+		this.id = id;
+		this.isbn = isbn;
+		this.name = name;
+		this.author = author;
+		this.year = year;
+		this.category = category;
+		this.shelf = shelf;
+		
+		idGen.set(id);
+	}
+	
 	public int getId() {
-		return id;
+		return this.id;
+	}
+	
+
+	public int getIsbn() {
+		return isbn;
+	}
+	
+	public void setIsbn(int isbn) {
+		this.isbn = isbn;
 	}
 	
 	public String getName() {
@@ -69,7 +96,8 @@ public class Book {
 			    "Author: " + this.author +
 				"Year: " + this.year +
 			    "Category: " + this.category +
-			    "Shelf: " + this.shelf;
+			    "Shelf: " + this.shelf +
+		"Isbn: " + this.isbn; 
 				
 	}
 	
@@ -80,6 +108,9 @@ public class Book {
 		}
 		return 0;
 	}
+	
+	
+	// There is no need to add Comparator for author since I already created method compare to that do the same
 	
 	// ascending order AZ
 	public static Comparator<Book> authorComparatorAZ = new Comparator<Book>() {
