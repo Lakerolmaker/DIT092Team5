@@ -2,8 +2,10 @@
  * Purpose: Interface for all other GUI's 
  */
 import javax.swing.JOptionPane;
+
+import UILibrary.UI;
 public interface UiInterface {
 
-	JOptionPane.showMessageDialog (null, "default content", "default title", JOptionPane.PLAIN_MESSAGE);
-	public void start();
+	UI frame=null;
+	void start();
 }
