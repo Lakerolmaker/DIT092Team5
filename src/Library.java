@@ -8,61 +8,10 @@ public class Library {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
-	
-<<<<<<< HEAD
-	ArrayList<Book> books;
 
-	public Library() {
 
-		books = new ArrayList<Book>();
-
-	}
-	
-	public void sortBooksAuthorAZ() {
-
-		Collections.sort(books, Book.authorComparatorAZ);
-
-		for (Book str : books) {
-			System.out.println(str);
-		}
-
-	}
-
-	public void sortBooksAuthorZA() {
-
-		Collections.sort(books, Book.authorComparatorZA);
-
-		for (Book str : books) {
-			System.out.println(str);
-		}
-
-	}
-
-	public void sortBooksNameAZ() {
-
-		Collections.sort(books, Book.nameComparatorAZ);
-
-		for (Book str : books) {
-			System.out.println(str);
-		}
-
-	}
-
-	public void sortBooksNameZA() {
-
-		Collections.sort(books, Book.nameComparatorZA);
-
-		for (Book str : books) {
-			System.out.println(str);
-		}
-
-	}
-	
-=======
 	public ArrayList<User> userDiretory = new ArrayList<User>();
 	public ArrayList<Book> bookDiretory = new ArrayList<Book>();
-	
-	public int hello = 0;
 	
 	public void addBook() {
 		
@@ -95,7 +44,7 @@ public class Library {
 			// TODO Auto-generated method stub
 			
 		}
->>>>>>> cb4c937b263f09a1d0cc0a28a1e737691774294a
+
 
 		@Override
 		public void byShelfNumber() {
@@ -139,32 +88,66 @@ public class Library {
 			file.writeToTextFile(fileName  ,json , directory);
 			
 		}
+		
+		for(int i = 0 ; i < bookDiretory.size(); i++ ) {
+			
+			String json = gson.toJson(bookDiretory.get(i));
+			String fileName = "book" + i;
+			String directory = file.CurrentDir + "/Database/BOOKS";
+			
+			file.createTextFile(fileName , directory);
+			
+			file.writeToTextFile(fileName  ,json , directory);
+			main.print(i);
+		}
 	
 	}
 
 	public void load() {
 		
-		boolean scan = true;
-		int index = 0;
+		boolean scanUser = true;
+		int indexUSer = 0;
 		
-		while(scan) {
+		while(scanUser) {
 
-			String fileName = "user" + index ;
+			String fileName = "user" + indexUSer ;
 			String directory = file.CurrentDir + "/Database/USERS";
 			
 			String json = file.readFromTextFile( fileName , directory );
 			
 			if(json != null) {
-				User test = gson.fromJson(json , User.class);
-				userDiretory.add(test);	
-				main.print("scan : " + index);
-				index++;
+				User user = gson.fromJson(json , User.class);
+				userDiretory.add(user);	
+				indexUSer++;
 			}else {
-				scan = false;
+				scanUser = false;
+			}
+			
+		}
+		
+		boolean scanBook = true;
+		int indexBook = 0;
+		
+		while(scanBook) {
+
+			String fileName = "book" + indexBook ;
+			String directory = file.CurrentDir + "/Database/BOOKS";
+			
+			String json = file.readFromTextFile( fileName , directory );
+			
+			if(json != null) {
+				Book book = gson.fromJson(json , Book.class);
+				bookDiretory.add(book);	
+				indexBook++;
+			}else {
+				scanBook = false;
 			}
 			
 		}
 	
+		main.print("Books : " + indexBook);
+		main.print("Users : " + indexUSer);
+		
 	}
 
 

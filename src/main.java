@@ -8,11 +8,13 @@ public class main {
 	public static Library library = new Library();
 	
 	public static void main(String[] args) { 
-		library.load();
-		library.userDiretory.add(new User("Jacob", "199804057033", 0733443240, "Ola dals vägen 24"));
 		
-	
-		library.save();
+		library.load();
+		//library.userDiretory.add(new User("dd", 0, 0, 0, 0, 0));
+		//library.bookDiretory.add(new Book(0, "hello", "me", 0, "hentai", 111011));
+
+		
+		//library.save();
 		
 		print("done");
 		
