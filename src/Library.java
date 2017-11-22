@@ -3,38 +3,154 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/** 
+ * Functions does not work as the other classes needs to change some in their structure.
+ *
+ */
 
 public class Library {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
-<<<<<<< HEAD
-	ArrayList<Book> books;
+	private Map<Book, Integer> books; // Map of all books in Library and their quantity.
+	private Map<Integer, User> users; // Map of all users in library and their ID mapped as key.
 
 	public Library() {
-
-		books = new ArrayList<Book>();
+		this.books = new HashMap<Book, Integer>();
+		this.users = new HashMap<Integer, User>();
 
 	}
 	
-	public void sortBooksAuthorAZ() {
 
-		Collections.sort(books, Book.authorComparatorAZ);
+	/** Register user
+	 * Checks if a user with the same SSN already exists.
+	 * If the SSN is not already registered a new user will be registered. 
+	 * @throws Exception 
+	 */
+	public void registerUser(String firstName, String lastName, String ssn, int phoneNr, String street, int zipCode, String city) throws Exception {
+		// Search for duplicate using SSN
+		User tmp = findUser(ssn); 
+		if (tmp != null) {
+			throw new Exception("Error: Customer with same SSN already exists in db with ID: " + tmp.getUserId());
+		
+		// If no duplicate found - a new User are registered
+		}else {
+			tmp = new User(firstName, lastName, ssn, phoneNr, street, zipCode, city);
+			users.put(tmp.getUserId(), tmp);
+		}
+	}
+	
+	
+	/** Retrieve user from their id
+	 * This function should be called to access user functions. Ex: user.getAdress(), user.getFirstName();
+	 *  @return User (returns null if no user is found)
+	 */
+	public User retrieveUser(int id) {
+		return users.get(id);
+	}
+	
+	
+	/** Find User by SSN
+	 * @param ssn
+	 * @return User (or null if not found)
+	 */
+	public User findUser(String ssn) {
+		for (User val : this.users.values() ) {
+			if (val.getSsn().equals(ssn)) {
+				return val;
+			}
+		}
+		return null;
+	}
+	
+	
+	/** Create a new Book
+	 * Checks if the book already exists to prevent duplicates are created. 
+	 * @param isbn, name, author, year, category
+	 * @return Book
+	 */
+	public Book createBook(String isbn, String name, String author, int year, String category) {
+		Book tmp = null;
+		
+		// Search for duplicate using ISBN
+		for (Book key : this.books.keySet()) {
+			if (key.getIsbn().equals(isbn)) {
+				tmp = key;
+			}
+		}
+		// If no duplicate is found a new Book is created.
+		if (tmp == null) {
+			tmp = new Book(isbn, name, author, year, category);
+		}
+		
+		// Return the book created. (Or if the book already existed, a reference to that book)
+		return tmp;
+	}
+	
+	
+	/** Add book to library
+	 * @param book
+	 */
+	public void addBook(Book book) {
+		// If the library already contains the book, the quantity is increased by 1.
+		if (books.containsKey(book)) {
+			books.put(book, books.get(book) + 1);
+		
+		}else {
+			books.put(book, 1); // New book is added to the library.
+		}
+	}
+	
+	public void loanBook(int userID , int bookID) {
+		// TODO
+	}
+	
+	public void returnBook(int userID , int bookID) {
+		// TODO
+	}
+	
+	
+	
+	/**
+	 *  TODO : No need for duplicate sorting functions. Descending order can be achieved
+	 *  by just adding one line: 
+	 *  Collections.reverse();
+	 */
+	
+	public void sortBooksAuthorAZ() {
+		// TODO: To sort our Map instead of an ArrayList this one line has to be added:
+		List<Book> books = new ArrayList<Book>(this.books.keySet());
+		
+		
+		Collections.sort(books, Book.authorComparatorAZ); 
 
 		for (Book str : books) {
-			System.out.println(str);
+			System.out.println(str); // TODO : Avoid printing inside classes - this is handled by our main
 		}
 
 	}
+	
+	
+	/** TODO
+	 * Bunch of code and functions below this line that might be unused or not necessary?
+	 * A cleanup might be needed.
+	 */
+	
+	
 
 	public void sortBooksAuthorZA() {
-
+		
 		Collections.sort(books, Book.authorComparatorZA);
 
 		for (Book str : books) {
-			System.out.println(str);
+			System.out.println(str); 
 		}
+
 
 	}
 
@@ -58,27 +174,9 @@ public class Library {
 
 	}
 	
-=======
-	public ArrayList<User> userDiretory = new ArrayList<User>();
-	public ArrayList<Book> bookDiretory = new ArrayList<Book>();
+
 	
-	public int hello = 0;
-	
-	public void addBook() {
-		
-	}
-	
-	public void addUser() {
-		
-	}
-	
-	public void loanBook(int userID , int bookID) {
-		
-	}
-	
-	public void returnBook(int userID , int bookID) {
-		
-	}
+
 	
 	//: sort functions
 	
@@ -95,7 +193,6 @@ public class Library {
 			// TODO Auto-generated method stub
 			
 		}
->>>>>>> cb4c937b263f09a1d0cc0a28a1e737691774294a
 
 		@Override
 		public void byShelfNumber() {
