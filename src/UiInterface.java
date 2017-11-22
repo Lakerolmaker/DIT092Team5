@@ -9,4 +9,6 @@ public interface UiInterface {
 	UI frame = null;
 	public void start();
 	
+	UI frame=null;
+	void start();
 }
