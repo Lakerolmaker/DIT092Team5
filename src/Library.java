@@ -3,11 +3,20 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/** 
+ * Functions does not work as the other classes needs to change some in their structure.
+ *
+ */
 
 public class Library {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
+<<<<<<< HEAD
 
 
 	public ArrayList<User> userDiretory = new ArrayList<User>();
