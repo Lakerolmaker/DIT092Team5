@@ -14,17 +14,17 @@ public class Library {
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
-	public ArrayList<User> userDiretory = new ArrayList<User>();
-	public ArrayList<Book> bookDiretory = new ArrayList<Book>();
+	public ArrayList<User> userDirectory = new ArrayList<User>();
+	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
 	
 	public void addBook(int isbn, String name, String author, int year, String category, int shelf) throws Exception {
-		for (Book book : bookDiretory) {
+		for (Book book : bookDirectory) {
 			if (book.getIsbn() == isbn) {
 				throw new Exception("Error: book already exists");
 			}
 		}
 		Book newbook = new Book(isbn, name, author, year, category, shelf);
-		bookDiretory.add(newbook);
+		bookDirectory.add(newbook);
 	}
 	
 
@@ -40,7 +40,7 @@ public class Library {
 		// If no duplicate found - a new User are registered
 		}else {
 		//	User newUser = new User(firstName, lastName, ssn, phoneNr, street, zipCode, city);
-		//	userDiretory.add(newUser);
+		//	userDirectory.add(newUser);
 		}
 		
 	}
@@ -51,7 +51,7 @@ public class Library {
 	 *  @return User (returns null if no user is found)
 	 */
 	public User getUSer(int id) {
-		return userDiretory.get(id);
+		return userDirectory.get(id);
 	}
 	
 	
@@ -60,7 +60,7 @@ public class Library {
 	 * @return User (or null if not found)
 	 */
 	public User findUser(String ssn) {
-		for (User val : userDiretory) {
+		for (User val : userDirectory) {
 			if (val.getSsn() == ssn) {
 				return val;
 			}
@@ -97,9 +97,9 @@ public class Library {
 
 		public void sortBooksNameAZ() {
 
-			Collections.sort(bookDiretory, Book.nameComparatorAZ);
+			Collections.sort(bookDirectory, Book.nameComparatorAZ);
 
-			for (Book str : bookDiretory) {
+			for (Book str : bookDirectory) {
 				System.out.println(str);
 			}
 
@@ -107,9 +107,9 @@ public class Library {
 		
 		@Override
 		public void sortBooksNameZA() {
-			Collections.sort(bookDiretory , Book.nameComparatorZA);
+			Collections.sort(bookDirectory , Book.nameComparatorZA);
 
-			for (Book str : bookDiretory) {
+			for (Book str : bookDirectory) {
 				System.out.println(str);
 			}
 			
@@ -121,7 +121,7 @@ public class Library {
 			
 			//Collections.sort(books, Book.authorComparatorAZ); 
 
-			for (Book str : bookDiretory) {
+			for (Book str : bookDirectory) {
 				System.out.println(str); // TODO : Avoid printing inside classes - this is handled by our main
 			}
 
@@ -130,9 +130,9 @@ public class Library {
 		@Override
 		public void sortBooksAuthorZA() {
 			
-			Collections.sort(bookDiretory, Book.authorComparatorZA);
+			Collections.sort(bookDirectory, Book.authorComparatorZA);
 
-			for (Book str : bookDiretory) {
+			for (Book str : bookDirectory) {
 				System.out.println(str); 
 			}
 
@@ -167,9 +167,9 @@ public class Library {
 		file.createFolder("USERS", file.CurrentDir + "/Database");
 		file.createFolder("BOOKS", file.CurrentDir + "/Database");
 		
-		for(int i = 0 ; i < userDiretory.size(); i++ ) {
+		for(int i = 0 ; i < userDirectory.size(); i++ ) {
 			
-			String json = gson.toJson(userDiretory.get(i));
+			String json = gson.toJson(userDirectory.get(i));
 			String fileName = "user" + i;
 			String directory = file.CurrentDir + "/Database/USERS";
 			
@@ -179,9 +179,9 @@ public class Library {
 			
 		}
 		
-		for(int i = 0 ; i < bookDiretory.size(); i++ ) {
+		for(int i = 0 ; i < bookDirectory.size(); i++ ) {
 			
-			String json = gson.toJson(bookDiretory.get(i));
+			String json = gson.toJson(bookDirectory.get(i));
 			String fileName = "book" + i;
 			String directory = file.CurrentDir + "/Database/BOOKS";
 			
@@ -207,7 +207,7 @@ public class Library {
 			
 			if(json != null) {
 				User user = gson.fromJson(json , User.class);
-				userDiretory.add(user);	
+				userDirectory.add(user);	
 				indexUSer++;
 			}else {
 				scanUser = false;
@@ -227,7 +227,7 @@ public class Library {
 			
 			if(json != null) {
 				Book book = gson.fromJson(json , Book.class);
-				bookDiretory.add(book);	
+				bookDirectory.add(book);	
 				indexBook++;
 			}else {
 				scanBook = false;
