@@ -1,12 +1,64 @@
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Library {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
+<<<<<<< HEAD
+	ArrayList<Book> books;
+
+	public Library() {
+
+		books = new ArrayList<Book>();
+
+	}
+	
+	public void sortBooksAuthorAZ() {
+
+		Collections.sort(books, Book.authorComparatorAZ);
+
+		for (Book str : books) {
+			System.out.println(str);
+		}
+
+	}
+
+	public void sortBooksAuthorZA() {
+
+		Collections.sort(books, Book.authorComparatorZA);
+
+		for (Book str : books) {
+			System.out.println(str);
+		}
+
+	}
+
+	public void sortBooksNameAZ() {
+
+		Collections.sort(books, Book.nameComparatorAZ);
+
+		for (Book str : books) {
+			System.out.println(str);
+		}
+
+	}
+
+	public void sortBooksNameZA() {
+
+		Collections.sort(books, Book.nameComparatorZA);
+
+		for (Book str : books) {
+			System.out.println(str);
+		}
+
+	}
+	
+=======
 	public ArrayList<User> userDiretory = new ArrayList<User>();
 	public ArrayList<Book> bookDiretory = new ArrayList<Book>();
 	
@@ -43,6 +95,7 @@ public class Library {
 			// TODO Auto-generated method stub
 			
 		}
+>>>>>>> cb4c937b263f09a1d0cc0a28a1e737691774294a
 
 		@Override
 		public void byShelfNumber() {
