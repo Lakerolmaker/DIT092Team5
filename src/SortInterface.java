@@ -1,8 +1,10 @@
 
 public interface SortInterface {
 
-	public void alphabetically();
-	public void byAthor();
+	public void sortBooksNameAZ();
+	public void sortBooksNameZA();
+	public void sortBooksAuthorAZ();
+	public void sortBooksAuthorZA();
 	public void byShelfNumber();
 	public void byGenre();
 	public void byPublisher();

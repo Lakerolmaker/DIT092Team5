@@ -4,44 +4,27 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/** 
- * Functions does not work as the other classes needs to change some in their structure.
- *
- */
 
 public class Library {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
-<<<<<<< HEAD
-
-
+	
 	public ArrayList<User> userDiretory = new ArrayList<User>();
 	public ArrayList<Book> bookDiretory = new ArrayList<Book>();
 	
-	public void addBook() {
-		
-	}
-	
-	public void addUser() {
-		
-	}
-	
-	public void loanBook(int userID , int bookID) {
-		
-	}
-=======
-	
-	private Map<Book, Integer> books; // Map of all books in Library and their quantity.
-	private Map<Integer, User> users; // Map of all users in library and their ID mapped as key.
-
-	public Library() {
-		this.books = new HashMap<Book, Integer>();
-		this.users = new HashMap<Integer, User>();
-
+	public void addBook(int isbn, String name, String author, int year, String category, int shelf) throws Exception {
+		for (Book book : bookDiretory) {
+			if (book.getIsbn() == isbn) {
+				throw new Exception("Error: book already exists");
+			}
+		}
+		Book newbook = new Book(isbn, name, author, year, category, shelf);
+		bookDiretory.add(newbook);
 	}
 	
 
@@ -50,17 +33,16 @@ public class Library {
 	 * If the SSN is not already registered a new user will be registered. 
 	 * @throws Exception 
 	 */
-	public void registerUser(String firstName, String lastName, String ssn, int phoneNr, String street, int zipCode, String city) throws Exception {
+	public void addUser(String firstName, String lastName, String ssn, int phoneNr, String street, int zipCode, String city) throws Exception {
 		// Search for duplicate using SSN
-		User tmp = findUser(ssn); 
-		if (tmp != null) {
-			throw new Exception("Error: Customer with same SSN already exists in db with ID: " + tmp.getUserId());
-		
+		if (findUser(ssn) != null) {
+			throw new Exception("Error: Customer with same SSN already exists in db");
 		// If no duplicate found - a new User are registered
 		}else {
-			tmp = new User(firstName, lastName, ssn, phoneNr, street, zipCode, city);
-			users.put(tmp.getUserId(), tmp);
+		//	User newUser = new User(firstName, lastName, ssn, phoneNr, street, zipCode, city);
+		//	userDiretory.add(newUser);
 		}
+		
 	}
 	
 	
@@ -68,8 +50,8 @@ public class Library {
 	 * This function should be called to access user functions. Ex: user.getAdress(), user.getFirstName();
 	 *  @return User (returns null if no user is found)
 	 */
-	public User retrieveUser(int id) {
-		return users.get(id);
+	public User getUSer(int id) {
+		return userDiretory.get(id);
 	}
 	
 	
@@ -78,50 +60,12 @@ public class Library {
 	 * @return User (or null if not found)
 	 */
 	public User findUser(String ssn) {
-		for (User val : this.users.values() ) {
-			if (val.getSsn().equals(ssn)) {
+		for (User val : userDiretory) {
+			if (val.getSsn() == ssn) {
 				return val;
 			}
 		}
 		return null;
-	}
-	
-	
-	/** Create a new Book
-	 * Checks if the book already exists to prevent duplicates are created. 
-	 * @param isbn, name, author, year, category
-	 * @return Book
-	 */
-	public Book createBook(String isbn, String name, String author, int year, String category) {
-		Book tmp = null;
-		
-		// Search for duplicate using ISBN
-		for (Book key : this.books.keySet()) {
-			if (key.getIsbn().equals(isbn)) {
-				tmp = key;
-			}
-		}
-		// If no duplicate is found a new Book is created.
-		if (tmp == null) {
-			tmp = new Book(isbn, name, author, year, category);
-		}
-		
-		// Return the book created. (Or if the book already existed, a reference to that book)
-		return tmp;
-	}
-	
-	
-	/** Add book to library
-	 * @param book
-	 */
-	public void addBook(Book book) {
-		// If the library already contains the book, the quantity is increased by 1.
-		if (books.containsKey(book)) {
-			books.put(book, books.get(book) + 1);
-		
-		}else {
-			books.put(book, 1); // New book is added to the library.
-		}
 	}
 	
 	public void loanBook(int userID , int bookID) {
@@ -139,83 +83,62 @@ public class Library {
 	 *  by just adding one line: 
 	 *  Collections.reverse();
 	 */
-	
-	public void sortBooksAuthorAZ() {
-		// TODO: To sort our Map instead of an ArrayList this one line has to be added:
-		List<Book> books = new ArrayList<Book>(this.books.keySet());
-		
-		
-		Collections.sort(books, Book.authorComparatorAZ); 
 
-		for (Book str : books) {
-			System.out.println(str); // TODO : Avoid printing inside classes - this is handled by our main
-		}
 
-	}
 	
 	
 	/** TODO
 	 * Bunch of code and functions below this line that might be unused or not necessary?
 	 * A cleanup might be needed.
 	 */
-	
-	
 
-	public void sortBooksAuthorZA() {
-		
-		Collections.sort(books, Book.authorComparatorZA);
-
-		for (Book str : books) {
-			System.out.println(str); 
-		}
-
-
-	}
-
-	public void sortBooksNameAZ() {
-
-		Collections.sort(books, Book.nameComparatorAZ);
-
-		for (Book str : books) {
-			System.out.println(str);
-		}
-
-	}
-
-	public void sortBooksNameZA() {
-
-		Collections.sort(books, Book.nameComparatorZA);
-
-		for (Book str : books) {
-			System.out.println(str);
-		}
-
-	}
-	
-
->>>>>>> ade14c784d950fde2dc324b0e2093a90ee9d3b33
-	
-
-	
 	//: sort functions
-	
 	SortInterface sort = new SortInterface() {
 
+		public void sortBooksNameAZ() {
+
+			Collections.sort(bookDiretory, Book.nameComparatorAZ);
+
+			for (Book str : bookDiretory) {
+				System.out.println(str);
+			}
+
+		}
+		
 		@Override
-		public void alphabetically() {
-			// TODO Auto-generated method stub
+		public void sortBooksNameZA() {
+			Collections.sort(bookDiretory , Book.nameComparatorZA);
+
+			for (Book str : bookDiretory) {
+				System.out.println(str);
+			}
 			
 		}
 
-		@Override
-		public void byAthor() {
-			// TODO Auto-generated method stub
+		public void sortBooksAuthorAZ() {
+			// TODO: To sort our Map instead of an ArrayList this one line has to be added:
+			//List<Book> books = new ArrayList<Book>(this.books.keySet());
 			
-		}
-<<<<<<< HEAD
+			//Collections.sort(books, Book.authorComparatorAZ); 
 
-=======
->>>>>>> ade14c784d950fde2dc324b0e2093a90ee9d3b33
+			for (Book str : bookDiretory) {
+				System.out.println(str); // TODO : Avoid printing inside classes - this is handled by our main
+			}
+
+		}
+		
+		@Override
+		public void sortBooksAuthorZA() {
+			
+			Collections.sort(bookDiretory, Book.authorComparatorZA);
+
+			for (Book str : bookDiretory) {
+				System.out.println(str); 
+			}
+
+
+		}
+
 
 		@Override
 		public void byShelfNumber() {
@@ -234,11 +157,7 @@ public class Library {
 			// TODO Auto-generated method stub
 			
 		}
-		
-	
-		
-		
-		
+			
 	};
 
 

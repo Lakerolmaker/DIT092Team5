@@ -1,1 +1,1 @@
-{"id":0,"name":"hello","author":"me","year":0,"category":"hentai","shelf":111011}
+{"id":0,"isbn":0,"name":"hello","author":"me","year":0,"category":"hentai","shelf":111011}

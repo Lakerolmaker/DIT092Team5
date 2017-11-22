@@ -13,7 +13,6 @@ public class main {
 		//library.userDiretory.add(new User("dd", 0, 0, 0, 0, 0));
 		//library.bookDiretory.add(new Book(0, "hello", "me", 0, "hentai", 111011));
 
-		
 		//library.save();
 		
 		print("done");

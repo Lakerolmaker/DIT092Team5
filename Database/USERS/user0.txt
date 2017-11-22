@@ -1,1 +1,1 @@
-{"name":"dd","ssn":0,"userId":0,"libraryCardNum":0,"debt":0.0,"phoneNr":0,"address":0,"booksBorrowed":{}}
+{"name":"dd","ssn":"0","userId":0,"libraryCardNum":0,"debt":0.0,"phoneNr":0,"address":0.0,"booksBorrowed":{}}

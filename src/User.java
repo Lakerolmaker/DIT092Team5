@@ -6,7 +6,7 @@ import java.util.Date;
 	public class User {
 		
 		private String name;
-		private int ssn; // What is this ? 
+		private String ssn; // What is this ? 
 		private int userId;
 		private int libraryCardNum;
 		private double debt;
@@ -16,7 +16,7 @@ import java.util.Date;
 		private HashMap<Book, Date> booksBorrowed = new HashMap<Book, Date>();
 		static AtomicInteger nextId = new AtomicInteger();
 		
-		User (String name, int userId, double debt, int ssn, int phoneNr, Object adress) {
+		User (String name, int userId, double debt, String ssn, int phoneNr, Object adress) {
 			this.name = name;
 			this.userId = userId;
 			this.libraryCardNum = this.userId;
@@ -37,7 +37,7 @@ import java.util.Date;
 		public double getDebt() {
 			return this.debt;
 		}
-		public int getSsn() {
+		public String getSsn() {
 			return this.ssn;
 		}
 		public int getPhoneNr() {
