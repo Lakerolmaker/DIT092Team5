@@ -115,26 +115,59 @@ public class Library {
 			
 		}
 		
+	
+		
+		
 		
 	};
-	
+
+
 	public void save() {
 		
-		String json = gson.toJson(main.library);
+		file.createFolder("Database", file.CurrentDir);
+		file.createFolder("USERS", file.CurrentDir + "/Database");
+		file.createFolder("BOOKS", file.CurrentDir + "/Database");
 		
-		file.createTextFile("Data base", file.CurrentDir);
-		
-		file.writeToExistingFile("Data base" ,json , file.CurrentDir);
-		
-	}
+		for(int i = 0 ; i < userDiretory.size(); i++ ) {
+			
+			String json = gson.toJson(userDiretory.get(i));
+			String fileName = "user" + i;
+			String directory = file.CurrentDir + "/Database/USERS";
+			
+			file.createTextFile(fileName , directory);
+			
+			file.writeToTextFile(fileName  ,json , directory);
+			
+		}
 	
+	}
+
 	public void load() {
 		
-		String json = file.readFromTextFile( "Data base" , file.CurrentDir);
+		boolean scan = true;
+		int index = 0;
 		
-		main.library = gson.fromJson(json , Library.class);
-		
+		while(scan) {
+
+			String fileName = "user" + index ;
+			String directory = file.CurrentDir + "/Database/USERS";
+			
+			String json = file.readFromTextFile( fileName , directory );
+			
+			if(json != null) {
+				User test = gson.fromJson(json , User.class);
+				userDiretory.add(test);	
+				main.print("scan : " + index);
+				index++;
+			}else {
+				scan = false;
+			}
+			
+		}
+	
 	}
+
+
 	
 	
 }

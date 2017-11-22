@@ -2,25 +2,25 @@ import com.google.gson.Gson;
 
 public class main {
 	
-	FileClass file = new FileClass();
-	Gson gson = new Gson();
+	static FileClass file = new FileClass();
+	static Gson gson = new Gson();
 
 	public static Library library = new Library();
 	
-	public static void main(String[] args) {
-		//library.userDiretory.add(new User("hello", 0, 0.0, 1, 99,"ee"));
+	public static void main(String[] args) { 
+		library.load();
+		library.userDiretory.add(new User("Jacob", "199804057033", 0733443240, "Ola dals vägen 24"));
+		
+	
 		library.save();
 		
-	}
-
-	public static void load() {
-		
-		String json = library.file.readFromTextFile( "Data base" , library.file.CurrentDir);
-		//System.out.println(json);
-		Library test = library.gson.fromJson(json , Library.class);
+		print("done");
 		
 	}
-
 	
+
+	public static void print(Object o) {
+	    System.out.println(o); 
+	}
 	
 }
