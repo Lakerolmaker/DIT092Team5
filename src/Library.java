@@ -17,6 +17,9 @@ public class Library {
 	public ArrayList<User> userDirectory = new ArrayList<User>();
 	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
 	
+	
+	//: Function that adds a book to the library.
+	// TODO : fix the dublication issue. ( Should we have dublicates or not
 	public void addBook(int isbn, String name, String author, int year, String category, int shelf) throws Exception {
 		for (Book book : bookDirectory) {
 			if (book.getIsbn() == isbn) {
@@ -27,7 +30,6 @@ public class Library {
 		bookDirectory.add(newbook);
 	}
 	
-
 	/** Register user
 	 * Checks if a user with the same SSN already exists.
 	 * If the SSN is not already registered a new user will be registered. 
@@ -45,7 +47,6 @@ public class Library {
 		
 	}
 	
-	
 	/** Retrieve user from their id
 	 * This function should be called to access user functions. Ex: user.getAdress(), user.getFirstName();
 	 *  @return User (returns null if no user is found)
@@ -53,7 +54,6 @@ public class Library {
 	public User getUSer(int id) {
 		return userDirectory.get(id);
 	}
-	
 	
 	/** Find User by SSN
 	 * @param ssn
@@ -76,17 +76,12 @@ public class Library {
 		// TODO
 	}
 	
-	
-	
 	/**
 	 *  TODO : No need for duplicate sorting functions. Descending order can be achieved
 	 *  by just adding one line: 
-	 *  Collections.reverse();
+	 *  Collections.reverse(aList);
 	 */
 
-
-	
-	
 	/** TODO
 	 * Bunch of code and functions below this line that might be unused or not necessary?
 	 * A cleanup might be needed.
@@ -159,7 +154,6 @@ public class Library {
 		}
 			
 	};
-
 
 	public void save() {
 		
@@ -239,8 +233,5 @@ public class Library {
 		main.print("Users : " + indexUSer);
 		
 	}
-
-
-	
 	
 }
