@@ -1,3 +1,4 @@
+
 /***********************************
  * Name of the class: Book
  * 
@@ -12,7 +13,6 @@
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 public class Book {
 
 	private int id;
@@ -22,9 +22,12 @@ public class Book {
 	private int year;
 	private String category;
 	private int shelf;
-	 
+
+	// private String publisher;
+	// exists in library class for sorting.
+
 	static private AtomicInteger idGen = new AtomicInteger();
-	
+
 	public Book(int isbn, String name, String author, int year, String category, int shelf) {
 		this.id = idGen.incrementAndGet();
 		this.isbn = isbn;
@@ -34,7 +37,7 @@ public class Book {
 		this.category = category;
 		this.shelf = shelf;
 	}
-	
+
 	public Book(int id, int isbn, String name, String author, int year, String category, int shelf) {
 		this.id = id;
 		this.isbn = isbn;
@@ -43,75 +46,79 @@ public class Book {
 		this.year = year;
 		this.category = category;
 		this.shelf = shelf;
-		
+
 		idGen.set(id);
 	}
-	
+
 	public int getId() {
 		return this.id;
 	}
-	
 
 	public int getIsbn() {
 		return isbn;
 	}
-	
+
 	public void setIsbn(int isbn) {
 		this.isbn = isbn;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+
 	public int getYear() {
 		return year;
 	}
+
 	public void setYear(int year) {
 		this.year = year;
 	}
+
 	public String getCategory() {
 		return category;
 	}
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 	public int getShelf() {
 		return shelf;
 	}
+
 	public void setShelf(int shelf) {
 		this.shelf = shelf;
 	}
 
 	public String toString() {
-		return "Name: " + this.name + 
-			    "Author: " + this.author +
-				"Year: " + this.year +
-			    "Category: " + this.category +
-			    "Shelf: " + this.shelf +
-		"Isbn: " + this.isbn; 
-				
+		return "Name: " + this.name + "Author: " + this.author + "Year: " + this.year + "Category: " + this.category
+				+ "Shelf: " + this.shelf + "Isbn: " + this.isbn;
+
 	}
-	
+
 	public int compareTo(Object e) {
 		if (e instanceof Book) {
-			Book b = (Book)e;
+			Book b = (Book) e;
 			return this.author.compareTo(b.getAuthor());
 		}
 		return 0;
 	}
-	
-	
-	// There is no need to add Comparator for author since I already created method compare to that do the same
-	
+
+	// There is no need to add Comparator for author since I already created
+	// method compare to that do the same
+
 	// ascending order AZ
 	public static Comparator<Book> authorComparatorAZ = new Comparator<Book>() {
 
@@ -125,16 +132,18 @@ public class Book {
 	};
 
 	// descending order ZA
-	public static Comparator<Book> authorComparatorZA = new Comparator<Book>() {
-
-		public int compare(Book b1, Book b2) {
-			String authorName1 = b1.getAuthor().toUpperCase();
-			String authorName2 = b2.getAuthor().toUpperCase();
-
-			return authorName2.compareTo(authorName1);
-
-		}
-	};
+	/*
+	 * public static Comparator<Book> authorComparatorZA = new
+	 * Comparator<Book>() {
+	 * 
+	 * public int compare(Book b1, Book b2) { String authorName1 =
+	 * b1.getAuthor().toUpperCase(); String authorName2 =
+	 * b2.getAuthor().toUpperCase();
+	 * 
+	 * return authorName2.compareTo(authorName1);
+	 * 
+	 * } };
+	 */
 
 	public static Comparator<Book> nameComparatorAZ = new Comparator<Book>() {
 
@@ -147,15 +156,50 @@ public class Book {
 		}
 	};
 
-	public static Comparator<Book> nameComparatorZA = new Comparator<Book>() {
+	/*
+	 * public static Comparator<Book> nameComparatorZA = new Comparator<Book>()
+	 * {
+	 * 
+	 * public int compare(Book b1, Book b2) { String bookName1 =
+	 * b1.getName().toUpperCase(); String bookName2 =
+	 * b2.getName().toUpperCase();
+	 * 
+	 * return bookName2.compareTo(bookName1);
+	 * 
+	 * } };
+	 */
+
+	public static Comparator<Book> shelfComparatorASC = new Comparator<Book>() {
 
 		public int compare(Book b1, Book b2) {
-			String bookName1 = b1.getName().toUpperCase();
-			String bookName2 = b2.getName().toUpperCase();
+			int shelf1 = b1.getShelf();
+			int shelf2 = b2.getShelf();
 
-			return bookName2.compareTo(bookName1);
+			return Integer.compare(shelf1, shelf2);
 
 		}
 	};
-	 
+
+	public static Comparator<Book> genreComparatorAZ = new Comparator<Book>() {
+
+		public int compare(Book b1, Book b2) {
+			String genre1 = b1.getCategory().toUpperCase();
+			String genre2 = b2.getCategory().toUpperCase();
+
+			return genre1.compareTo(genre2);
+
+		}
+	};
+
+	public static Comparator<Book> publisherComparatorAZ = new Comparator<Book>() {
+
+		public int compare(Book b1, Book b2) {
+			String publisher1 = b1.getPublisher().toUpperCase();
+			String publisher2 = b2.getPublisher().toUpperCase();
+
+			return publisher1.compareTo(publisher2);
+
+		}
+	};
+
 }
