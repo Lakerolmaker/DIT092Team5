@@ -18,6 +18,7 @@ public class Library {
 	
 	public ArrayList<User> userDirectory = new ArrayList<User>();
 	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
+	public List<Book> books = new ArrayList<Book>(this.books.keySet());
 	
 	
 	//: Function that adds a book to the library.
@@ -92,68 +93,68 @@ public class Library {
 	//: sort functions
 	SortInterface sort = new SortInterface() {
 
-		public void sortBooksNameAZ() {
+		public void sortBooksName(boolean order) {
+			
+			// true for ascending; false for descending order
+			
+			Collections.sort(books, Book.nameComparatorAZ);
+			
+			if (order == false)
+				Collections.reverse(books);
+			
 
-			Collections.sort(bookDirectory, Book.nameComparatorAZ);
-
-			for (Book str : bookDirectory) {
-				System.out.println(str);
-			}
+		
 
 		}
 		
-		@Override
-		public void sortBooksNameZA() {
-			Collections.sort(bookDirectory , Book.nameComparatorZA);
+		
+		
 
-			for (Book str : bookDirectory) {
-				System.out.println(str);
-			}
+		public void sortBooksAuthor(boolean order) {
 			
-		}
-
-		public void sortBooksAuthorAZ() {
-			// TODO: To sort our Map instead of an ArrayList this one line has to be added:
-			//List<Book> books = new ArrayList<Book>(this.books.keySet());
 			
-			//Collections.sort(books, Book.authorComparatorAZ); 
+			Collections.sort(books, Book.authorComparatorAZ); 
+			
+			if (order == false)
+				Collections.reverse(books);
 
-			for (Book str : bookDirectory) {
-				System.out.println(str); // TODO : Avoid printing inside classes - this is handled by our main
-			}
+			
 
 		}
 		
-		@Override
-		public void sortBooksAuthorZA() {
+		
+		
+
+
+		
+		public void byShelfNumber(boolean order) {
 			
-			Collections.sort(bookDirectory, Book.authorComparatorZA);
-
-			for (Book str : bookDirectory) {
-				System.out.println(str); 
-			}
-
-
-		}
-
-
-		@Override
-		public void byShelfNumber() {
-			// TODO Auto-generated method stub
+			
+			Collections.sort(books, Book.shelfComparatorASC);
+			
+			if (order == false)
+				Collections.reverse(books);
 			
 		}
+		
+		
 
-		@Override
-		public void byGenre() {
-			// TODO Auto-generated method stub
+		
+		public void byGenre(boolean order) {
+			
+			Collections.sort(books, Book.genreComparatorAZ);
+			
+			if (order == false)
+				Collections.reverse(books);
 			
 		}
+		
+		
 
-		@Override
-		public void byPublisher() {
-			// TODO Auto-generated method stub
-			
-		}
+		
+		
+		
+		
 			
 	};
 
