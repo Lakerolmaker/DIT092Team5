@@ -1,3 +1,4 @@
+package program;
 /* @Author: Nadja Kosir
  * Purpose: Interface for all other GUI's 
  */

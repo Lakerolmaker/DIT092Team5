@@ -457,6 +457,7 @@ public class UI {
 	  
 	   	
 	   	JTable Table = new JTable(rowData, columnLabelNames);
+	   	
 
 	   	Table.setName(ID);
 	   	
@@ -589,6 +590,23 @@ public class UI {
 	
 	public void update() {
 		frame.repaint();	
+	}
+	
+	public void clear() {
+		frame.getContentPane().removeAll();
+		frame.getContentPane().repaint();
+		
+		activebuttons.clear();
+		activeDropdown.clear();
+		activeGridTable.clear();
+		activelabels.clear();
+		activePasswordFields.clear();
+		activeProgressBar.clear();
+		activeSliders.clear();
+		activeSpinners.clear();
+		activeTextFields.clear();
+		
+		
 	}
 	
 	public GetterInterface getter = new GetterInterface() {
