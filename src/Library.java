@@ -93,7 +93,10 @@ public class Library {
 
 		public void sortBooksName(boolean order) {
 			
+			
 			// true for ascending; false for descending order
+			// in all methods
+			
 			
 			Collections.sort(books, Book.nameComparatorAZ);
 			
