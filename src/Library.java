@@ -150,17 +150,7 @@ public class Library {
 		
 
 		
-		public void byPublisher(boolean order) {
-			
-			Collections.sort(books, Book.publisherComparatorAZ);
-			
-			if (order == false)
-				Collections.reverse(books);
-			
-			// add the publisher attribute to Book
-			
-			
-		}
+		
 		
 		
 			

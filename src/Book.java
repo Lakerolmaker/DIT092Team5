@@ -191,15 +191,6 @@ public class Book {
 		}
 	};
 
-	public static Comparator<Book> publisherComparatorAZ = new Comparator<Book>() {
-
-		public int compare(Book b1, Book b2) {
-			String publisher1 = b1.getPublisher().toUpperCase();
-			String publisher2 = b2.getPublisher().toUpperCase();
-
-			return publisher1.compareTo(publisher2);
-
-		}
-	};
+	
 
 }
