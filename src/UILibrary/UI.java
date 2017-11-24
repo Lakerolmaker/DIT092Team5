@@ -457,6 +457,7 @@ public class UI {
 	  
 	   	
 	   	JTable Table = new JTable(rowData, columnLabelNames);
+	   	
 
 	   	Table.setName(ID);
 	   	

@@ -1,3 +1,4 @@
+package program;
 
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -12,6 +13,7 @@ import java.util.Date;
 		private double debt;
 		private int phoneNr;
 		private Object address;
+		
 		
 		private HashMap<Book, Date> booksBorrowed = new HashMap<Book, Date>();
 		static AtomicInteger nextId = new AtomicInteger();
