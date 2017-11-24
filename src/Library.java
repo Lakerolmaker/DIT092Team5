@@ -91,91 +91,78 @@ public class Library {
 	//: sort functions
 	SortInterface sort = new SortInterface() {
 
-		public void sortBooksNameAZ() {
-
+		public void sortBooksName(boolean order) {
+			
+			// true for ascending; false for descending order
+			
 			Collections.sort(books, Book.nameComparatorAZ);
+			
+			if (order == false)
+				Collections.reverse(books);
+			
 
 		
 
 		}
 		
 		
-		public void sortBooksNameZA() {
-			Collections.sort(books, Book.nameComparatorAZ);
-			
-			Collections.reverse(books);
+		
 
-			
-			
-		}
-
-		public void sortBooksAuthorAZ() {
+		public void sortBooksAuthor(boolean order) {
 			
 			
 			Collections.sort(books, Book.authorComparatorAZ); 
+			
+			if (order == false)
+				Collections.reverse(books);
 
 			
 
 		}
 		
 		
-		public void sortBooksAuthorZA() {
-			
-			Collections.sort(books, Book.authorComparatorAZ);
-
-			Collections.reverse(books);
-
-
-		}
+		
 
 
 		
-		public void byShelfNumberASC() {
+		public void byShelfNumber(boolean order) {
 			
 			
 			Collections.sort(books, Book.shelfComparatorASC);
 			
+			if (order == false)
+				Collections.reverse(books);
+			
 		}
 		
-		public void byShelfNumberDSC() {
-			
-			
-			Collections.sort(books, Book.shelfComparatorASC);
-			Collections.reverse(books);
-			
-		}
+		
 
 		
-		public void byGenreAZ() {
+		public void byGenre(boolean order) {
 			
 			Collections.sort(books, Book.genreComparatorAZ);
 			
+			if (order == false)
+				Collections.reverse(books);
+			
 		}
 		
-		public void byGenreZA() {
-			
-			Collections.sort(books, Book.genreComparatorAZ);
-			Collections.reverse(books);
-			
-		}
+		
 
-		@Override
-		public void byPublisherAZ() {
+		
+		public void byPublisher(boolean order) {
 			
 			Collections.sort(books, Book.publisherComparatorAZ);
+			
+			if (order == false)
+				Collections.reverse(books);
 			
 			// add the publisher attribute to Book
 			
 			
 		}
 		
-		public void byPublisherZA() {
-			
-			Collections.sort(books, Book.publisherComparatorAZ);
-			Collections.reverse(books);
-			
-			
-		}
+		
 			
 	};
 
