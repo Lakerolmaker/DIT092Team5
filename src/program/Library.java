@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Library {
+public class Library implements SortInterface {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
 	public ArrayList<User> userDirectory = new ArrayList<User>();
 	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
-	public List<Book> books = new ArrayList<Book>(this.books.keySet());
+	
 	
 	
 	//: Function that adds a book to the library.
@@ -91,19 +91,19 @@ public class Library {
 	 */
 
 	//: sort functions
-	SortInterface sort = new SortInterface() {
-
+	
+		
 		public void sortBooksName(boolean order) {
 			
 			
-			// true for ascending; false for descending order
+			// order is true for ascending; false for descending order
 			// in all methods
 			
 			
-			Collections.sort(books, Book.nameComparatorAZ);
+			Collections.sort(bookDirectory, Book.nameComparatorAZ);
 			
 			if (order == false)
-				Collections.reverse(books);
+				Collections.reverse(bookDirectory);
 			
 
 		
@@ -116,10 +116,10 @@ public class Library {
 		public void sortBooksAuthor(boolean order) {
 			
 			
-			Collections.sort(books, Book.authorComparatorAZ); 
+			Collections.sort(bookDirectory, Book.authorComparatorAZ); 
 			
 			if (order == false)
-				Collections.reverse(books);
+				Collections.reverse(bookDirectory);
 
 			
 
@@ -133,10 +133,10 @@ public class Library {
 		public void byShelfNumber(boolean order) {
 			
 			
-			Collections.sort(books, Book.shelfComparatorASC);
+			Collections.sort(bookDirectory, Book.shelfComparatorASC);
 			
 			if (order == false)
-				Collections.reverse(books);
+				Collections.reverse(bookDirectory);
 			
 		}
 		
@@ -145,10 +145,12 @@ public class Library {
 		
 		public void byGenre(boolean order) {
 			
-			Collections.sort(books, Book.genreComparatorAZ);
+			Collections.sort(bookDirectory, Book.genreComparatorAZ);
 			
 			if (order == false)
-				Collections.reverse(books);
+				Collections.reverse(bookDirectory);
+			
+			
 			
 		}
 		
@@ -159,7 +161,7 @@ public class Library {
 		
 		
 			
-	};
+	
 
 	public void save() {
 		
