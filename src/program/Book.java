@@ -22,13 +22,15 @@ public class Book {
 	private int year;
 	private String category;
 	private int shelf;
+	private int quantity;
+	private int loaned;
 
 	// private String publisher;
 	// exists in library class for sorting.
 
 	static private AtomicInteger idGen = new AtomicInteger();
 
-	public Book(String isbn, String title, String author, int year, String category, int shelf) {
+	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity) {
 		this.id = idGen.incrementAndGet();
 		this.isbn = isbn;
 		this.title = title;
@@ -36,9 +38,11 @@ public class Book {
 		this.year = year;
 		this.category = category;
 		this.shelf = shelf;
+		this.quantity = quantity;
+		this.loaned = 0;
 	}
 
-	public Book(int id, String isbn, String title, String author, int year, String category, int shelf) {
+	public Book(int id, String isbn, String title, String author, int year, String category, int shelf, int quantity, int loaned) {
 		this.id = id;
 		this.isbn = isbn;
 		this.title = title;
@@ -46,6 +50,8 @@ public class Book {
 		this.year = year;
 		this.category = category;
 		this.shelf = shelf;
+		this.quantity = quantity;
+		this.loaned = loaned;
 
 		idGen.set(id);
 	}
@@ -100,6 +106,26 @@ public class Book {
 
 	public void setShelf(int shelf) {
 		this.shelf = shelf;
+	}
+	 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public int getLoaned() {
+		return loaned;
+	}
+
+	public void setLoaned(int loaned) {
+		this.loaned = loaned;
+	}
+	 
+	public int getAvailableQuantity() {
+		return this.quantity - this.loaned;
 	}
 
 	public String toString() {
