@@ -18,6 +18,7 @@ public class Library {
 	
 	public ArrayList<User> userDirectory = new ArrayList<User>();
 	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
+	public BorrowedBook borrBook = new BorrowedBook();
 
 	//public List<Book> books = new ArrayList<Book>(this.books.keySet());
 
@@ -75,12 +76,47 @@ public class Library {
 		return null;
 	}
 	
-	public void loanBook(int userID , int bookID) {
-		// TODO
+	public void loanBook(int userID, int bookID) {
+		
+
+		String s = Integer.toString(userID) + Integer.toString(bookID);
+		boolean b = false;
+
+		for (int i = 0; i < borrBook.bookUser.size(); i++)
+			if (borrBook.bookUser.get(i).equals(s)) {
+
+				System.out.println("User has already borrowed that book.");
+				b = true;
+
+			}
+
+		if (b == false) {
+
+			borrBook.bookUser.add(s);
+			borrBook.dates.add(borrBook.today);
+			borrBook.history.add("User of ID: " + userID + " has borrowed a book of ID: " + bookID + " on "
+					+ borrBook.today.toString());
+
+		}
+
 	}
-	
-	public void returnBook(int userID , int bookID) {
-		// TODO
+
+	public void returnBook(int userID, int bookID) {
+		
+
+		String s = Integer.toString(userID) + Integer.toString(bookID);
+
+		for (int i = 0; i < borrBook.bookUser.size(); i++)
+			if (borrBook.bookUser.get(i).equals(s)) {
+
+				borrBook.bookUser.remove(i);
+				borrBook.dates.remove(i);
+				borrBook.history.add("User of ID: " + userID + " has returned a book of ID: " + bookID + " on "
+						+ borrBook.today.toString());
+
+			} else
+				System.out.println("User doesn't have that book.");
+
 	}
 	
 	/**
