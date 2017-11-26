@@ -11,14 +11,18 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Library {
+public class Library implements SortInterface {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
 	public ArrayList<User> userDirectory = new ArrayList<User>();
 	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
+<<<<<<< HEAD
 	//public List<Book> books = new ArrayList<Book>(this.books.keySet());
+=======
+	
+>>>>>>> 3bfd9b8dee7c3886c5073b6c08762a67eae4a271
 	
 	
 	//: Function that adds a book to the library.
@@ -94,17 +98,25 @@ public class Library {
 	 */
 
 	//: sort functions
+<<<<<<< HEAD
 	/*
 	SortInterface sort = new SortInterface() {
 
+=======
+	
+		
+>>>>>>> 3bfd9b8dee7c3886c5073b6c08762a67eae4a271
 		public void sortBooksName(boolean order) {
 			
-			// true for ascending; false for descending order
 			
-			Collections.sort(books, Book.nameComparatorAZ);
+			// order is true for ascending; false for descending order
+			// in all methods
+			
+			
+			Collections.sort(bookDirectory, Book.nameComparatorAZ);
 			
 			if (order == false)
-				Collections.reverse(books);
+				Collections.reverse(bookDirectory);
 			
 
 		
@@ -117,10 +129,10 @@ public class Library {
 		public void sortBooksAuthor(boolean order) {
 			
 			
-			Collections.sort(books, Book.authorComparatorAZ); 
+			Collections.sort(bookDirectory, Book.authorComparatorAZ); 
 			
 			if (order == false)
-				Collections.reverse(books);
+				Collections.reverse(bookDirectory);
 
 			
 
@@ -134,10 +146,10 @@ public class Library {
 		public void byShelfNumber(boolean order) {
 			
 			
-			Collections.sort(books, Book.shelfComparatorASC);
+			Collections.sort(bookDirectory, Book.shelfComparatorASC);
 			
 			if (order == false)
-				Collections.reverse(books);
+				Collections.reverse(bookDirectory);
 			
 		}
 		
@@ -146,10 +158,12 @@ public class Library {
 		
 		public void byGenre(boolean order) {
 			
-			Collections.sort(books, Book.genreComparatorAZ);
+			Collections.sort(bookDirectory, Book.genreComparatorAZ);
 			
 			if (order == false)
-				Collections.reverse(books);
+				Collections.reverse(bookDirectory);
+			
+			
 			
 		}
 		
@@ -160,7 +174,7 @@ public class Library {
 		
 		
 			
-	};
+	
 
 	*/
 	public void save() {

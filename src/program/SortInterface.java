@@ -2,12 +2,11 @@ package program;
 
 public interface SortInterface {
 
-	public void sortBooksNameAZ();
-	public void sortBooksNameZA();
-	public void sortBooksAuthorAZ();
-	public void sortBooksAuthorZA();
-	public void byShelfNumber();
-	public void byGenre();
-	public void byPublisher();
+	public void sortBooksName(boolean order);
+	public void sortBooksAuthor(boolean order);
+	public void byShelfNumber(boolean order);
+	public void byGenre(boolean order);
+	
+	
 	
 }
