@@ -16,8 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Book {
 
 	private int id;
-	private int isbn;
-	private String name;
+	private String isbn;
+	private String title;
 	private String author;
 	private int year;
 	private String category;
@@ -28,20 +28,20 @@ public class Book {
 
 	static private AtomicInteger idGen = new AtomicInteger();
 
-	public Book(int isbn, String name, String author, int year, String category, int shelf) {
+	public Book(String isbn, String title, String author, int year, String category, int shelf) {
 		this.id = idGen.incrementAndGet();
 		this.isbn = isbn;
-		this.name = name;
+		this.title = title;
 		this.author = author;
 		this.year = year;
 		this.category = category;
 		this.shelf = shelf;
 	}
 
-	public Book(int id, int isbn, String name, String author, int year, String category, int shelf) {
+	public Book(int id, String isbn, String title, String author, int year, String category, int shelf) {
 		this.id = id;
 		this.isbn = isbn;
-		this.name = name;
+		this.title = title;
 		this.author = author;
 		this.year = year;
 		this.category = category;
@@ -54,20 +54,20 @@ public class Book {
 		return this.id;
 	}
 
-	public int getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(int isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getAuthor() {
@@ -103,7 +103,7 @@ public class Book {
 	}
 
 	public String toString() {
-		return "Name: " + this.name + "Author: " + this.author + "Year: " + this.year + "Category: " + this.category
+		return "Title: " + this.title + "Author: " + this.author + "Year: " + this.year + "Category: " + this.category
 				+ "Shelf: " + this.shelf + "Isbn: " + this.isbn;
 
 	}
@@ -148,8 +148,8 @@ public class Book {
 	public static Comparator<Book> nameComparatorAZ = new Comparator<Book>() {
 
 		public int compare(Book b1, Book b2) {
-			String bookName1 = b1.getName().toUpperCase();
-			String bookName2 = b2.getName().toUpperCase();
+			String bookName1 = b1.getTitle().toUpperCase();
+			String bookName2 = b2.getTitle().toUpperCase();
 
 			return bookName1.compareTo(bookName2);
 
