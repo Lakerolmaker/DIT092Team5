@@ -11,19 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Library implements SortInterface {
+public class Library {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
 	public ArrayList<User> userDirectory = new ArrayList<User>();
 	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
-<<<<<<< HEAD
+
 	//public List<Book> books = new ArrayList<Book>(this.books.keySet());
-=======
-	
->>>>>>> 3bfd9b8dee7c3886c5073b6c08762a67eae4a271
-	
+
 	
 	//: Function that adds a book to the library.
 	// TODO : fix the dublication issue.
@@ -98,14 +95,11 @@ public class Library implements SortInterface {
 	 */
 
 	//: sort functions
-<<<<<<< HEAD
+
 	/*
 	SortInterface sort = new SortInterface() {
 
-=======
-	
-		
->>>>>>> 3bfd9b8dee7c3886c5073b6c08762a67eae4a271
+
 		public void sortBooksName(boolean order) {
 			
 			
