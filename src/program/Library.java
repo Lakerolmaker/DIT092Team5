@@ -18,20 +18,23 @@ public class Library {
 	
 	public ArrayList<User> userDirectory = new ArrayList<User>();
 	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
-	public List<Book> books = new ArrayList<Book>(this.books.keySet());
+	//public List<Book> books = new ArrayList<Book>(this.books.keySet());
 	
 	
 	//: Function that adds a book to the library.
-	// TODO : fix the dublication issue. ( Should we have dublicates or not
+	// TODO : fix the dublication issue.
 	public void addBook(int isbn, String name, String author, int year, String category, int shelf) throws Exception {
 		for (Book book : bookDirectory) {
 			if (book.getIsbn() == isbn) {
-				throw new Exception("Error: book already exists");
+				//book.addCopy();
 			}
 		}
 		Book newbook = new Book(isbn, name, author, year, category, shelf);
 		bookDirectory.add(newbook);
 	}
+	
+	
+	
 	
 	/** Register user
 	 * Checks if a user with the same SSN already exists.
@@ -91,6 +94,7 @@ public class Library {
 	 */
 
 	//: sort functions
+	/*
 	SortInterface sort = new SortInterface() {
 
 		public void sortBooksName(boolean order) {
@@ -158,6 +162,7 @@ public class Library {
 			
 	};
 
+	*/
 	public void save() {
 		
 		file.createFolder("Database", file.CurrentDir);
