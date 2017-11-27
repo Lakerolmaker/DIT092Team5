@@ -19,6 +19,9 @@ public class Library {
 	public ArrayList<User> userDirectory = new ArrayList<User>();
 	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
 	public BorrowedBook borrBook = new BorrowedBook();
+	public static int loanAllowance = 14;
+	
+	// days the book is allowed to be loaned out
 
 	//public List<Book> books = new ArrayList<Book>(this.books.keySet());
 
@@ -59,7 +62,7 @@ public class Library {
 	 * This function should be called to access user functions. Ex: user.getAdress(), user.getFirstName();
 	 *  @return User (returns null if no user is found)
 	 */
-	public User getUSer(int id) {
+	public User getUser(int id) {
 		return userDirectory.get(id);
 	}
 	
@@ -76,48 +79,83 @@ public class Library {
 		return null;
 	}
 	
+	public Book getBook(int bookID){
+		
+		return bookDirectory.get(bookID);
+		
+	}
+	
 	public void loanBook(int userID, int bookID) {
 		
 
-		String s = Integer.toString(userID) + Integer.toString(bookID);
-		boolean b = false;
-
-		for (int i = 0; i < borrBook.bookUser.size(); i++)
-			if (borrBook.bookUser.get(i).equals(s)) {
-
-				System.out.println("User has already borrowed that book.");
-				b = true;
-
-			}
-
-		if (b == false) {
-
-			borrBook.bookUser.add(s);
-			borrBook.dates.add(borrBook.today);
-			borrBook.history.add("User of ID: " + userID + " has borrowed a book of ID: " + bookID + " on "
-					+ borrBook.today.toString());
-
-		}
+		Book book;
+		User user;
+		
+		book = getBook(bookID);
+		user = getUser(userID);
+		
+		
+		user.borrowBook(book);
+		
+		
+		
+		borrBook.history.add("User of ID: " + userID + " has borrowed a book of ID: " + bookID + " on "
+				+ borrBook.today.toString());
+		
+		
+		
+//		String s = Integer.toString(userID) + Integer.toString(bookID);
+//		boolean b = false;
+//
+//		for (int i = 0; i < borrBook.bookUser.size(); i++)
+//			if (borrBook.bookUser.get(i).equals(s)) {
+//
+//				System.out.println("User has already borrowed that book.");
+//				b = true;
+//
+//			}
+//
+//		if (b == false) {
+//
+//			borrBook.bookUser.add(s);
+//			borrBook.dates.add(borrBook.today);
+//			borrBook.history.add("User of ID: " + userID + " has borrowed a book of ID: " + bookID + " on "
+//					+ borrBook.today.toString());
+//
+//		}
 
 	}
 
 	public void returnBook(int userID, int bookID) {
 		
-
-		String s = Integer.toString(userID) + Integer.toString(bookID);
-
-		for (int i = 0; i < borrBook.bookUser.size(); i++)
-			if (borrBook.bookUser.get(i).equals(s)) {
-
-				borrBook.bookUser.remove(i);
-				borrBook.dates.remove(i);
-				borrBook.history.add("User of ID: " + userID + " has returned a book of ID: " + bookID + " on "
-						+ borrBook.today.toString());
-
-			} else
-				System.out.println("User doesn't have that book.");
-
+		Book book;
+		User user;
+		
+		book = getBook(bookID);
+		user = getUser(userID);
+		
+		user.removeBorrowedBook(book);
+		
+		borrBook.history.add("User of ID: " + userID + " has returned a book of ID: " + bookID + " on "
+				+ borrBook.today.toString());
+		
+		
 	}
+		
+//		String s = Integer.toString(userID) + Integer.toString(bookID);
+//
+//		for (int i = 0; i < borrBook.bookUser.size(); i++)
+//			if (borrBook.bookUser.get(i).equals(s)) {
+//
+//				borrBook.bookUser.remove(i);
+//				borrBook.dates.remove(i);
+//				borrBook.history.add("User of ID: " + userID + " has returned a book of ID: " + bookID + " on "
+//						+ borrBook.today.toString());
+//
+//			} else
+//				System.out.println("User doesn't have that book.");
+//
+
 	
 	/**
 	 *  TODO : No need for duplicate sorting functions. Descending order can be achieved
