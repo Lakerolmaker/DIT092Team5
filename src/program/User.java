@@ -83,7 +83,6 @@ public class User {
 		double days = today.toEpochDay() - returnDate.toEpochDay();
 
 		if (days > 0)
-
 			this.debt = days * 2;
 
 		return this.debt;
