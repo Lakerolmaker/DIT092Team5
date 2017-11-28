@@ -129,7 +129,7 @@ public class Library {
 	}
 	/** Load library **/
 	public void load() {
-		DatabaseHelper db = DatabaseHelper.loadLibrary();
+		DatabaseHelper db = new DatabaseHelper();
 		userDirectory = db.getUserList();
 		bookDirectory = db.getBookList();
 	}

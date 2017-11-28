@@ -16,15 +16,14 @@ public class DatabaseHelper {
 	private ArrayList<User> userDirectory;
 	private ArrayList<Book> bookDirectory;
 	
-	
-	
 	public DatabaseHelper() {
 		userDirectory = new ArrayList<User>();
 		bookDirectory = new ArrayList<Book>();
+		loadLibrary();
 	}
 	
-	public static DatabaseHelper loadLibrary() {
-		DatabaseHelper db = new DatabaseHelper();
+	public void loadLibrary() {
+	
 		boolean scanUser = true;
 		int indexUSer = 0;
 		
@@ -35,7 +34,7 @@ public class DatabaseHelper {
 			
 			if(json != null) {
 				User user = gson.fromJson(json , User.class);
-				db.userDirectory.add(user);	
+				this.userDirectory.add(user);	
 				indexUSer++;
 			}else {
 				scanUser = false;
@@ -53,7 +52,7 @@ public class DatabaseHelper {
 			
 			if(json != null) {
 				Book book = gson.fromJson(json , Book.class);
-				db.bookDirectory.add(book);	
+				this.bookDirectory.add(book);	
 				indexBook++;
 			}else {
 				scanBook = false;
@@ -62,7 +61,6 @@ public class DatabaseHelper {
 		main.print("Books : " + indexBook);
 		main.print("Users : " + indexUSer);
 		
-		return db;
 	}
 
 	
