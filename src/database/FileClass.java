@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.*;
+
 
 public class FileClass {
 
@@ -21,6 +23,35 @@ public class FileClass {
 			    try {
 			        f1.createNewFile();
 			    } catch (IOException e) {}
+		}
+		
+		public void deleteTextFile(String fileName , String path) throws IOException {
+			
+			String fname= path + File.separator + fileName +".txt";
+			
+			Files.deleteIfExists(Paths.get(fname));
+	         	
+		}
+		
+		public  boolean deleteDirectory(File directory) {
+			
+		    if(directory.exists()){
+		    	
+		        File[] files = directory.listFiles();
+		        
+		        if(files != null){
+		            for(int i=0; i<files.length; i++) {
+		            	
+		                if(files[i].isDirectory()) 
+		                    deleteDirectory(files[i]);
+		                else 
+		                    files[i].delete();
+		                
+		            }   
+		        }
+		    }
+		    
+		    return(directory.delete());
 		}
 		
 		public void writeToTextFile(String fileName , String addedText , String path) {

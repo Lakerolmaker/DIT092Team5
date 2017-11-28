@@ -12,14 +12,16 @@ public class Library {
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
+	private String name; //: Name of the library
 	public static int LOAN_ALLOWANCE = 14; // Just changed to capital letters
 	private ArrayList<User> userDirectory;
 	private ArrayList<Book> bookDirectory;
 	
 
-	public Library() {
+	public Library(String libraryName) {
 		userDirectory = new ArrayList<User>();
 		bookDirectory = new ArrayList<Book>();
+		this.name = libraryName;
 	}
 
 	/** Add book to library **/
@@ -115,6 +117,18 @@ public class Library {
 		user.removeBorrowedBook(book);
 	}
 	
+	public void setLoanAllowance(int value) {
+		LOAN_ALLOWANCE = value;
+	}
+	
+	public int getLoanAllowance() {
+		return LOAN_ALLOWANCE;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
 	public ArrayList<Book> getBookList(){
 		return this.bookDirectory;
 	}
@@ -125,12 +139,29 @@ public class Library {
 	
 	/** Save library **/
 	public void save() {
-		DatabaseHelper.saveLibrary(this);
+		DatabaseHelper db = new DatabaseHelper();
+		db.saveLibrary(this);
+	
 	}
 	/** Load library **/
 	public void load() {
 		DatabaseHelper db = new DatabaseHelper();
+		db.loadLibrary(this.name);
 		userDirectory = db.getUserList();
 		bookDirectory = db.getBookList();
+		LOAN_ALLOWANCE = db.getLOAN_ALLOWANCE();
 	}
+
+	//: Removes all items in the library
+	public void clear() {
+		userDirectory.clear();
+		bookDirectory.clear();
+	}
+	
+	//: Removes the 
+	public void purge() {
+		DatabaseHelper db = new DatabaseHelper();
+		db.deleteDatabase(this.name);
+	}
+	
 }

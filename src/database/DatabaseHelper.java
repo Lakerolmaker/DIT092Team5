@@ -1,5 +1,7 @@
 package database;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -15,21 +17,23 @@ public class DatabaseHelper {
 	private static Gson gson = new Gson();
 	private ArrayList<User> userDirectory;
 	private ArrayList<Book> bookDirectory;
+	private int LOAN_ALLOWANCE = 14;
 	
 	public DatabaseHelper() {
 		userDirectory = new ArrayList<User>();
 		bookDirectory = new ArrayList<Book>();
-		loadLibrary();
 	}
 	
-	public void loadLibrary() {
+	public void loadLibrary(String LibraryID) {
 	
+		String libDir = file.CurrentDir + "/" + LibraryID;
+		
 		boolean scanUser = true;
 		int indexUSer = 0;
 		
 		while(scanUser) {
 			String fileName = "user" + indexUSer ;
-			String directory = file.CurrentDir + "/Database/USERS";
+			String directory = libDir + "/USERS";
 			String json = file.readFromTextFile( fileName , directory );
 			
 			if(json != null) {
@@ -46,8 +50,9 @@ public class DatabaseHelper {
 		int indexBook = 0;
 		
 		while(scanBook) {
+			
 			String fileName = "book" + indexBook ;
-			String directory = file.CurrentDir + "/Database/BOOKS";
+			String directory = libDir + "/BOOKS";
 			String json = file.readFromTextFile( fileName , directory );
 			
 			if(json != null) {
@@ -58,23 +63,31 @@ public class DatabaseHelper {
 				scanBook = false;
 			}
 		}
+		
+		String fileName = "LOAN_ALLOWANCE";
+		String directory = libDir;
+		String loanValue = file.readFromTextFile( fileName , directory );
+		LOAN_ALLOWANCE = Integer.parseInt(loanValue);
+		
 		main.print("Books : " + indexBook);
 		main.print("Users : " + indexUSer);
 		
 	}
 
-	
-	public static void saveLibrary(Library lib) {
+	public void saveLibrary(Library lib) {
 		
-		file.createFolder("Database", file.CurrentDir);
-		file.createFolder("USERS", file.CurrentDir + "/Database");
-		file.createFolder("BOOKS", file.CurrentDir + "/Database");
+		
+		String libDir = file.CurrentDir + "/" + lib.getName();
+		
+		file.createFolder(lib.getName(), file.CurrentDir);
+		file.createFolder("USERS", libDir);
+		file.createFolder("BOOKS", libDir);
 		
 		for(int i = 0 ; i < lib.getUserList().size(); i++ ) {
 			
 			String json = gson.toJson(lib.getUserList().get(i));
 			String fileName = "user" + i;
-			String directory = file.CurrentDir + "/Database/USERS";
+			String directory = libDir + "/USERS";
 			
 			file.createTextFile(fileName , directory);
 			file.writeToTextFile(fileName  ,json , directory);
@@ -84,12 +97,26 @@ public class DatabaseHelper {
 			
 			String json = gson.toJson(lib.getBookList().get(i));
 			String fileName = "book" + i;
-			String directory = file.CurrentDir + "/Database/BOOKS";
+			String directory = libDir +  "/BOOKS";
 			
 			file.createTextFile(fileName , directory);
 			file.writeToTextFile(fileName  ,json , directory);
-			main.print(i);
+			
 		}
+		
+		String value = String.valueOf(lib.getLoanAllowance());
+		String fileName = "LOAN_ALLOWANCE";
+		String directory = libDir;
+		file.createTextFile(fileName , directory);
+		file.writeToTextFile(fileName  ,value , directory);
+	}
+	
+	public boolean deleteDatabase(String LibraryID) {
+		String path = file.CurrentDir + "/" + LibraryID;
+		
+		File dir = new File(path);
+	
+		return file.deleteDirectory(dir);
 	}
 	
 	public ArrayList<User> getUserList(){
@@ -98,6 +125,10 @@ public class DatabaseHelper {
 	
 	public ArrayList<Book> getBookList(){
 		return this.bookDirectory;
+	}
+	
+	public int getLOAN_ALLOWANCE () {
+		return LOAN_ALLOWANCE;
 	}
 
 }
