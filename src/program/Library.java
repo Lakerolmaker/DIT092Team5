@@ -25,7 +25,7 @@ public class Library {
 	/** Add book to library **/
 	public void addBook(String isbn, String title, String author, int year, String category, int shelf, int qty) throws Exception {
 		for (Book book : bookDirectory) {
-			if (book.getIsbn() == isbn) {
+			if (book.getIsbn().equals(isbn)) {
 				int currentQty = book.getQuantity();
 				book.setQuantity(currentQty + qty);
 				return;
