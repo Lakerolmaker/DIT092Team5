@@ -2,14 +2,9 @@ package program;
 import com.google.gson.Gson;
 
 import UILibrary.UI;
-import menu.menu;
+import database.FileClass;
 
 public class main {
-	
-	static FileClass file = new FileClass();
-	static Gson gson = new Gson();
-	
-	public static UI frame = new UI("myframe", "menu", 400, 400, false, true, true);
 
 	public static Library lib = new Library();
 	
@@ -27,5 +22,4 @@ public class main {
 	public static void print(Object o) {
 	    System.out.println(o); 
 	}
-	
 }

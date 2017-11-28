@@ -3,6 +3,9 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import database.DatabaseHelper;
+import database.FileClass;
+
 
 public class Library {
 	
@@ -119,85 +122,15 @@ public class Library {
 	public ArrayList<User> getUserList(){
 		return this.userDirectory;
 	}
-
-
+	
+	/** Save library **/
 	public void save() {
-		
-		file.createFolder("Database", file.CurrentDir);
-		file.createFolder("USERS", file.CurrentDir + "/Database");
-		file.createFolder("BOOKS", file.CurrentDir + "/Database");
-		
-		for(int i = 0 ; i < userDirectory.size(); i++ ) {
-			
-			String json = gson.toJson(userDirectory.get(i));
-			String fileName = "user" + i;
-			String directory = file.CurrentDir + "/Database/USERS";
-			
-			file.createTextFile(fileName , directory);
-			
-			file.writeToTextFile(fileName  ,json , directory);
-			
-		}
-		
-		for(int i = 0 ; i < bookDirectory.size(); i++ ) {
-			
-			String json = gson.toJson(bookDirectory.get(i));
-			String fileName = "book" + i;
-			String directory = file.CurrentDir + "/Database/BOOKS";
-			
-			file.createTextFile(fileName , directory);
-			
-			file.writeToTextFile(fileName  ,json , directory);
-			main.print(i);
-		}
-	
+		DatabaseHelper.saveLibrary(this);
 	}
-
+	/** Load library **/
 	public void load() {
-		
-		boolean scanUser = true;
-		int indexUSer = 0;
-		
-		while(scanUser) {
-
-			String fileName = "user" + indexUSer ;
-			String directory = file.CurrentDir + "/Database/USERS";
-			
-			String json = file.readFromTextFile( fileName , directory );
-			
-			if(json != null) {
-				User user = gson.fromJson(json , User.class);
-				userDirectory.add(user);	
-				indexUSer++;
-			}else {
-				scanUser = false;
-			}
-			
-		}
-		
-		boolean scanBook = true;
-		int indexBook = 0;
-		
-		while(scanBook) {
-
-			String fileName = "book" + indexBook ;
-			String directory = file.CurrentDir + "/Database/BOOKS";
-			
-			String json = file.readFromTextFile( fileName , directory );
-			
-			if(json != null) {
-				Book book = gson.fromJson(json , Book.class);
-				bookDirectory.add(book);	
-				indexBook++;
-			}else {
-				scanBook = false;
-			}
-			
-		}
-	
-		main.print("Books : " + indexBook);
-		main.print("Users : " + indexUSer);
-		
+		DatabaseHelper db = DatabaseHelper.loadLibrary();
+		userDirectory = db.getUserList();
+		bookDirectory = db.getBookList();
 	}
-	
 }
