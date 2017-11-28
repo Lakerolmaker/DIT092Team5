@@ -1,1 +1,1 @@
-{"id":1,"isbn":1,"name":"d","author":"me","year":999,"category":"domace","shelf":1}
+{"id":2,"isbn":"9789544464912","title":"Harry Potter","author":"JK Rowling","year":1995,"category":"Sci Fiction","shelf":1,"quantity":1,"loaned":0}

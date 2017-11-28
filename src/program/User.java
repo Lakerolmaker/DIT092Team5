@@ -16,7 +16,9 @@ public class User {
 	private int libraryCardNum;
 	private double debt;
 	private String phoneNr; // Changed to string
-	private Address address;
+	private String street;
+	private String zipCode;
+	private String city;
 
 	private HashMap<Book, LocalDate> booksBorrowed = new HashMap<Book, LocalDate>();
 	static AtomicInteger nextId = new AtomicInteger();
@@ -29,7 +31,9 @@ public class User {
 		this.debt = 0; 
 		this.ssn = ssn;
 		this.phoneNr = phoneNr;
-		this.address = new Address(street, zipCode, city);
+		this.street = street;
+		this.zipCode = zipCode;
+		this.city = city;
 	}
 
 	public String getFirstName() {
@@ -56,10 +60,6 @@ public class User {
 		return this.phoneNr;
 	}
 
-	public Address getAdress() {
-		return this.address;
-	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -76,8 +76,29 @@ public class User {
 		this.phoneNr = phoneNr;
 	}
 
-	public void setAddress(Address adress) {
-		this.address = address;
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public double getDelayfee(int bookID) {

@@ -111,6 +111,14 @@ public class Library {
 	public void returnBook(User user, Book book) {
 		user.removeBorrowedBook(book);
 	}
+	
+	public ArrayList<Book> getBookList(){
+		return this.bookDirectory;
+	}
+	
+	public ArrayList<User> getUserList(){
+		return this.userDirectory;
+	}
 
 
 	public void save() {
