@@ -127,8 +127,8 @@ public class Book {
 	}
 	
 	public String toString() {
-		return "Title: " + this.title + "Author: " + this.author + "Year: " + this.year + "Category: " + this.category
-				+ "Shelf: " + this.shelf + "Isbn: " + this.isbn;
+		return "Title: " + this.title + ", Author: " + this.author + ", Year: " + this.year + ", Category: " + this.category
+				+ ", Shelf: " + this.shelf + ", Isbn: " + this.isbn;
 
 	}
 
