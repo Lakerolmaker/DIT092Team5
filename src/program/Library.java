@@ -3,248 +3,116 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 
 public class Library {
 	
 	FileClass file = new FileClass();
 	Gson gson = new Gson();
 	
-	public ArrayList<User> userDirectory = new ArrayList<User>();
-	public ArrayList<Book> bookDirectory = new ArrayList<Book>();
-	public BorrowedBook borrBook = new BorrowedBook();
-	public static int loanAllowance = 14;
+	public static int LOAN_ALLOWANCE = 14; // Just changed to capital letters
+	private ArrayList<User> userDirectory;
+	private ArrayList<Book> bookDirectory;
 	
-	// days the book is allowed to be loaned out
 
-	//public List<Book> books = new ArrayList<Book>(this.books.keySet());
+	public Library() {
+		userDirectory = new ArrayList<User>();
+		bookDirectory = new ArrayList<Book>();
+	}
 
-	
-	//: Function that adds a book to the library.
-	// TODO : fix the dublication issue.
-	public void addBook(int isbn, String name, String author, int year, String category, int shelf) throws Exception {
+	/** Add book to library **/
+	public void addBook(String isbn, String title, String author, int year, String category, int shelf, int qty) throws Exception {
 		for (Book book : bookDirectory) {
 			if (book.getIsbn() == isbn) {
-				//book.addCopy();
+				int currentQty = book.getQuantity();
+				book.setQuantity(currentQty + qty);
+				return;
 			}
 		}
-		Book newbook = new Book(isbn, name, author, year, category, shelf);
+		Book newbook = new Book(isbn, title, author, year, category, shelf, qty);
 		bookDirectory.add(newbook);
 	}
 	
-	
-	
-	
-	/** Register user
-	 * Checks if a user with the same SSN already exists.
-	 * If the SSN is not already registered a new user will be registered. 
-	 * @throws Exception 
-	 */
-	public void addUser(String firstName, String lastName, String ssn, int phoneNr, String street, int zipCode, String city) throws Exception {
-		// Search for duplicate using SSN
-		if (findUser(ssn) != null) {
-			throw new Exception("Error: Customer with same SSN already exists in db");
-		// If no duplicate found - a new User are registered
-		}else {
-		//	User newUser = new User(firstName, lastName, ssn, phoneNr, street, zipCode, city);
-		//	userDirectory.add(newUser);
+	/** Remove book from library */
+	public void removeBook(Book book, int qty){
+		if (bookDirectory.contains(book)) {
+			int currentQty = book.getQuantity();
+			if (qty >= currentQty) {
+				book.setQuantity(0);
+				bookDirectory.remove(book);
+			}else {
+				book.setQuantity(currentQty - qty);
+			}
 		}
-		
 	}
 	
-	/** Retrieve user from their id
-	 * This function should be called to access user functions. Ex: user.getAdress(), user.getFirstName();
-	 *  @return User (returns null if no user is found)
-	 */
-	public User getUser(int id) {
-		return userDirectory.get(id);
-	}
-	
-	/** Find User by SSN
-	 * @param ssn
-	 * @return User (or null if not found)
-	 */
-	public User findUser(String ssn) {
-		for (User val : userDirectory) {
-			if (val.getSsn() == ssn) {
-				return val;
+	/** Find book by ISBN */
+	public Book findBookByIsbn(String isbn){
+		for (Book book : bookDirectory) {
+			if (book.getIsbn().equals(isbn)) {
+				return book;
 			}
 		}
 		return null;
 	}
 	
-	public Book getBook(int bookID){
-		
-		return bookDirectory.get(bookID);
-		
+	/** Register user **/
+	public void addUser(String firstName, String lastName, String ssn, String phoneNr, String street, String zipCode, String city) throws Exception {
+		if (findUser(ssn) != null) {	// Search for duplicate using SSN
+			throw new Exception("Error: Customer with same SSN already exists in db");
+
+		}else {				// If no duplicate found - a new User are registered
+			User newUser = new User(firstName, lastName, ssn, phoneNr, street, zipCode, city);
+			userDirectory.add(newUser);
+		}
 	}
 	
-	public void loanBook(int userID, int bookID) {
-		
-
-		Book book;
-		User user;
-		
-		book = getBook(bookID);
-		user = getUser(userID);
-		
-		
-		user.borrowBook(book);
-		
-		
-		
-		borrBook.history.add("User of ID: " + userID + " has borrowed a book of ID: " + bookID + " on "
-				+ borrBook.today.toString());
-		
-		
-		
-//		String s = Integer.toString(userID) + Integer.toString(bookID);
-//		boolean b = false;
-//
-//		for (int i = 0; i < borrBook.bookUser.size(); i++)
-//			if (borrBook.bookUser.get(i).equals(s)) {
-//
-//				System.out.println("User has already borrowed that book.");
-//				b = true;
-//
-//			}
-//
-//		if (b == false) {
-//
-//			borrBook.bookUser.add(s);
-//			borrBook.dates.add(borrBook.today);
-//			borrBook.history.add("User of ID: " + userID + " has borrowed a book of ID: " + bookID + " on "
-//					+ borrBook.today.toString());
-//
-//		}
-
+	/** Remove user **/
+	public void removeUser(User user) throws Exception {
+		if (userDirectory.contains(user)) {
+			userDirectory.remove(user);
+		}
+		else {
+			throw new Exception("User could not be found.");
+		}
 	}
+	
+	
+	/** Retrieve user from their id **/
+	public User getUser(int id) {
+		for (User user : userDirectory) {
+			if (user.getUserId() == id) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	/** Find User by SSN **/
+	public User findUser(String ssn) {
+		for (User user : userDirectory) {
+			if (user.getSsn().equals(ssn)) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
 
-	public void returnBook(int userID, int bookID) {
-		
-		Book book;
-		User user;
-		
-		book = getBook(bookID);
-		user = getUser(userID);
-		
+	/** Loan book  **/
+	public void loanBook(User user, Book book) throws Exception {
+		if (book.getAvailableQuantity() > 0) {
+			user.borrowBook(book);
+		}else {
+			throw new Exception("Error: The book is not avalaible.");
+		}
+	}
+	
+	/** Return book **/
+	public void returnBook(User user, Book book) {
 		user.removeBorrowedBook(book);
-		
-		borrBook.history.add("User of ID: " + userID + " has returned a book of ID: " + bookID + " on "
-				+ borrBook.today.toString());
-		
-		
 	}
-		
-//		String s = Integer.toString(userID) + Integer.toString(bookID);
-//
-//		for (int i = 0; i < borrBook.bookUser.size(); i++)
-//			if (borrBook.bookUser.get(i).equals(s)) {
-//
-//				borrBook.bookUser.remove(i);
-//				borrBook.dates.remove(i);
-//				borrBook.history.add("User of ID: " + userID + " has returned a book of ID: " + bookID + " on "
-//						+ borrBook.today.toString());
-//
-//			} else
-//				System.out.println("User doesn't have that book.");
-//
-
-	
-	/**
-	 *  TODO : No need for duplicate sorting functions. Descending order can be achieved
-	 *  by just adding one line: 
-	 *  Collections.reverse(aList);
-	 */
-
-	/** TODO
-	 * Bunch of code and functions below this line that might be unused or not necessary?
-	 * A cleanup might be needed.
-	 */
-
-	//: sort functions
-
-	/*
-	SortInterface sort = new SortInterface() {
 
 
-		public void sortBooksName(boolean order) {
-			
-			
-			// order is true for ascending; false for descending order
-			// in all methods
-			
-			
-			Collections.sort(bookDirectory, Book.nameComparatorAZ);
-			
-			if (order == false)
-				Collections.reverse(bookDirectory);
-			
-
-		
-
-		}
-		
-		
-		
-
-		public void sortBooksAuthor(boolean order) {
-			
-			
-			Collections.sort(bookDirectory, Book.authorComparatorAZ); 
-			
-			if (order == false)
-				Collections.reverse(bookDirectory);
-
-			
-
-		}
-		
-		
-		
-
-
-		
-		public void byShelfNumber(boolean order) {
-			
-			
-			Collections.sort(bookDirectory, Book.shelfComparatorASC);
-			
-			if (order == false)
-				Collections.reverse(bookDirectory);
-			
-		}
-		
-		
-
-		
-		public void byGenre(boolean order) {
-			
-			Collections.sort(bookDirectory, Book.genreComparatorAZ);
-			
-			if (order == false)
-				Collections.reverse(bookDirectory);
-			
-			
-			
-		}
-		
-		
-
-		
-		
-		
-		
-			
-	
-
-	*/
 	public void save() {
 		
 		file.createFolder("Database", file.CurrentDir);

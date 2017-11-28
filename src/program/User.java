@@ -9,30 +9,35 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class User {
 
-	private String name;
-	private String ssn; // What is this ?
+	private String firstName;
+	private String lastName;
+	private String ssn; 
 	private int userId;
 	private int libraryCardNum;
 	private double debt;
-	private int phoneNr;
-	private Object address;
+	private String phoneNr; // Changed to string
+	private Address address;
 
 	private HashMap<Book, LocalDate> booksBorrowed = new HashMap<Book, LocalDate>();
-
 	static AtomicInteger nextId = new AtomicInteger();
 
-	User(String name, int userId, double debt, String ssn, int phoneNr, Object adress) {
-		this.name = name;
-		this.userId = userId;
-		this.libraryCardNum = this.userId;
-		this.debt = debt;
+	public User(String firstName, String lastName, String ssn, String phoneNr, String street, String zipCode, String city) {
+		this.userId = nextId.incrementAndGet();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.libraryCardNum = this.userId; // 2 variables storing the same value ?
+		this.debt = 0; 
 		this.ssn = ssn;
 		this.phoneNr = phoneNr;
-		this.address = adress;
+		this.address = new Address(street, zipCode, city);
 	}
 
-	public String getName() {
-		return this.name;
+	public String getFirstName() {
+		return this.firstName;
+	}
+	
+	public String getLastName() {
+		return this.firstName;
 	}
 
 	public int getUserId() {
@@ -47,31 +52,31 @@ public class User {
 		return this.ssn;
 	}
 
-	public int getPhoneNr() {
+	public String getPhoneNr() {
 		return this.phoneNr;
 	}
 
-	public Object getAdress() {
+	public Address getAdress() {
 		return this.address;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public void setDebt(double debt) {
 		this.debt = debt;
 	}
 
-	public void setUserId() {
-		this.userId = nextId.incrementAndGet();
-	}
-
-	public void setPhoneNr(int phoneNr) {
+	public void setPhoneNr(String phoneNr) {
 		this.phoneNr = phoneNr;
 	}
 
-	public void setAddress(Object adress) {
+	public void setAddress(Address adress) {
 		this.address = address;
 	}
 
@@ -97,7 +102,7 @@ public class User {
 
 		for (HashMap.Entry<Book, LocalDate> entry : booksBorrowed.entrySet())
 			if (entry.getKey().getId() == bookID)
-				returnDate = entry.getValue().plus(Library.loanAllowance, ChronoUnit.DAYS);
+				returnDate = entry.getValue().plus(Library.LOAN_ALLOWANCE, ChronoUnit.DAYS);
 
 		return returnDate;
 
@@ -106,12 +111,13 @@ public class User {
 	public void borrowBook(Book book) {
 		LocalDate today = LocalDate.now();
 		booksBorrowed.put(book, today);
+		book.loan();
 
 	}
 
 	public void removeBorrowedBook(Book book) {
 		booksBorrowed.remove(book);
-
+		book.returnBook();
 	}
 
 }

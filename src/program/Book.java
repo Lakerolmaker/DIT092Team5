@@ -42,20 +42,6 @@ public class Book {
 		this.loaned = 0;
 	}
 
-	public Book(int id, String isbn, String title, String author, int year, String category, int shelf, int quantity, int loaned) {
-		this.id = id;
-		this.isbn = isbn;
-		this.title = title;
-		this.author = author;
-		this.year = year;
-		this.category = category;
-		this.shelf = shelf;
-		this.quantity = quantity;
-		this.loaned = loaned;
-
-		idGen.set(id);
-	}
-
 	public int getId() {
 		return this.id;
 	}
@@ -128,95 +114,22 @@ public class Book {
 		return this.quantity - this.loaned;
 	}
 
+	public void addQuantity(int qty) {
+		this.quantity += qty;
+	}
+	
+	public void loan() {
+		this.loaned += 1;
+	}
+	
+	public void returnBook() {
+		this.loaned -= 1;
+	}
+	
 	public String toString() {
 		return "Title: " + this.title + "Author: " + this.author + "Year: " + this.year + "Category: " + this.category
 				+ "Shelf: " + this.shelf + "Isbn: " + this.isbn;
 
 	}
-
-	public int compareTo(Object e) {
-		if (e instanceof Book) {
-			Book b = (Book) e;
-			return this.author.compareTo(b.getAuthor());
-		}
-		return 0;
-	}
-
-	// There is no need to add Comparator for author since I already created
-	// method compare to that do the same
-
-	// ascending order AZ
-	public static Comparator<Book> authorComparatorAZ = new Comparator<Book>() {
-
-		public int compare(Book b1, Book b2) {
-			String authorName1 = b1.getAuthor().toUpperCase();
-			String authorName2 = b2.getAuthor().toUpperCase();
-
-			return authorName1.compareTo(authorName2);
-
-		}
-	};
-
-	// descending order ZA
-	/*
-	 * public static Comparator<Book> authorComparatorZA = new
-	 * Comparator<Book>() {
-	 * 
-	 * public int compare(Book b1, Book b2) { String authorName1 =
-	 * b1.getAuthor().toUpperCase(); String authorName2 =
-	 * b2.getAuthor().toUpperCase();
-	 * 
-	 * return authorName2.compareTo(authorName1);
-	 * 
-	 * } };
-	 */
-
-	public static Comparator<Book> nameComparatorAZ = new Comparator<Book>() {
-
-		public int compare(Book b1, Book b2) {
-			String bookName1 = b1.getTitle().toUpperCase();
-			String bookName2 = b2.getTitle().toUpperCase();
-
-			return bookName1.compareTo(bookName2);
-
-		}
-	};
-
-	/*
-	 * public static Comparator<Book> nameComparatorZA = new Comparator<Book>()
-	 * {
-	 * 
-	 * public int compare(Book b1, Book b2) { String bookName1 =
-	 * b1.getName().toUpperCase(); String bookName2 =
-	 * b2.getName().toUpperCase();
-	 * 
-	 * return bookName2.compareTo(bookName1);
-	 * 
-	 * } };
-	 */
-
-	public static Comparator<Book> shelfComparatorASC = new Comparator<Book>() {
-
-		public int compare(Book b1, Book b2) {
-			int shelf1 = b1.getShelf();
-			int shelf2 = b2.getShelf();
-
-			return Integer.compare(shelf1, shelf2);
-
-		}
-	};
-
-	public static Comparator<Book> genreComparatorAZ = new Comparator<Book>() {
-
-		public int compare(Book b1, Book b2) {
-			String genre1 = b1.getCategory().toUpperCase();
-			String genre2 = b2.getCategory().toUpperCase();
-
-			return genre1.compareTo(genre2);
-
-		}
-	};
-
-	
 
 }
