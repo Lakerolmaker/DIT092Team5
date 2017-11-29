@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import program.Book;
 import program.Library;
 import program.User;
-import program.main;
 
 public class DatabaseHelper {
 	
@@ -69,8 +68,8 @@ public class DatabaseHelper {
 		String loanValue = file.readFromTextFile( fileName , directory );
 		LOAN_ALLOWANCE = Integer.parseInt(loanValue);
 		
-		main.print("Books : " + indexBook);
-		main.print("Users : " + indexUSer);
+		System.out.println(("Books : " + indexBook));
+		System.out.println(("Users : " + indexUSer));
 		
 	}
 

@@ -10,7 +10,7 @@ package program;
  * @author (Elsada Lagumdzic)
  * 
 ************************************/
-import java.util.Comparator;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Book {
