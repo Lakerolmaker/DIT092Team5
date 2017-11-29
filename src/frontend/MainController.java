@@ -37,6 +37,7 @@ public class MainController implements Initializable {
 	@FXML public Label menuHome;
 	@FXML public Label menuBooks;
 	@FXML public Label menuUsers;
+	@FXML public Label menuDelayed;
 
 	public void searchFunc(ActionEvent event){
 		String searchString = searchField.getText().toString();
@@ -49,6 +50,7 @@ public class MainController implements Initializable {
 		menuHome.setId("menuHome");
 		menuBooks.setId("menuBooks");
 		menuUsers.setId("menuBooks");
+		menuDelayed.setId("menuDelayed");
 
 		try {
 			initTable();
