@@ -3,6 +3,7 @@ package frontend;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import DelayedBooks.DelayedBook;
 import program.Functions.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -155,5 +156,9 @@ public class MainController implements Initializable {
 	}
 
 	
+	
+	public void openDelayedBooks(ActionEvent event) {
+		DelayedBook.display(this.getClass());
+	}
 	
 }

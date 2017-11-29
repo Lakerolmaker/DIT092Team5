@@ -1,5 +1,6 @@
 package frontend;
 
+import DelayedBooks.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import program.*;
@@ -15,6 +16,7 @@ public class MainWindow extends Application {
 	public static void main(String[] args) {
 		lib.load();
 		launch(args);
+		
 	}
 	
 	@Override
@@ -37,6 +39,8 @@ public class MainWindow extends Application {
 		// Show first page
 		// TODO: Change to home view when it's created
 		EmptyTemplateUI.display(this.getClass());
+		//DelayedBook.display(this.getClass());
+
 	}
 	
 	public Library getLibrary(){
