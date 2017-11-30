@@ -5,6 +5,17 @@ package program;
  */
 
 public class Functions {
+	
+	/** Check if string is only digits (Integer) **/
+	public static boolean isInt(String str) {
+		try {
+			int integer = Integer.parseInt(str);
+			return true;
+		}catch (NumberFormatException e) {
+			System.out.println("Error: '" + str + "' is not a number");
+			return false;
+		}
+	}
 
 	
 	

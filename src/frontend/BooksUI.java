@@ -1,31 +1,92 @@
 package frontend;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.*;
+import DelayedBooks.DelayedBook;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.Effect;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
-import program.Book;
-import program.Functions;
+import program.*;
 
-public class BooksUI {
+
+public class BooksUI implements Initializable {
+	@FXML public TableView<Book> tableBook;
+	@FXML public TableColumn<Book, String> titleColumn;
+	@FXML public TableColumn<Book, String> authorColumn;
+	@FXML public TableColumn<Book, String> yearColumn;
+	@FXML public TableColumn<Book, String> isbnColumn;
+
+	@FXML public TextField searchField;
+	@FXML public Label menuHome;
+	@FXML public Label menuBooks;
+	@FXML public Label menuUsers;
+	@FXML public Label menuDelayed;
+	
+	@FXML public Text nameText;
+	@FXML public Text streetText;
+	@FXML public Text cityText;
+	@FXML public Text balanceText;
+	@FXML public Text amountText;
+	@FXML public Text basketText;
+	@FXML public ListView basketList;
+	@FXML public Button loanBtn;
+	@FXML public Text enterIdText;
+	@FXML public TextField userIdField;
+	@FXML public Button goBtn; 
+	
+	
+	
+	public static User user;
+	
+	ContextMenu cm;
 
 	
 	private static VBox root;
 	private static Scene bookScene;
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		menuHome.setId("menuHome");
+		menuBooks.setId("menuBooks");
+		menuUsers.setId("menuBooks");
+		menuDelayed.setId("menuDelayed");
+		
+		showSidePanel();
+		
+ 		try {
+			initTable();
+		}catch (NullPointerException e) {}
+	}
+	
+
+	public void goBtnClicked(){
+		String idStr = userIdField.getText();
+		if(Functions.isInt(idStr)) {
+			int id = Integer.parseInt(idStr);
+			user = MainWindow.lib.getUser(id);
+			showSidePanel();
+		}
+	}
 	
 	public static void display(Class context) {
 		
@@ -42,15 +103,165 @@ public class BooksUI {
 			e.printStackTrace();
 		}
 	}
+
+	public void searchFunc(ActionEvent event){
+		String searchString = searchField.getText().toString();
+		tableBook.setItems(getMatchingBooks(searchString));
+	}
 	
 	
 	
 
+	/******** BOOK VIEW FUNCTIONS ********/
+
+	// Initialize table
+	public void initTable(){
+		// Title column
+		titleColumn = new TableColumn<>("Title");
+		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+		//rightClickCell(titleColumn);
+		// Author column
+		authorColumn = new TableColumn<>("Author");
+		authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+		//rightClickCell(authorColumn);
+		// Year column
+		yearColumn = new TableColumn<>("Year");
+		yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
+		//rightClickCell(yearColumn);
+		// ISBN column
+		isbnColumn = new TableColumn<>("ISBN");
+		isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+		//rightClickCell(isbnColumn);
+
+		
+		tableBook.setItems(getBooks());
+		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn);
+	}
+
+	/** Book List Table click functions **/
+	@FXML
+	public void clickItem(MouseEvent event) {
+		
+    	if (cm != null) {
+	    	if (cm.isShowing()) {
+	    		cm.hide(); // Don't allow duplicate context menus open
+	    	}
+    	}
+	    if (event.getClickCount() == 2) {
+	    	Book selectedBook = tableBook.getSelectionModel().getSelectedItem(); // Retrieve selected cell
+	    	if (selectedBook != null) {
+	    		goToBookView(selectedBook);
+	    	}
+	    }
+	    else if(event.getButton() == MouseButton.SECONDARY) {
+
+	        Book selectedBook = tableBook.getSelectionModel().getSelectedItem(); // Retrieve selected cell
+	        if (selectedBook != null) { // Check if selected cell contains a book
+		        cm = new ContextMenu();
+		        MenuItem mi1 = new MenuItem("Loan");
+		        cm.getItems().add(mi1);
+		        MenuItem mi2 = new MenuItem("Delete");
+		        cm.getItems().add(mi2);
+		        mi1.setOnAction(e -> addToBasket(selectedBook));
+		        mi2.setOnAction(e -> System.out.println("Delete"));
+		        cm.setAutoHide(true);
+	        	cm.show(tableBook , event.getScreenX() , event.getScreenY()); // Context menu is shown
+	        	
+	        	System.out.println(selectedBook.getTitle());
+	        }
+	    }
+	}
 	
+	public void addToBasket(Book book){
+		if (book != null && user != null) {
+			System.out.println(book.getTitle());
+			MainWindow.lib.findBookByIsbn(book.getIsbn());
+			ArrayList<Book> booksInBasket = new ArrayList<>();
+			booksInBasket.add(book);
+			
+			for (Book books : booksInBasket) {
+				basketList.getItems().add(books.getTitle());
+			}
+			
+		}else {
+			System.out.println("Wtf");
+		}
+	}
 	
-	
+	// Return list of books
+	public ObservableList<Book> getBooks() {
+		ObservableList<Book> books = FXCollections.observableArrayList();
+		for (Book book : MainWindow.lib.getBookList()) {
+			books.add(book);
+		}
+		return books;
+	}
+	// Return matching list of books
+	public ObservableList<Book> getMatchingBooks(String search) {
+		if (search.length() < 1) {
+			return getBooks(); // If search is empty - returns a list of all books
+		}
+		ObservableList<Book> books = FXCollections.observableArrayList(); // Create new list
+		for (Book book : MainWindow.lib.getBookList()) {
+			if (Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
+				books.add(book); // If match add the book to list
+			}
+		}
+		return books; // Return the new composed list
+	}
 
 	
-
+	public void showSidePanel(){
+		if (user == null) {
+			nameText.setText("");
+			streetText.setText("");
+			cityText.setText("");
+			balanceText.setVisible(false);
+			amountText.setText("");
+			basketText.setVisible(false);
+			basketList.setVisible(false);
+			loanBtn.setVisible(false);
+			enterIdText.setVisible(true);
+			userIdField.setVisible(true);
+			goBtn.setVisible(true);
+			
+		} else {
+			enterIdText.setVisible(false);
+			userIdField.setVisible(false);
+			goBtn.setVisible(false);
+			nameText.setText(user.getName());
+			streetText.setText(user.getStreet());
+			cityText.setText(user.getCity());
+			balanceText.setVisible(true);
+			amountText.setText(Double.toString(user.getDebt()));
+			basketText.setVisible(true);
+			basketList.setVisible(true);
+			loanBtn.setVisible(true);
+			
+		}
+	}
+	
+	/******** File MENU ********/
+	public void newBook(){
+		// Call to display add new book view
+		System.out.println("New book called");
+	}
+	
+	/******** Main menu ********/
+	public void homeMenuAction(){
+		EmptyTemplateUI.display(this.getClass());
+	}
+	public void booksMenuAction(){
+		BooksUI.display(this.getClass());
+	}
+	public void usersMenuAction() {
+		System.out.println("Example: User button clicked");
+	}
+	public void goToBookView(Book book){
+		BookViewUI.display(this.getClass(), book);
+	}
+	public void openDelayedBooks(ActionEvent event) {
+		DelayedBook.display(this.getClass());
+	}	
 
 }
