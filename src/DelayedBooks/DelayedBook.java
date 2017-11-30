@@ -20,7 +20,7 @@ public class DelayedBook{
 	
 	public static Scene scene;
 	
-		public static void display(Class context) {
+		public static void display() {
 			
 			try {
 				URL url = new File("src/DelayedBooks/DelayedBook.fxml").toURI().toURL();
