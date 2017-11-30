@@ -3,6 +3,8 @@ package DelayedBooks;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import frontend.BooksUI;
+import frontend.EmptyTemplateUI;
 import frontend.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,42 +33,54 @@ public class DelayedBooksController {
 		 System.out.println("hello");
 		 
 		// Title column
-		titleColumn = new TableColumn<>("Title");
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		
 		// Title column
-		NameColumn = new TableColumn<>("Name of Loaner");
 		NameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 	
 		// Title column
-		debtColumn = new TableColumn<>("Debt");
 		debtColumn.setCellValueFactory(new PropertyValueFactory<>("debt"));
 		
 		// Title column
-		userIdColumn = new TableColumn<>("User ID");
 		userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 		
-		
 	
+		
 		delayedBook.setItems(getBooks());
-		delayedBook.getColumns().addAll(titleColumn , NameColumn , userIdColumn , debtColumn);
+		boolean addAll = delayedBook.getColumns().addAll( NameColumn,titleColumn);
 		
 	}
 	
 	// Return list of books
-		public ObservableList<DelayedPerson> getBooks() {
-			ObservableList<DelayedPerson> persons = FXCollections.observableArrayList();
-			for (Book book : MainWindow.lib.getBookList()) {
+	public ObservableList<DelayedPerson> getBooks() {
+		ObservableList<DelayedPerson> persons = FXCollections.observableArrayList();
+		for (Book book : MainWindow.lib.getBookList()) {
 				
 				
-				// TODO check delayed
-				
-				DelayedPerson newdelay = new DelayedPerson(book.getTitle(), "Jacob Olsson", 1, 0.0);
-				persons.add(newdelay);
-				
-			}
-			return persons;
+		// TODO check delayed
+		DelayedPerson newdelay = new DelayedPerson(book.getTitle(), "Jacob Olsson", 1, 0.0);
+		persons.add(newdelay);
+			
 		}
+			return persons;
+	}
 	
-	
+		
+		/******** File MENU ********/
+		public void newBook(ActionEvent e){
+			// Call to display add new book view
+			System.out.println("New book called");
+		}
+		
+		/******** Main menu ********/
+		public void homeMenuAction(ActionEvent e){
+			EmptyTemplateUI.display(this.getClass());
+		}
+		public void booksMenuAction(ActionEvent e){
+			BooksUI.display(this.getClass());
+		}
+		public void usersMenuAction(ActionEvent e) {
+			// User view call
+			System.out.println("Example: User button clicked");
+		}	
 }

@@ -23,7 +23,7 @@ public class DelayedBook{
 		public static void display(Class context) {
 			
 			try {
-				URL url = new File("src/DelayedBooks/DelayedBooksXML.fxml").toURI().toURL();
+				URL url = new File("src/DelayedBooks/DelayedBook.fxml").toURI().toURL();
 				
 				FXMLLoader loader = new FXMLLoader(url);
 				Parent root = null;
