@@ -33,17 +33,14 @@ public class DelayedBook{
 				} catch (IOException e) {System.out.println(e.getMessage());}
 				
 				 scene = new Scene(root, 1192,650);
-				 scene.getStylesheets().add("application.css");
+				 scene.getStylesheets().add(MainWindow.css);
+				 
 
 				 MainWindow.window.setTitle("Delayed Books");
 				 MainWindow.window.setScene(scene);
-				// MainWindow.window.show();
 			
 				 DelayedBooksController control =  new DelayedBooksController();
-				 
 				 control.delayedBook = (TableView<DelayedPerson>) scene.lookup("#delayedBook");
-				 
-				 
 				 control.initialize();
 				 
 				 

@@ -1,5 +1,7 @@
 package frontend;
 
+import java.net.URL;
+
 import DelayedBooks.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -10,9 +12,11 @@ import javafx.scene.control.Label;
 
 
 public class MainWindow extends Application {
+	
 	public static Library lib = new Library("database1");
 	public static Stage window;
 	public static Scene scene, scene2, scene3;
+	public static String css ; 
 	
 	public static void main(String[] args) {
 		lib.load();
@@ -22,6 +26,11 @@ public class MainWindow extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		
+		URL cssURL = this.getClass().getResource("application.css");
+		
+		css = "file:///" + cssURL.getPath().replace("\\", "/");
+		
 		// Set up main window
 		window = primaryStage;
 		try {
