@@ -20,8 +20,8 @@ public class User {
 	private String street;
 	private String zipCode;
 	private String city;
-
-	private HashMap<Book, LocalDate> booksBorrowed = new HashMap<Book, LocalDate>();
+	private ArrayList<Book> books = new ArrayList<>();
+	private HashMap<String, LocalDate> booksBorrowed = new HashMap<String, LocalDate>();
 	static AtomicInteger nextId = new AtomicInteger();
 
 	public User(String firstName, String lastName, String ssn, String phoneNr, String street, String zipCode, String city) {
@@ -126,10 +126,10 @@ public class User {
 
 		LocalDate returnDate = null;
 
-		for (HashMap.Entry<Book, LocalDate> entry : booksBorrowed.entrySet())
-			if (entry.getKey().getId() == bookID)
+		for (HashMap.Entry<String, LocalDate> entry : booksBorrowed.entrySet()) {
+			if (entry.getKey().equals(Integer.toString(bookID)));
 				returnDate = entry.getValue().plus(Library.LOAN_ALLOWANCE, ChronoUnit.DAYS);
-
+		}
 		return returnDate;
 
 	}
@@ -144,27 +144,34 @@ public class User {
 	
 	
 	public ArrayList<Book> getBookList() {
-		ArrayList<Book> bookList = new ArrayList<>();
-		for (Book book : booksBorrowed.keySet()) {
-			bookList.add(book);
-		}
-		return bookList;
+		return books;
 	}
 	
-	public HashMap<Book, LocalDate> getBookMap() {
+
+	
+	
+	public HashMap<String, LocalDate> getBookMap() {
 		return this.booksBorrowed;
 	}
 
 	public void borrowBook(Book book) {
 		LocalDate today = LocalDate.now();
-		booksBorrowed.put(book, today);
+		books.add(book);
+		int lastIndex = books.size() - 1;
+		String index = Integer.toString(lastIndex);
+		booksBorrowed.put(index, today);
 		book.loan();
-
 	}
 
 	public void removeBorrowedBook(Book book) {
-		booksBorrowed.remove(book);
+		for (int i = 0; i < books.size(); i++) {
+			if(books.get(i).getIsbn().equals(book.getIsbn())){
+				books.remove(i);
+				booksBorrowed.remove(i);
+			}
+		}
 		book.returnBook();
+
 	}
 
 }

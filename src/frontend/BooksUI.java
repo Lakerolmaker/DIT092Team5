@@ -48,6 +48,8 @@ public class BooksUI implements Initializable {
 	@FXML public Text balanceText;
 	@FXML public Text amountText;
 	@FXML public Text basketText;
+	@FXML public Text booksLoaningText;
+	@FXML public Text booksLoaningAmount;
 	@FXML public ListView basketList;
 	@FXML public Button loanBtn;
 	@FXML public Text enterIdText;
@@ -117,6 +119,9 @@ public class BooksUI implements Initializable {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
+			showSidePanel(); // Update side panel
+			basketList.getItems().clear(); // Clear basket
+			newBasket();
 		}
 	}
 	
@@ -136,19 +141,16 @@ public class BooksUI implements Initializable {
 		// Title column
 		titleColumn = new TableColumn<>("Title");
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-		//rightClickCell(titleColumn);
 		// Author column
 		authorColumn = new TableColumn<>("Author");
 		authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-		//rightClickCell(authorColumn);
 		// Year column
 		yearColumn = new TableColumn<>("Year");
 		yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
-		//rightClickCell(yearColumn);
 		// ISBN column
 		isbnColumn = new TableColumn<>("ISBN");
 		isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-		//rightClickCell(isbnColumn);
+
 
 		
 		tableBook.setItems(getBooks());
@@ -230,9 +232,11 @@ public class BooksUI implements Initializable {
 	public void showSidePanel(){
 		User user = MainWindow.user;
 		if (user == null) {
+			booksLoaningAmount.setText("");
 			nameText.setText("");
 			streetText.setText("");
 			cityText.setText("");
+			booksLoaningText.setVisible(false);
 			balanceText.setVisible(false);
 			amountText.setText("");
 			basketText.setVisible(false);
@@ -243,12 +247,20 @@ public class BooksUI implements Initializable {
 			goBtn.setVisible(true);
 			
 		} else {
+			String bookCount = "";
+			if(user.getBookList() == null) {
+				bookCount = "0";
+			}else {
+				bookCount = Integer.toString(user.getBookList().size());
+			}
 			enterIdText.setVisible(false);
 			userIdField.setVisible(false);
 			goBtn.setVisible(false);
 			nameText.setText(user.getName());
 			streetText.setText(user.getStreet());
 			cityText.setText(user.getCity());
+			booksLoaningText.setVisible(true);
+			booksLoaningAmount.setText(bookCount);
 			balanceText.setVisible(true);
 			amountText.setText(Double.toString(user.getDebt()));
 			basketText.setVisible(true);
@@ -263,6 +275,9 @@ public class BooksUI implements Initializable {
 	public void newBook(){
 		// Call to display add new book view
 		System.out.println("New book called");
+	}
+	public void quitMenuClick() {
+		MainWindow.closeProgram();
 	}
 	
 	/******** Main menu ********/
@@ -281,5 +296,16 @@ public class BooksUI implements Initializable {
 	public void openDelayedBooks() {
 		DelayedBook.display();
 	}	
+	
+	
+	// for DEBUGGING
+	public void returnAllBooks(){
+		User user = MainWindow.user;
+		for (int i = 0 ; i < user.getBookList().size(); i++) {
+			MainWindow.lib.returnBook(user, MainWindow.user.getBookList().get(i));
+		}
+		System.out.println("All books returned for + " + user.getName());
+		showSidePanel();
+	}
 
 }

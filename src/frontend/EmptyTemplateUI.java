@@ -61,6 +61,9 @@ public class EmptyTemplateUI implements Initializable{
 		// Call to display add new book view
 		System.out.println("New book called");
 	}
+	public void quitMenuClick() {
+		MainWindow.closeProgram();
+	}
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){

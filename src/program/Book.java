@@ -123,7 +123,9 @@ public class Book {
 	}
 	
 	public void returnBook() {
-		this.loaned -= 1;
+		if(this.loaned > 0) {
+			this.loaned -= 1;
+		}
 	}
 	
 	public String toString() {

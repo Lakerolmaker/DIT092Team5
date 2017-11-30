@@ -114,7 +114,14 @@ public class Library {
 	
 	/** Return book **/
 	public void returnBook(User user, Book book) {
-		user.removeBorrowedBook(book);
+		// TODO: This is temporary (hopefully)
+		for (Book tmp : bookDirectory) {
+			if (tmp.getIsbn().equals(book.getIsbn())) {
+				int index = this.bookDirectory.indexOf(tmp);
+				user.removeBorrowedBook(bookDirectory.get(index));
+			}
+		}
+		
 	}
 	
 	public void setLoanAllowance(int value) {

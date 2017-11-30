@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
@@ -30,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.BooksUI">
+<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.BooksUI">
   <children>
     <MenuBar stylesheets="@application.css" VBox.vgrow="NEVER">
       <menus>
@@ -47,7 +39,7 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#quitMenuClick" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -128,12 +120,12 @@
                                     </Text>
                                     <Text fx:id="streetText" layoutX="22.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5th Avenue" />
                                     <Text fx:id="cityText" layoutX="22.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="444 60 Bigh High" />
-                                    <Text fx:id="amountText" fill="#000000a6" layoutX="176.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-14">
+                                    <Text fx:id="amountText" fill="#000000a6" layoutX="194.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-14">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="balanceText" fill="#000000a6" layoutX="23.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance">
+                                    <Text fx:id="balanceText" fill="#000000a6" layoutX="23.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
@@ -151,6 +143,16 @@
                                     <TextField fx:id="userIdField" layoutX="115.0" layoutY="177.0" prefHeight="31.0" prefWidth="70.0" />
                                     <Button fx:id="goBtn" layoutX="203.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#goBtnClicked" prefHeight="31.0" prefWidth="73.0" text="Go" />
                                     <Text fx:id="enterIdText" layoutX="16.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter User ID" />
+                                    <Text fx:id="booksLoaningText" fill="#000000a6" layoutX="23.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Books loaning">
+                                       <font>
+                                          <Font name="EXCESS" size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="booksLoaningAmount" fill="#000000a6" layoutX="195.0" layoutY="146.0" onMouseClicked="#returnAllBooks" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                       <font>
+                                          <Font name="EXCESS" size="21.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </AnchorPane>
                            </items>

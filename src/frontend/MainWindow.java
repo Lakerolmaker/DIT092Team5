@@ -20,9 +20,10 @@ public class MainWindow extends Application {
 	public static User user;
 	
 	public static void main(String[] args) {
-		lib.load();
+		lib.load();		
 		launch(args);
-		
+
+
 	}
 	
 	@Override
@@ -58,7 +59,7 @@ public class MainWindow extends Application {
 	}
 	
 	/** Handle's the close program request **/
-	private void closeProgram() {
+	public static void closeProgram() {
 		lib.save(); // Saves library session
 		System.out.println("Session saved");
 		window.close(); // Exiting program
