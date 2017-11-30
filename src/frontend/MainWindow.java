@@ -17,6 +17,7 @@ public class MainWindow extends Application {
 	public static Stage window;
 	public static Scene scene, scene2, scene3;
 	public static String css ; 
+	public static User user;
 	
 	public static void main(String[] args) {
 		lib.load();
