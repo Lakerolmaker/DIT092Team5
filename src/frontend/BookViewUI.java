@@ -88,7 +88,7 @@ public class BookViewUI implements Initializable{
 		
 	}
 	public void openDelayedBooks(ActionEvent event) {
-		DelayedBook.display(this.getClass());
+		DelayedBook.display();
 	}
 
 

@@ -40,7 +40,6 @@ public class MainWindow extends Application {
 		// Show first page
 		// TODO: Change to home view when it's created
 		EmptyTemplateUI.display(this.getClass());
-		//DelayedBook.display(this.getClass());
 
 	}
 	

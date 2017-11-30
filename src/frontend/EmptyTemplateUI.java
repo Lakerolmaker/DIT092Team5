@@ -73,8 +73,10 @@ public class EmptyTemplateUI implements Initializable{
 		// User view call
 		System.out.println("Example: User button clicked");
 	}
-	public void openDelayedBooks(ActionEvent event) {
-		DelayedBook.display(this.getClass());
+	public void openDelayedBooks() {
+		DelayedBook.display();
 	}
+	
+	
 
 }
