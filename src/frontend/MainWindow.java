@@ -13,6 +13,7 @@ public class MainWindow extends Application {
 	public static Library lib = new Library("database1");
 	public static Stage window;
 	public static Scene scene, scene2, scene3;
+	public static User user;
 	
 	public static void main(String[] args) {
 		lib.load();
