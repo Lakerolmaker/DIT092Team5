@@ -38,6 +38,7 @@ public class MainController implements Initializable {
 	@FXML public Label menuBooks;
 	@FXML public Label menuUsers;
 	@FXML public Label menuDelayed;
+	ContextMenu cm;
 
 	public void searchFunc(ActionEvent event){
 		String searchString = searchField.getText().toString();
@@ -47,15 +48,15 @@ public class MainController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		System.out.println(arg0.toString());
+		System.out.println(this.getClass().getPackage().toString());
 		menuHome.setId("menuHome");
 		menuBooks.setId("menuBooks");
 		menuUsers.setId("menuBooks");
 		menuDelayed.setId("menuDelayed");
-
 		try {
 			initTable();
 		}catch (NullPointerException e) {}
-
 	}
 	
 	
@@ -79,6 +80,10 @@ public class MainController implements Initializable {
 		System.out.println("Example: User button clicked");
 		
 	}
+	
+	public void goToBookView(Book book){
+		BookViewUI.display(this.getClass(), book);
+	}
 
 	/******** BOOK VIEW FUNCTIONS ********/
 
@@ -87,11 +92,11 @@ public class MainController implements Initializable {
 		// Title column
 		titleColumn = new TableColumn<>("Title");
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-		rightClickCell(titleColumn);
+		//rightClickCell(titleColumn);
 		// Author column
 		authorColumn = new TableColumn<>("Author");
 		authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-		rightClickCell(authorColumn);
+		//rightClickCell(authorColumn);
 		// Year column
 		yearColumn = new TableColumn<>("Year");
 		yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
@@ -99,42 +104,51 @@ public class MainController implements Initializable {
 		// ISBN column
 		isbnColumn = new TableColumn<>("ISBN");
 		isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-		rightClickCell(isbnColumn);
+		//rightClickCell(isbnColumn);
 
 		
 		tableBook.setItems(getBooks());
 		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn);
 	}
 
-	/** Right Click on book table **/
-	public void rightClickCell(TableColumn<Book, String> selectedColumn){
-		selectedColumn.setCellFactory(new Callback<TableColumn<Book, String>, TableCell<Book, String>>() {
-		    @Override
-		    public TableCell<Book, String> call(TableColumn<Book, String> col) {
-		        final TableCell<Book, String> cell = new TableCell<>();
-		        cell.textProperty().bind(cell.itemProperty()); // in general might need to subclass TableCell and override updateItem(...) here
-		        cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		            @Override
-		            public void handle(MouseEvent event) {
-		                if (event.getButton() == MouseButton.SECONDARY) {
-		                	handleRightClickTable(event);
-		                }
-		            }
-		          });
-		        return cell ;
-		    }
-		});
+	/** Book List Table click functions **/
+	@FXML
+	public void clickItem(MouseEvent event) {
+		
+    	if (cm != null) {
+	    	if (cm.isShowing()) {
+	    		cm.hide(); // Don't allow duplicate context menus open
+	    	}
+    	}
+	    if (event.getClickCount() == 2) {
+	    	Book selectedBook = tableBook.getSelectionModel().getSelectedItem(); // Retrieve selected cell
+	    	if (selectedBook != null) {
+	    		goToBookView(selectedBook);
+	    	}
+	    }
+	    else if(event.getButton() == MouseButton.SECONDARY) {
+	        cm = new ContextMenu();
+	        MenuItem mi1 = new MenuItem("Loan");
+	        cm.getItems().add(mi1);
+	        MenuItem mi2 = new MenuItem("Delete");
+	        cm.getItems().add(mi2);
+	        mi1.setOnAction(e -> System.out.println("Loan"));
+	        mi2.setOnAction(e -> System.out.println("Delete"));
+	        cm.setAutoHide(true);
+	        Book selectedBook = tableBook.getSelectionModel().getSelectedItem(); // Retrieve selected cell
+	        if (selectedBook != null) { // Check if selected cell contains a book
+	        	cm.show(tableBook , event.getScreenX() , event.getScreenY()); // Context menu is shown
+	        	
+	        	System.out.println(selectedBook.getTitle());
+	        }
+	        try {
+	        	 ; 
+
+	        }catch (Exception e) {
+	        }
+	    }
 	}
 	
-	public void handleRightClickTable(MouseEvent event) {		                	
-        ContextMenu cm = new ContextMenu();
-        MenuItem mi1 = new MenuItem("Loan");
-        cm.getItems().add(mi1);
-        MenuItem mi2 = new MenuItem("Delete");
-        cm.getItems().add(mi2);
-        
-        cm.show(tableBook , event.getScreenX() , event.getScreenY());
-	}
 	// Return list of books
 	public ObservableList<Book> getBooks() {
 		ObservableList<Book> books = FXCollections.observableArrayList();

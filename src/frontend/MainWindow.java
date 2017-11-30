@@ -2,16 +2,17 @@ package frontend;
 
 import DelayedBooks.*;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import program.*;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 
 
 public class MainWindow extends Application {
 	public static Library lib = new Library("database1");
 	public static Stage window;
 	public static Scene scene, scene2, scene3;
-	
 	
 	public static void main(String[] args) {
 		lib.load();

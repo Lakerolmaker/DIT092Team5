@@ -1,0 +1,1 @@
+{"firstName":"Daniel","lastName":"Jansson","ssn":"9301019998","userId":2,"libraryCardNum":2,"debt":0.0,"phoneNr":"0000123456","street":"5th Avenue","zipCode":"66666","city":"LA","booksBorrowed":{}}

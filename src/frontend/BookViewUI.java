@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import program.Book;
 
 
 /**
@@ -20,41 +21,51 @@ import javafx.scene.layout.VBox;
  *
  */
 
-public class EmptyTemplateUI implements Initializable{
+public class BookViewUI implements Initializable{
+	private static Book selectedBook;
+	private String title;
+	private String author;
+	private int year;
+	private int availableQty;
 	private static VBox root;
-	private static Scene emptyTemplate;
+	private static Scene bookView;
+	@FXML public Label bookTitle;
 	
-	@FXML private Label topMenu1; // Link to the fx:id in scenebuilder
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO: Code goes here :)
-		// Example
-		topMenu1.setText("Header Here");
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		title = selectedBook.getTitle();
+		author = selectedBook.getAuthor();
+		year = selectedBook.getYear();
+		availableQty = selectedBook.getAvailableQuantity();
 		
 		
-		
+		try {
+			bookTitle.setText(title);
+		}catch (Exception e ) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 	
-	public static void display(Class context) {
+	
+
+	
+	public static void display(Class context, Book book)  {
+		selectedBook = book;
 		try {
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
-			VBox homeView = (VBox)FXMLLoader.load(context.getResource("EmptyTemplate.fxml")); 
-			emptyTemplate = new Scene(homeView,1192,650);
-			emptyTemplate.getStylesheets().add(context.getResource("application.css").toExternalForm());
-			
+			VBox bookViewContainer = (VBox)FXMLLoader.load(context.getResource("BookView.fxml")); 
+			bookView = new Scene(bookViewContainer,1192,650);
+			bookView.getStylesheets().add(context.getResource("application.css").toExternalForm());
 
 			// Set the main window to show this scene
-			MainWindow.window.setScene(emptyTemplate);
+			MainWindow.window.setScene(bookView);
 			MainWindow.window.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
-
-	
-
 	
 	/******** File MENU ********/
 	public void newBook(){
@@ -66,15 +77,21 @@ public class EmptyTemplateUI implements Initializable{
 	public void homeMenuAction(){
 		EmptyTemplateUI.display(this.getClass());
 	}
+	
 	public void booksMenuAction(){
 		BooksUI.display(this.getClass());
 	}
+	
 	public void usersMenuAction() {
 		// User view call
 		System.out.println("Example: User button clicked");
+		
 	}
 	public void openDelayedBooks(ActionEvent event) {
 		DelayedBook.display(this.getClass());
 	}
+
+
+	
 
 }

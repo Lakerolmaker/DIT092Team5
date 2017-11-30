@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class User {
@@ -36,12 +37,16 @@ public class User {
 		this.city = city;
 	}
 
+	public String getName() {
+		return this.firstName + " " + this.lastName;
+	}
+	
 	public String getFirstName() {
 		return this.firstName;
 	}
 	
 	public String getLastName() {
-		return this.firstName;
+		return this.lastName;
 	}
 
 	public int getUserId() {
@@ -127,6 +132,27 @@ public class User {
 
 		return returnDate;
 
+	}
+	
+	public int getDaysLeft(Book book) {
+		LocalDate today = LocalDate.now();
+		LocalDate returnDate = getBorrowedBookReturnDate(book.getId());
+		int days = (int) (returnDate.toEpochDay() - today.toEpochDay());
+		
+		return days;
+	}
+	
+	
+	public ArrayList<Book> getBookList() {
+		ArrayList<Book> bookList = new ArrayList<>();
+		for (Book book : booksBorrowed.keySet()) {
+			bookList.add(book);
+		}
+		return bookList;
+	}
+	
+	public HashMap<Book, LocalDate> getBookMap() {
+		return this.booksBorrowed;
 	}
 
 	public void borrowBook(Book book) {
