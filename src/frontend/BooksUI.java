@@ -70,6 +70,8 @@ public class BooksUI implements Initializable {
 		menuUsers.setId("menuBooks");
 		menuDelayed.setId("menuDelayed");
 		
+		
+		
 		showSidePanel();
 		
 		
@@ -288,7 +290,7 @@ public class BooksUI implements Initializable {
 		BooksUI.display(this.getClass());
 	}
 	public void usersMenuAction() {
-		System.out.println("Example: User button clicked");
+		UserListUI.display(this.getClass());
 	}
 	public void goToBookView(Book book){
 		BookViewUI.display(this.getClass(), book);
