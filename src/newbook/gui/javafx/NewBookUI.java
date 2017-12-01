@@ -1,44 +1,57 @@
 package newbook.gui.javafx;
 
-import java.io.IOException;
 
-import javafx.application.Application;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import frontend.MainWindow;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class NewBookUI extends Application {
 
-	public static Stage window;
+
+public class NewBookUI implements Initializable{
+	private static Scene scene;
+	static Stage window;
+	
 	
 	@Override
-	public void start(Stage primaryStage) {
-		window = primaryStage;
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		
+	}
+	
+	public static void display() {
+		window = new Stage();
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("NewBook.fxml"));
-			
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			URL url = new File("src/newbook/gui/javafx/NewBook.fxml").toURI().toURL();
+			AnchorPane homeView = (AnchorPane)FXMLLoader.load(url); 
+			scene = new Scene(homeView);
+			scene.getStylesheets().add(MainWindow.css);
+		
+			window.setScene(scene);
+			window.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
+
 	@FXML
-	public void cancelAction(Event event) {
+	public void cancelAction() {
 		window.close();
 	}
 	
 	@FXML
-	public void newBookAction(Event event)
+	public void newBookAction()
 	{}
+
 }

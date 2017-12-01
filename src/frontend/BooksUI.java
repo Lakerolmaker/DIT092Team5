@@ -1,5 +1,6 @@
 package frontend;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
+import newbook.gui.javafx.NewBookUI;
 //import newbook.gui.javafx.NewBookUI;
 import DelayedBooks.DelayedBook;
 import javafx.collections.FXCollections;
@@ -96,13 +98,13 @@ public class BooksUI implements Initializable {
 		}
 	}
 	
-	public static void display(Class context) {
+	public static void display() {
 		
 		try {
-			VBox bookView = (VBox)FXMLLoader.load(context.getResource("Book.fxml"));
+			URL url = new File("src/frontend/Book.fxml").toURI().toURL();
+			VBox bookView = (VBox)FXMLLoader.load(url);
 			bookScene = new Scene(bookView,1192,650);
-			bookScene.getStylesheets().add(context.getResource("application.css").toExternalForm());
-			
+			bookScene.getStylesheets().add(MainWindow.css);
 			
 			MainWindow.window.setScene(bookScene);
 			MainWindow.window.show();
@@ -274,7 +276,7 @@ public class BooksUI implements Initializable {
 	
 	/******** File MENU ********/
 	public void newBook(){
-		NewBookUI.display(this.getClass());
+		NewBookUI.display();
 	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
@@ -282,10 +284,10 @@ public class BooksUI implements Initializable {
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
-		EmptyTemplateUI.display(this.getClass());
+		EmptyTemplateUI.display();
 	}
 	public void booksMenuAction(){
-		BooksUI.display(this.getClass());
+		BooksUI.display();
 	}
 	public void usersMenuAction() {
 		System.out.println("Example: User button clicked");

@@ -1,6 +1,7 @@
 package frontend;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import newbook.gui.javafx.NewBookUI;
 
 
 /**
@@ -36,13 +38,13 @@ public class EmptyTemplateUI implements Initializable{
 		
 	}
 	
-	public static void display(Class context) {
+	public static void display() {
 		try {
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
-			VBox homeView = (VBox)FXMLLoader.load(context.getResource("EmptyTemplate.fxml")); 
+			URL url = new File("src/frontend/EmptyTemplate.fxml").toURI().toURL();
+			VBox homeView = (VBox)FXMLLoader.load(url); 
 			emptyTemplate = new Scene(homeView,1192,650);
-			emptyTemplate.getStylesheets().add(context.getResource("application.css").toExternalForm());
-			
+			emptyTemplate.getStylesheets().add(MainWindow.css);
 
 			// Set the main window to show this scene
 			MainWindow.window.setScene(emptyTemplate);
@@ -58,7 +60,7 @@ public class EmptyTemplateUI implements Initializable{
 	
 	/******** File MENU ********/
 	public void newBook(){
-		NewBookUI.display(this.getClass());
+		NewBookUI.display();
 	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
@@ -66,10 +68,10 @@ public class EmptyTemplateUI implements Initializable{
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
-		EmptyTemplateUI.display(this.getClass());
+		EmptyTemplateUI.display();
 	}
 	public void booksMenuAction(){
-		BooksUI.display(this.getClass());
+		BooksUI.display();
 	}
 	public void usersMenuAction() {
 		// User view call

@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import newbook.gui.javafx.NewBookUI;
 import program.Book;
 
 
@@ -69,16 +70,16 @@ public class BookViewUI implements Initializable{
 	
 	/******** File MENU ********/
 	public void newBook(){
-		NewBookUI.display(this.getClass());
+		NewBookUI.display();
 	}
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
-		EmptyTemplateUI.display(this.getClass());
+		EmptyTemplateUI.display();
 	}
 	
 	public void booksMenuAction(){
-		BooksUI.display(this.getClass());
+		BooksUI.display();
 	}
 	
 	public void usersMenuAction() {

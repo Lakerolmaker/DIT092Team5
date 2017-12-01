@@ -36,7 +36,7 @@ public class TestMainTemporary {
 			System.out.println(user2.getName() + " couldnt loan " + tmpBook.getTitle() + " since there's no copies left.");
 		}
 		
-		
+		/*
 		// James Bond book list
 		System.out.println("James Bond's book list:");
 		HashMap<Book, LocalDate> bookMap = user1.getBookMap();
@@ -45,7 +45,7 @@ public class TestMainTemporary {
 		    LocalDate date = entry.getValue();
 		    System.out.println(book.getTitle() +": "  + user1.getDaysLeft(book) + " days left. (Return date: " + date + ")");
 		}
-		
+		*/
 	}
 
 }

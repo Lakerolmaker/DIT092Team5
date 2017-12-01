@@ -14,6 +14,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DelayedBook{
@@ -24,24 +25,16 @@ public class DelayedBook{
 			
 			try {
 				URL url = new File("src/DelayedBooks/DelayedBook.fxml").toURI().toURL();
+				VBox bookView = (VBox)FXMLLoader.load(url);
+				scene = new Scene(bookView,1192,650);
+				scene.getStylesheets().add(MainWindow.css);
 				
-				FXMLLoader loader = new FXMLLoader(url);
-				Parent root = null;
-
-				try {
-				    root = loader.load();
-				} catch (IOException e) {System.out.println(e.getMessage());}
-				
-				 scene = new Scene(root, 1192,650);
-				 scene.getStylesheets().add(MainWindow.css);
-				 
-
-				 MainWindow.window.setTitle("Delayed Books");
-				 MainWindow.window.setScene(scene);
+				MainWindow.window.setScene(scene);
+				MainWindow.window.show();
 			
-				 DelayedBooksController control =  new DelayedBooksController();
-				 control.delayedBook = (TableView<DelayedPerson>) scene.lookup("#delayedBook");
-				 control.initialize();
+				 //DelayedBooksController control =  new DelayedBooksController();
+				// control.delayedBook = (TableView<DelayedPerson>) scene.lookup("#delayedBook");
+				// control.initialize();
 				 
 				 
 			} catch(Exception e) {

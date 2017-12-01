@@ -13,15 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import newbook.gui.javafx.NewBookUI;
 import program.Book;
 
 public class DelayedBooksController {
 
-	@FXML public  TableView<DelayedPerson> delayedBook;
-	
-	@FXML public TableColumn<DelayedPerson, String> titleColumn;
-	@FXML public TableColumn<DelayedPerson, String> NameColumn;
-	@FXML public TableColumn<DelayedPerson, Integer> userIdColumn;
+
 	@FXML public TableColumn<DelayedPerson, Double> debtColumn;
 	
 	public void keypress(ActionEvent e) {
@@ -30,7 +27,7 @@ public class DelayedBooksController {
 	
 	
 	public void initialize() {
-		 System.out.println("hello");
+		/*
 		 
 		// Title column
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -43,12 +40,10 @@ public class DelayedBooksController {
 		
 		// Title column
 		userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-		
-	
-		
+
 		delayedBook.setItems(getBooks());
 		boolean addAll = delayedBook.getColumns().addAll( NameColumn,titleColumn);
-		
+		*/
 	}
 	
 	// Return list of books
@@ -67,19 +62,17 @@ public class DelayedBooksController {
 	
 		
 		/******** File MENU ********/
-		public void newBook(ActionEvent e){
-			// Call to display add new book view
-			System.out.println("New book called");
+		public void newBook(){
+			NewBookUI.display();	
 		}
-		
 		/******** Main menu ********/
-		public void homeMenuAction(ActionEvent e){
-			EmptyTemplateUI.display(this.getClass());
+		public void homeMenuAction(){
+			EmptyTemplateUI.display();
 		}
-		public void booksMenuAction(ActionEvent e){
-			BooksUI.display(this.getClass());
+		public void booksMenuAction(){
+			BooksUI.display();
 		}
-		public void usersMenuAction(ActionEvent e) {
+		public void usersMenuAction() {
 			// User view call
 			System.out.println("Example: User button clicked");
 		}	
