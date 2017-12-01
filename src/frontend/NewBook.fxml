@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="387.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.NewBookUI">
+   <children>
+      <Button fx:id="cancelbutton" layoutX="38.0" layoutY="340.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="71.0" text="Cancel" />
+      <Label layoutX="44.0" layoutY="-2.0" prefHeight="38.0" prefWidth="146.0" text="New book">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Separator layoutX="38.0" layoutY="37.0" prefHeight="0.0" prefWidth="372.0" />
+      <Button fx:id="okbutton" layoutX="293.0" layoutY="340.0" mnemonicParsing="false" onAction="#newBookAction" prefHeight="25.0" prefWidth="117.0" text="OK" />
+      <Label layoutX="40.0" layoutY="71.0" prefHeight="17.0" prefWidth="101.0" text="Title:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="title" layoutX="117.0" layoutY="67.0" prefHeight="25.0" prefWidth="293.0" promptText="Title" />
+      <Label layoutX="40.0" layoutY="106.0" text="Author:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="177.0" text="Year:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="142.0" text="ISBN:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="283.0" text="Shelf:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="211.0" text="Category:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="248.0" text="Quantity:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="author" layoutX="117.0" layoutY="104.0" prefHeight="25.0" prefWidth="293.0" promptText="Author" />
+      <TextField fx:id="isbn" layoutX="117.0" layoutY="140.0" prefHeight="25.0" prefWidth="293.0" promptText="ISBN" />
+      <TextField fx:id="category" layoutX="117.0" layoutY="209.0" prefHeight="25.0" prefWidth="293.0" promptText="Category" />
+      <TextField fx:id="quantity" layoutX="117.0" layoutY="244.0" prefHeight="25.0" prefWidth="293.0" promptText="Quantity" />
+      <TextField fx:id="shelf" layoutX="117.0" layoutY="279.0" prefHeight="25.0" prefWidth="293.0" promptText="Shelf" />
+      <TextField fx:id="year" layoutX="117.0" layoutY="175.0" prefHeight="25.0" prefWidth="293.0" promptText="Year" />
+   </children>
+</AnchorPane>

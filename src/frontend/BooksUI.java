@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
+//import newbook.gui.javafx.NewBookUI;
 import DelayedBooks.DelayedBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -273,8 +274,7 @@ public class BooksUI implements Initializable {
 	
 	/******** File MENU ********/
 	public void newBook(){
-		// Call to display add new book view
-		System.out.println("New book called");
+		NewBookUI.display(this.getClass());
 	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
