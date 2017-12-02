@@ -22,8 +22,9 @@ public class DelayedBook{
 	public static Scene scene;
 	
 		public static void display() {
-			
+	
 			try {
+				
 				URL url = new File("src/DelayedBooks/DelayedBook.fxml").toURI().toURL();
 				VBox bookView = (VBox)FXMLLoader.load(url);
 				scene = new Scene(bookView,1192,650);
@@ -31,17 +32,15 @@ public class DelayedBook{
 				
 				MainWindow.window.setScene(scene);
 				MainWindow.window.show();
-			
-				 //DelayedBooksController control =  new DelayedBooksController();
-				// control.delayedBook = (TableView<DelayedPerson>) scene.lookup("#delayedBook");
-				// control.initialize();
-				 
-				 
+
 			} catch(Exception e) {
-				//System.out.println(e.getMessage());
+				System.out.println(e.getMessage());
 			}
+			
+			 DelayedBooksController control =  new DelayedBooksController();
 	
 		}
 
+		
 		
 	}
