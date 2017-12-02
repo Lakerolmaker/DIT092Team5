@@ -111,6 +111,11 @@
                            </items>
                         </SplitPane>
                         <Group layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0" />
+                        <TableView fx:id="debtColumn" layoutX="29.0" layoutY="85.0" prefHeight="334.0" prefWidth="528.0">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
               </children>
             </AnchorPane>
           </content>

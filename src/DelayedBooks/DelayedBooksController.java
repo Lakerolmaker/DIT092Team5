@@ -28,7 +28,6 @@ public class DelayedBooksController {
 	
 	public void initialize() {
 		/*
-		 
 		// Title column
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		

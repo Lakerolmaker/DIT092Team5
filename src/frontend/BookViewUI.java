@@ -49,9 +49,6 @@ public class BookViewUI implements Initializable{
 
 	}
 	
-	
-
-	
 	public static void display(Class context, Book book)  {
 		selectedBook = book;
 		try {

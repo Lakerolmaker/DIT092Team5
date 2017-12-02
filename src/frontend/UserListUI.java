@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import newbook.gui.javafx.NewBookUI;
 
 
 /**
@@ -56,7 +57,7 @@ public class UserListUI implements Initializable{
 	
 	
 	public void NewBookButtonClicked(){
-		NewBookUI.display(this.getClass());
+		NewBookUI.display();
 	}
 
 
@@ -65,7 +66,7 @@ public class UserListUI implements Initializable{
 	
 	/******** File MENU ********/
 	public void newBook(){
-		NewBookUI.display(this.getClass());
+		NewBookUI.display();
 	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
@@ -76,7 +77,7 @@ public class UserListUI implements Initializable{
 		UserListUI.display(this.getClass());
 	}
 	public void booksMenuAction(){
-		BooksUI.display(this.getClass());
+		BooksUI.display();
 	}
 	public void usersMenuAction() {
 		// User view call
