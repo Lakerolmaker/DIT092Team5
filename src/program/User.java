@@ -8,15 +8,20 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Description: User class with attributes (first name, last name, ssn, user ID (library card number), dept, 
+ * phone number, street, zip code and city) and getters/setters.
+ * @author Tihana Causevic
+ */
+
 public class User {
 
 	private String firstName;
 	private String lastName;
 	private String ssn; 
 	private int userId;
-	private int libraryCardNum;
 	private double debt;
-	private String phoneNr; // Changed to string
+	private String phoneNr; 
 	private String street;
 	private String zipCode;
 	private String city;
@@ -28,8 +33,7 @@ public class User {
 		this.userId = nextId.incrementAndGet();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.libraryCardNum = this.userId; // 2 variables storing the same value ?
-		this.debt = 0; 
+		this.debt = 0;
 		this.ssn = ssn;
 		this.phoneNr = phoneNr;
 		this.street = street;

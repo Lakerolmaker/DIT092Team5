@@ -300,6 +300,9 @@ public class BooksUI implements Initializable {
 	public void openDelayedBooks() {
 		DelayedBook.display();
 	}	
+	public void openRegister() {
+		RegisterUserUI.display();
+	}
 	
 	
 	// for DEBUGGING

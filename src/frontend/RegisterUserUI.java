@@ -1,5 +1,7 @@
 package frontend;
 
+import java.io.File;
+
 /** 
  * Description: 
  * Register User GUI with text fields for the first name, last name, ssn, user ID, library card number,
@@ -29,6 +31,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import newbook.gui.javafx.NewBookUI;
 import program.User;
 
 
@@ -39,9 +42,8 @@ import program.User;
 
 public class RegisterUserUI implements Initializable{
 	private static VBox root;
-	private static Scene emptyTemplate;
+	private static Scene userScene;
 	private static User user;
-	private static Scene userView;
 	private static boolean isRegUser = true;
 	
 	@FXML private Label topMenu1; // Link to the fx:id in scenebuilder
@@ -62,15 +64,16 @@ public class RegisterUserUI implements Initializable{
 		
 	}
 	
-	public static void display(Class context) {
+	public static void display() {
 		try {
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
-			VBox userViewContainer = (VBox)FXMLLoader.load(context.getResource("RegisterUserUI.fxml")); 
-			userView = new Scene(userViewContainer,1192,650);
-			userView.getStylesheets().add(context.getResource("application.css").toExternalForm());
+			URL url = new File("src/frontend/RegisterUserUI.fxml").toURI().toURL();
+			VBox userView = (VBox)FXMLLoader.load(url); 
+			userScene = new Scene(userView,1192,650);
+			userScene.getStylesheets().add(MainWindow.css);
 
 			// Set the main window to show this scene
-			MainWindow.window.setScene(userView);
+			MainWindow.window.setScene(userScene);
 			MainWindow.window.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -92,13 +95,13 @@ public class RegisterUserUI implements Initializable{
 	@FXML
 	public void cancelButtonAction(Event event)
 	{
-		EmptyTemplateUI.display(this.getClass()); // displays the empty template (instead of the home screen, for now)
+		EmptyTemplateUI.display(); // displays the empty template (instead of the home screen, for now)
 	}
 
 	
 	/******** File MENU ********/
 	public void newBook(){
-		NewBookUI.display(this.getClass());
+		NewBookUI.display();
 	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
@@ -106,13 +109,13 @@ public class RegisterUserUI implements Initializable{
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
-		RegisterUserUI.display(this.getClass());
+		RegisterUserUI.display();
 	}
 	public void openRegister() {
-		RegisterUserUI.display(this.getClass());
+		RegisterUserUI.display();
 	}
 	public void booksMenuAction(){
-		BooksUI.display(this.getClass());
+		BooksUI.display();
 	}
 	public void usersMenuAction() {
 		// User view call
