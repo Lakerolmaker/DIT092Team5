@@ -1,1 +1,1 @@
-{"firstName":"James","lastName":"Bond","ssn":"9501019999","userId":1,"libraryCardNum":1,"debt":0.0,"phoneNr":"0303123456","street":"Fifth Avenue","zipCode":"666666","city":"Los Angeles","books":[],"booksBorrowed":{"0":{"year":2017,"month":12,"day":1},"1":{"year":2017,"month":11,"day":30}}}
+{"firstName":"James","lastName":"Bond","ssn":"9501019999","userId":1,"debt":0.0,"phoneNr":"0303123456","street":"Fifth Avenue","zipCode":"666666","city":"Los Angeles","books":[],"booksBorrowed":{"0":{"year":2017,"month":12,"day":1},"1":{"year":2017,"month":11,"day":30}}}

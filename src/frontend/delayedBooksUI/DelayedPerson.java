@@ -1,4 +1,4 @@
-package DelayedBooks;
+package frontend.delayedBooksUI;
 
 public class DelayedPerson {
 

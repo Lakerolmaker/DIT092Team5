@@ -1,12 +1,16 @@
-package frontend;
+package frontend.bookViewUI;
 
+import frontend.*;
+import frontend.booksUI.*;
+import frontend.emptyTemplateUI.*;
+import frontend.homeUI.HomeUI;
+import frontend.registerUserUI.RegisterUserUI;
+import frontend.userListUI.UserListUI;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import DelayedBooks.DelayedBook;
-import javafx.event.ActionEvent;
+import frontend.delayedBooksUI.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,13 +53,14 @@ public class BookViewUI implements Initializable{
 
 	}
 	
-	public static void display(Class context, Book book)  {
+	public static void display(Book book)  {
+		Class context = BookViewUI.class;
 		selectedBook = book;
 		try {
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
 			VBox bookViewContainer = (VBox)FXMLLoader.load(context.getResource("BookView.fxml")); 
 			bookView = new Scene(bookViewContainer,1192,650);
-			bookView.getStylesheets().add(context.getResource("application.css").toExternalForm());
+			bookView.getStylesheets().add(MainWindow.css);
 
 			// Set the main window to show this scene
 			MainWindow.window.setScene(bookView);
@@ -69,23 +74,28 @@ public class BookViewUI implements Initializable{
 	public void newBook(){
 		NewBookUI.display();
 	}
+	public void quitMenuClick() {
+		MainWindow.closeProgram();
+	}
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
-		EmptyTemplateUI.display();
+		HomeUI.display();
 	}
-	
 	public void booksMenuAction(){
 		BooksUI.display();
 	}
-	
 	public void usersMenuAction() {
-		// User view call
-		System.out.println("Example: User button clicked");
-		
+		UserListUI.display();
+	}
+	public void goToBookView(Book book){
+		BookViewUI.display(book);
 	}
 	public void openDelayedBooks() {
 		DelayedBook.display();
+	}	
+	public void openRegister() {
+		RegisterUserUI.display();
 	}
 
 

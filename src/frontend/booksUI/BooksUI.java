@@ -1,18 +1,22 @@
-package frontend;
+package frontend.booksUI;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 import newbook.gui.javafx.NewBookUI;
-//import newbook.gui.javafx.NewBookUI;
-import DelayedBooks.DelayedBook;
+import frontend.delayedBooksUI.*;
+import frontend.emptyTemplateUI.*;
+import frontend.homeUI.HomeUI;
+import frontend.MainWindow;
+import frontend.registerUserUI.*;
+import frontend.userListUI.*;
+import frontend.bookViewUI.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +31,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.Effect;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import program.*;
@@ -71,9 +74,6 @@ public class BooksUI implements Initializable {
 		menuBooks.setId("menuBooks");
 		menuUsers.setId("menuBooks");
 		menuDelayed.setId("menuDelayed");
-		
-		
-		
 		showSidePanel();
 		
 		
@@ -103,8 +103,10 @@ public class BooksUI implements Initializable {
 	public static void display() {
 		
 		try {
-			URL url = new File("src/frontend/Book.fxml").toURI().toURL();
-			VBox bookView = (VBox)FXMLLoader.load(url);
+			Class context = BooksUI.class;
+			//URL url = new File("src/frontend/Book.fxml").toURI().toURL();
+			//VBox bookView = (VBox)FXMLLoader.load(url);
+			VBox bookView = (VBox)FXMLLoader.load(context.getResource("Book.fxml"));
 			bookScene = new Scene(bookView,1192,650);
 			bookScene.getStylesheets().add(MainWindow.css);
 			
@@ -286,20 +288,23 @@ public class BooksUI implements Initializable {
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
-		EmptyTemplateUI.display();
+		HomeUI.display();
 	}
 	public void booksMenuAction(){
 		BooksUI.display();
 	}
 	public void usersMenuAction() {
-		UserListUI.display(this.getClass());
+		UserListUI.display();
 	}
 	public void goToBookView(Book book){
-		BookViewUI.display(this.getClass(), book);
+		BookViewUI.display(book);
 	}
 	public void openDelayedBooks() {
 		DelayedBook.display();
 	}	
+	public void openRegister() {
+		RegisterUserUI.display();
+	}
 	
 	
 	// for DEBUGGING
