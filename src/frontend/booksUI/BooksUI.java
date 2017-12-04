@@ -348,7 +348,7 @@ public class BooksUI implements Initializable {
 		}
 		ObservableList<Book> books = FXCollections.observableArrayList(); // Create new list
 		for (Book book : MainWindow.lib.getBookList()) {
-			if (Functions.compareStrings2(book.getTitle(), search) || Functions.compareStrings2(book.getAuthor(), search) || Functions.compareStrings2(book.getIsbn(), search) || Functions.compareStrings2(Integer.toString(book.getYear()), search)) {
+			if (Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
 				books.add(book); // If match add the book to list
 			}
 		}
