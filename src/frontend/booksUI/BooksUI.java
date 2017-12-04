@@ -4,11 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+import javafx.util.Callback;
 import frontend.newBookUI.*;
 import frontend.delayedBooksUI.*;
 import frontend.emptyTemplateUI.*;
@@ -61,10 +66,13 @@ public class BooksUI implements Initializable {
 	@FXML public Text enterIdText;
 	@FXML public TextField userIdField;
 	@FXML public Button goBtn; 
+	@FXML public Text basketQtyText;
+	@FXML public Text basketTitleText;
 	
-	public static ArrayList<Book> booksInBasket;
+	public static HashMap<Book, Integer> booksInBasket;
+	//public static ArrayList<Book> booksInBasket;
 	private ContextMenu cm;
-	private static VBox root;
+	private ContextMenu cm2;
 	private static Scene bookScene;
 	
 	@Override
@@ -88,7 +96,7 @@ public class BooksUI implements Initializable {
 	
 	
 	public void newBasket(){
-		booksInBasket = new ArrayList<>();
+		booksInBasket = new HashMap<>();
 	}
 
 	public void goBtnClicked(){
@@ -104,8 +112,6 @@ public class BooksUI implements Initializable {
 		
 		try {
 			Class context = BooksUI.class;
-			//URL url = new File("src/frontend/Book.fxml").toURI().toURL();
-			//VBox bookView = (VBox)FXMLLoader.load(url);
 			VBox bookView = (VBox)FXMLLoader.load(context.getResource("Book.fxml"));
 			bookScene = new Scene(bookView,1192,650);
 			bookScene.getStylesheets().add(MainWindow.css);
@@ -113,18 +119,20 @@ public class BooksUI implements Initializable {
 			MainWindow.window.setScene(bookScene);
 			MainWindow.window.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	/** Loan button **/
 	public void loanBtnClicked(){
-		for (Book book : booksInBasket) {
-			try {
-				MainWindow.lib.loanBook(MainWindow.user, book);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
+		//for (Book book : booksInBasket) {
+		for (Entry<Book, Integer> book : booksInBasket.entrySet()) {
+			for (int i = 0; i < book.getValue(); i++) {
+				try {
+					MainWindow.lib.loanBook(MainWindow.user, book.getKey());
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
 			}
 			showSidePanel(); // Update side panel
 			basketList.getItems().clear(); // Clear basket
@@ -196,19 +204,106 @@ public class BooksUI implements Initializable {
 	    }
 	}
 	
+	
+	
+	public void basketListClick(MouseEvent event) {
+		
+	   	if (cm2 != null) {
+	    	if (cm2.isShowing()) {
+	    		cm2.hide(); // Don't allow duplicate context menus open
+	    	}
+    	}
+		if (event.getButton() == MouseButton.SECONDARY) {
+			if(basketList.getSelectionModel().getSelectedItem() != null) {
+				HBox hBox = (HBox) basketList.getSelectionModel().getSelectedItem();
+				ObservableList list =  hBox.getChildren();
+				Text txt1 = (Text) list.get(0);
+				int qty = Integer.parseInt((txt1.getText()));
+				Label lbl1 = (Label) list.get(1);
+				String title = lbl1.getText();
+				Label lbl2 = (Label) list.get(2);
+				String isbn = lbl2.getText();
+				// Context menu
+				cm2 = new ContextMenu();
+				MenuItem mi1 = new MenuItem("Remove");
+				cm2.getItems().add(mi1);
+				mi1.setOnAction(e -> {
+					try {
+						for (Book book : booksInBasket.keySet()) {
+							if (book.getIsbn().equals(isbn)) {
+								removeFromBasket(book);
+							}
+						}
+					}catch (Exception e2) {}
+				});
+				if (qty > 1) {
+					MenuItem mi2 = new MenuItem("Remove all");
+					cm2.getItems().add(mi2);
+					mi2.setOnAction(e -> {
+						try {
+							for (Book book : booksInBasket.keySet()) {
+								if (book.getIsbn().equals(isbn)) {
+									for (int i = 0; i < qty ; i++) {
+										removeFromBasket(book);			
+									}
+								}
+							}
+						}catch (Exception e3) {}
+						
+					});
+				}
+				
+				cm2.show(basketList, event.getScreenX() , event.getScreenY());
+				
+			}
+			
+			
+		}
+	}
+	
+	public void removeFromBasket(Book book) {
+		if (book != null && MainWindow.user != null) {
+			if (booksInBasket.containsKey(book)) {
+				if (booksInBasket.get(book) > 1) {
+					booksInBasket.put(book, booksInBasket.get(book) - 1);
+				}else {
+					booksInBasket.remove(book);
+				}
+				updateBasket();
+			}
+		}
+	}
+	
+	// Add to basket
 	public void addToBasket(Book book){
 		if (book != null && MainWindow.user != null) {
-			booksInBasket.add(book);
+			if (booksInBasket.containsKey(book)) {
+				booksInBasket.put(book, booksInBasket.get(book) +1 );
+			}else {
+				booksInBasket.put(book, 1);
+			}
+			
 			updateBasket();
 		}
 	}
 	
 	public void updateBasket(){
 		basketList.getItems().clear();
-		for (Book books : booksInBasket) {
-			basketList.getItems().add(books.getTitle());
+		for (Entry<Book, Integer> book : booksInBasket.entrySet()) {
+			Label isbn = new Label(book.getKey().getIsbn());
+			isbn.setId("bookIsbnBasket");
+			Label title = new Label(book.getKey().getTitle());
+			title.setId("bookTitleBasket");
+			HBox hBox = new HBox(new Text(book.getValue().toString()), title, isbn);
+			hBox.setSpacing(15);
+			basketList.getItems().add(hBox);
 		}
 		
+		if (booksInBasket.isEmpty()) {
+			basketText.setVisible(true);
+		}else {
+			basketText.setVisible(false);
+		}
 	
 		
 	}
@@ -239,6 +334,8 @@ public class BooksUI implements Initializable {
 	public void showSidePanel(){
 		User user = MainWindow.user;
 		if (user == null) {
+			basketQtyText.setVisible(false);
+			basketTitleText.setVisible(false);
 			booksLoaningAmount.setText("");
 			nameText.setText("");
 			streetText.setText("");
@@ -260,6 +357,8 @@ public class BooksUI implements Initializable {
 			}else {
 				bookCount = Integer.toString(user.getBookList().size());
 			}
+			basketQtyText.setVisible(true);
+			basketTitleText.setVisible(true);
 			enterIdText.setVisible(false);
 			userIdField.setVisible(false);
 			goBtn.setVisible(false);
