@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,6 +23,13 @@ public class NewBookUI implements Initializable{
 	private static Scene scene;
 	static Stage window;
 	
+	@FXML private TextField isbnText;
+	@FXML private TextField titleText;
+	@FXML private TextField authorText;
+	@FXML private TextField yearText;
+	@FXML private TextField categoryText;
+	@FXML private TextField shelfText;
+	@FXML private TextField quantityText;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -52,7 +60,23 @@ public class NewBookUI implements Initializable{
 	}
 	
 	@FXML
-	public void newBookAction()
-	{}
+	public void newBookAction() {
+		String isbn = isbnText.getText().trim();
+		String title = titleText.getText().trim();
+		String author = authorText.getText().trim(); 
+		int year = Integer.parseInt(yearText.getText().trim());
+		String category = categoryText.getText().trim();
+		int shelf = Integer.parseInt(shelfText.getText().trim());
+		int qty = Integer.parseInt(quantityText.getText().trim());
+		
+		try {
+			frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty);
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
