@@ -30,8 +30,8 @@ public class MainWindow extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
+		//: Adds the css file to a variabel.
 		URL cssURL = this.getClass().getResource("application.css");
-		
 		css = "file:///" + cssURL.getPath().replace("\\", "/");
 		
 		// Set up main window

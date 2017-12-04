@@ -101,6 +101,9 @@ public class DelayedBooksController {
 		public void newBook(){
 			NewBookUI.display();	
 		}
+		public void quitMenuClick() {
+			MainWindow.closeProgram();
+		}
 		/******** Main menu ********/
 		public void homeMenuAction(){
 			HomeUI.display();

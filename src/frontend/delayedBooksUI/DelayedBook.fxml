@@ -37,7 +37,7 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#quitMenuClick" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -92,6 +92,11 @@
                            </font>
                         </Label>
                         <Label id="menuDelayed" fx:id="menuDelayed" layoutX="22.0" layoutY="120.0" prefHeight="27.0" prefWidth="162.0" text="Delayed" textFill="#727272" underline="true">
+                           <font>
+                              <Font name="MS Reference Sans Serif" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label id="menuRegister" layoutX="22.0" layoutY="154.0" onMouseClicked="#openRegister" prefHeight="27.0" prefWidth="162.0" text="Register User" textFill="#727272">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
