@@ -1,9 +1,7 @@
 package frontend.booksUI;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -11,23 +9,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-import javafx.util.Callback;
 import frontend.newBookUI.*;
 import frontend.delayedBooksUI.*;
-import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.MainWindow;
 import frontend.registerUserUI.*;
 import frontend.userListUI.*;
 import frontend.bookViewUI.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -48,6 +45,7 @@ public class BooksUI implements Initializable {
 	@FXML public TableColumn<Book, String> authorColumn;
 	@FXML public TableColumn<Book, String> yearColumn;
 	@FXML public TableColumn<Book, String> isbnColumn;
+	@FXML public TableColumn<Book, String> qtyAvColumn;
 	@FXML public TextField searchField;
 	@FXML public Label menuHome;
 	@FXML public Label menuBooks;
@@ -61,13 +59,17 @@ public class BooksUI implements Initializable {
 	@FXML public Text basketText;
 	@FXML public Text booksLoaningText;
 	@FXML public Text booksLoaningAmount;
-	@FXML public ListView basketList;
+	@FXML public ListView<HBox> basketList;
 	@FXML public Button loanBtn;
 	@FXML public Text enterIdText;
 	@FXML public TextField userIdField;
 	@FXML public Button goBtn; 
 	@FXML public Text basketQtyText;
 	@FXML public Text basketTitleText;
+	@FXML public CheckBox showOnlyAv;
+	
+	private static boolean showOnlyAvailable;
+	private static String searchFieldString = "";
 	
 	public static HashMap<Book, Integer> booksInBasket;
 	//public static ArrayList<Book> booksInBasket;
@@ -75,8 +77,17 @@ public class BooksUI implements Initializable {
 	private ContextMenu cm2;
 	private static Scene bookScene;
 	
+
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		showOnlyAv.setSelected(showOnlyAvailable);
+		showOnlyAv.setOnAction(e -> {
+			showOnlyAvailable = showOnlyAv.isSelected();
+			display();
+		});
+		
+		searchField.setText(searchFieldString);
 		
 		menuHome.setId("menuHome");
 		menuBooks.setId("menuBooks");
@@ -111,7 +122,7 @@ public class BooksUI implements Initializable {
 	public static void display() {
 		
 		try {
-			Class context = BooksUI.class;
+			Class<BooksUI> context = BooksUI.class;
 			VBox bookView = (VBox)FXMLLoader.load(context.getResource("Book.fxml"));
 			bookScene = new Scene(bookView,1192,650);
 			bookScene.getStylesheets().add(MainWindow.css);
@@ -138,14 +149,15 @@ public class BooksUI implements Initializable {
 			basketList.getItems().clear(); // Clear basket
 			newBasket();
 		}
+		tableBook.refresh();
 	}
 	
 	/** Search Button **/
 	public void searchFunc(ActionEvent event){
 		String searchString = searchField.getText().toString();
 		tableBook.setItems(getMatchingBooks(searchString));
+		searchFieldString = searchString;
 	}
-	
 	
 	
 
@@ -156,20 +168,29 @@ public class BooksUI implements Initializable {
 		// Title column
 		titleColumn = new TableColumn<>("Title");
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+		titleColumn.setMaxWidth(8000);
 		// Author column
 		authorColumn = new TableColumn<>("Author");
 		authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
 		// Year column
 		yearColumn = new TableColumn<>("Year");
 		yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
+		yearColumn.setMaxWidth(2500);
 		// ISBN column
 		isbnColumn = new TableColumn<>("ISBN");
 		isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+		isbnColumn.setMaxWidth(4000);
+		// Available quantity
+		qtyAvColumn = new TableColumn<>("Available");
+		qtyAvColumn.setCellValueFactory(c-> new SimpleStringProperty(Integer.toString(c.getValue().getAvailableQuantity())));
+		qtyAvColumn.setMaxWidth(3000);
+		qtyAvColumn.setId("qtyAvColumn");
+		qtyAvColumn.setStyle("-fx-alignment: CENTER;");
 
 
 		
 		tableBook.setItems(getBooks());
-		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn);
+		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn);
 	}
 
 	/** Book List Table click functions **/
@@ -314,6 +335,10 @@ public class BooksUI implements Initializable {
 		for (Book book : MainWindow.lib.getBookList()) {
 			books.add(book);
 		}
+		
+		if(showOnlyAv.isSelected()) {
+			books = showOnlyAvailable(books);
+		}
 		return books;
 	}
 	// Return matching list of books
@@ -323,11 +348,25 @@ public class BooksUI implements Initializable {
 		}
 		ObservableList<Book> books = FXCollections.observableArrayList(); // Create new list
 		for (Book book : MainWindow.lib.getBookList()) {
-			if (Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
+			if (Functions.compareStrings2(book.getTitle(), search) || Functions.compareStrings2(book.getAuthor(), search) || Functions.compareStrings2(book.getIsbn(), search) || Functions.compareStrings2(Integer.toString(book.getYear()), search)) {
 				books.add(book); // If match add the book to list
 			}
 		}
+		if(showOnlyAv.isSelected()) {
+			books = showOnlyAvailable(books);
+		}
 		return books; // Return the new composed list
+	}
+	
+	
+	public ObservableList<Book> showOnlyAvailable(ObservableList<Book> bookList) {
+		ObservableList<Book> newBookList = FXCollections.observableArrayList();
+		for (Book book : bookList) {
+			if (book.getAvailableQuantity() > 0) {
+				newBookList.add(book);
+			}
+		}
+		return newBookList;
 	}
 
 	
@@ -409,11 +448,11 @@ public class BooksUI implements Initializable {
 	// for DEBUGGING
 	public void returnAllBooks(){
 		User user = MainWindow.user;
-		for (int i = 0 ; i < user.getBookList().size(); i++) {
-			MainWindow.lib.returnBook(user, MainWindow.user.getBookList().get(i));
+		for (int i = user.getBookList().size() - 1 ; i >= 0 ; i--) {
+			MainWindow.lib.returnBook(user, user.getBookList().get(i));
 		}
 		System.out.println("All books returned for + " + user.getName());
-		showSidePanel();
+		display();
 	}
 
 }

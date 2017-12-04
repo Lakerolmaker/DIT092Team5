@@ -46,4 +46,5 @@
 
 #bookIsbnBasket {
 	-fx-text-fill: transparent;
+	-fx-font-size: 1px;
 }
