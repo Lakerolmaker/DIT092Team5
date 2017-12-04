@@ -146,18 +146,14 @@ public class User {
 		return days;
 	}
 	
-	
 	public ArrayList<Book> getBookList() {
 		return books;
 	}
 	
-
-	
-	
 	public HashMap<String, LocalDate> getBookMap() {
 		return this.booksBorrowed;
 	}
-
+	
 	public void borrowBook(Book book) {
 		LocalDate today = LocalDate.now();
 		books.add(book);
@@ -165,6 +161,38 @@ public class User {
 		String index = Integer.toString(lastIndex);
 		booksBorrowed.put(index, today);
 		book.loan();
+	}
+	
+	public ArrayList<Book> getDelayedBooks(){
+		ArrayList<Book> temp = new ArrayList<Book>();
+		
+		for(int i = 0; i < getBookList().size(); i++) {
+			
+			Book selectedBook = books.get(i);
+			
+			if(getDaysLeft(selectedBook) < 0) {
+				temp.add(selectedBook);
+			}	
+		}
+		
+		return temp;
+	}
+	
+	public void setLendDate(Book book, LocalDate date) {
+		String key = getHashMapkey(book);
+		
+		booksBorrowed.put(key, date);
+	}
+	
+	public String getHashMapkey(Book book) {
+		
+		for (int i = 0; i < books.size(); i++) {
+			if(books.get(i).getId() == book.getId()) {
+				return Integer.toString(i);
+			}
+		}
+		
+		return null;
 	}
 
 	public void removeBorrowedBook(Book book) {
