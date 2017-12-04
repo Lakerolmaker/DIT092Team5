@@ -36,11 +36,7 @@ public class DelayedBook{
 			} catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
-			
-			 DelayedBooksController control =  new DelayedBooksController();
-	
+				
 		}
-
-		
-		
+	
 	}
