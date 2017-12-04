@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.UserListUI">
+<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.bookViewUI.BookViewUI">
   <children>
-    <MenuBar stylesheets="@application.css" VBox.vgrow="NEVER">
+    <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -32,7 +36,7 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#quitMenuClick" text="Quit" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -71,12 +75,12 @@
             </Label>
                   <Pane layoutX="7.0" layoutY="139.0" prefHeight="413.0" prefWidth="121.0">
                      <children>
-                        <Label fx:id="menuHome" layoutX="22.0" layoutY="14.0" onMouseClicked="#homeMenuAction" prefHeight="27.0" prefWidth="162.0" text="Empty Templ." textFill="#727272" underline="true">
+                        <Label fx:id="menuHome" layoutX="22.0" layoutY="14.0" onMouseClicked="#homeMenuAction" prefHeight="27.0" prefWidth="162.0" text="Home" textFill="#727272">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="menuBooks" layoutX="22.0" layoutY="50.0" onMouseClicked="#booksMenuAction" prefHeight="27.0" prefWidth="162.0" text="Books" textFill="#727272">
+                        <Label fx:id="menuBooks" layoutX="22.0" layoutY="50.0" onMouseClicked="#booksMenuAction" prefHeight="27.0" prefWidth="162.0" text="Books" textFill="#727272" underline="true">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
@@ -99,14 +103,43 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="547.0" prefWidth="1001.0">
               <children>
-                <Label fx:id="topMenu1" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="170.0" style="&#10;" text="User List" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                <Label id="bookTitle" fx:id="bookTitle" alignment="TOP_LEFT" font="$x1" layoutX="41.0" layoutY="14.0" prefHeight="27.0" prefWidth="357.0" style="&#10;" text="Book Title" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                         <SplitPane layoutX="707.0" layoutY="-1.0" prefHeight="588.0" prefWidth="292.0" AnchorPane.bottomAnchor="-40.0" AnchorPane.leftAnchor="710.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
                            <items>
-                              <AnchorPane prefHeight="562.0" prefWidth="290.0" />
+                              <AnchorPane prefHeight="562.0" prefWidth="290.0">
+                                 <children>
+                                    <Text fx:id="nameText" fill="#000000a6" layoutX="22.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname Lastname">
+                                       <font>
+                                          <Font name="EXCESS" size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="streetText" layoutX="22.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5th Avenue" />
+                                    <Text fx:id="cityText" layoutX="22.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="444 60 Bigh High" />
+                                    <Text fx:id="balanceText" fill="#ff0000a6" layoutX="176.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-14">
+                                       <font>
+                                          <Font name="EXCESS" size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#000000a6" layoutX="23.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance">
+                                       <font>
+                                          <Font name="EXCESS" size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <ListView fx:id="basketList" layoutX="3.0" layoutY="246.0" opacity="0.63" prefHeight="200.0" prefWidth="284.0" style="-fx-background-color: f4f4f4;">
+                                       <effect>
+                                          <InnerShadow />
+                                       </effect>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </ListView>
+                                    <Text layoutX="26.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Basket" />
+                                    <Button layoutX="202.0" layoutY="488.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Loan" />
+                                 </children>
+                              </AnchorPane>
                            </items>
                         </SplitPane>
                         <Group layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0" />
-                        <Button fx:id="showNewBook" layoutX="266.0" layoutY="225.0" mnemonicParsing="false" onMouseClicked="#NewBookButtonClicked" text="NewBook" />
               </children>
             </AnchorPane>
           </content>

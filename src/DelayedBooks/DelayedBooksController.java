@@ -3,9 +3,11 @@ package DelayedBooks;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import frontend.BooksUI;
-import frontend.EmptyTemplateUI;
+import frontend.emptyTemplateUI.*;
+import frontend.homeUI.HomeUI;
+import frontend.userListUI.UserListUI;
 import frontend.MainWindow;
+import frontend.booksUI.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -60,13 +62,12 @@ public class DelayedBooksController {
 		}
 		/******** Main menu ********/
 		public void homeMenuAction(){
-			EmptyTemplateUI.display();
+			HomeUI.display();
 		}
 		public void booksMenuAction(){
 			BooksUI.display();
 		}
 		public void usersMenuAction() {
-			// User view call
-			System.out.println("Example: User button clicked");
+			UserListUI.display();
 		}	
 }

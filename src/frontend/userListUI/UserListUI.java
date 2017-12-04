@@ -1,11 +1,16 @@
-package frontend;
+package frontend.userListUI;
 
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import frontend.*;
 import DelayedBooks.DelayedBook;
+import frontend.bookViewUI.BookViewUI;
+import frontend.booksUI.*;
+import frontend.emptyTemplateUI.EmptyTemplateUI;
+import frontend.homeUI.HomeUI;
+import frontend.registerUserUI.RegisterUserUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import newbook.gui.javafx.NewBookUI;
+import program.Book;
 
 
 /**
@@ -39,12 +45,13 @@ public class UserListUI implements Initializable{
 		
 	}
 	
-	public static void display(Class context) {
+	public static void display() {
+		Class context = UserListUI.class;
 		try {
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
 			VBox homeView = (VBox)FXMLLoader.load(context.getResource("UserListUI.fxml")); 
 			emptyTemplate = new Scene(homeView,1192,650);
-			emptyTemplate.getStylesheets().add(context.getResource("application.css").toExternalForm());
+			emptyTemplate.getStylesheets().add(MainWindow.css);
 			
 
 			// Set the main window to show this scene
@@ -64,6 +71,7 @@ public class UserListUI implements Initializable{
 	
 
 	
+	
 	/******** File MENU ********/
 	public void newBook(){
 		NewBookUI.display();
@@ -74,17 +82,19 @@ public class UserListUI implements Initializable{
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
-		UserListUI.display(this.getClass());
+		HomeUI.display();
 	}
 	public void booksMenuAction(){
 		BooksUI.display();
 	}
 	public void usersMenuAction() {
-		// User view call
-		System.out.println("Example: User button clicked");
+		UserListUI.display();
 	}
 	public void openDelayedBooks() {
 		DelayedBook.display();
+	}	
+	public void openRegister() {
+		RegisterUserUI.display();
 	}
 	
 	

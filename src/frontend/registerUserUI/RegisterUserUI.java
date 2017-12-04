@@ -1,4 +1,4 @@
-package frontend;
+package frontend.registerUserUI;
 
 import java.io.File;
 
@@ -8,37 +8,29 @@ import java.io.File;
  * phone number, zip code, street and city.
  * @author Tihana Causevic
  */
+import frontend.*;
+import frontend.bookViewUI.BookViewUI;
+import frontend.emptyTemplateUI.*;
+import frontend.homeUI.HomeUI;
+import frontend.userListUI.UserListUI;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import DelayedBooks.DelayedBook;
-import javafx.event.ActionEvent;
+import frontend.booksUI.*;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import newbook.gui.javafx.NewBookUI;
+import program.Book;
 import program.User;
-
-
-/**
- * Empty template on how to initialize a 
- *
- */
 
 public class RegisterUserUI implements Initializable{
 	private static VBox root;
@@ -65,10 +57,10 @@ public class RegisterUserUI implements Initializable{
 	}
 	
 	public static void display() {
+		Class context = RegisterUserUI.class;
 		try {
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
-			URL url = new File("src/frontend/RegisterUserUI.fxml").toURI().toURL();
-			VBox userView = (VBox)FXMLLoader.load(url); 
+			VBox userView = (VBox)FXMLLoader.load(context.getResource("RegisterUserUI.fxml")); 
 			userScene = new Scene(userView,1192,650);
 			userScene.getStylesheets().add(MainWindow.css);
 
@@ -99,6 +91,7 @@ public class RegisterUserUI implements Initializable{
 	}
 
 	
+	
 	/******** File MENU ********/
 	public void newBook(){
 		NewBookUI.display();
@@ -109,20 +102,19 @@ public class RegisterUserUI implements Initializable{
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
-		RegisterUserUI.display();
-	}
-	public void openRegister() {
-		RegisterUserUI.display();
+		HomeUI.display();
 	}
 	public void booksMenuAction(){
 		BooksUI.display();
 	}
 	public void usersMenuAction() {
-		// User view call
-		System.out.println("Example: User button clicked");
+		UserListUI.display();
 	}
 	public void openDelayedBooks() {
 		DelayedBook.display();
+	}	
+	public void openRegister() {
+		RegisterUserUI.display();
 	}
 	
 	

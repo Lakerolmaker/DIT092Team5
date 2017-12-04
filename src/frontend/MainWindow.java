@@ -1,7 +1,9 @@
 package frontend;
 
 import java.net.URL;
-
+import frontend.userListUI.*;
+import frontend.emptyTemplateUI.*;
+import frontend.homeUI.HomeUI;
 import DelayedBooks.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -49,8 +51,7 @@ public class MainWindow extends Application {
 		}
 		
 		// Show first page
-		// TODO: Change to home view when it's created
-		EmptyTemplateUI.display();
+		HomeUI.display();
 
 	}
 	

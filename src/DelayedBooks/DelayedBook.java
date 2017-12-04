@@ -3,7 +3,7 @@ package DelayedBooks;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-
+import frontend.emptyTemplateUI.*;
 import frontend.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +24,6 @@ public class DelayedBook{
 		public static void display() {
 	
 			try {
-				
 				URL url = new File("src/DelayedBooks/DelayedBook.fxml").toURI().toURL();
 				VBox bookView = (VBox)FXMLLoader.load(url);
 				scene = new Scene(bookView,1192,650);
