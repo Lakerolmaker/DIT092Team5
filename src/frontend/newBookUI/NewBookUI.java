@@ -1,4 +1,4 @@
-package newbook.gui.javafx;
+package frontend.newBookUI;
 
 
 
@@ -30,10 +30,11 @@ public class NewBookUI implements Initializable{
 	}
 	
 	public static void display() {
+		Class context = NewBookUI.class;
 		window = new Stage();
 		try {
-			URL url = new File("src/newbook/gui/javafx/NewBook.fxml").toURI().toURL();
-			AnchorPane homeView = (AnchorPane)FXMLLoader.load(url); 
+			//URL url = new File("src/newbook/gui/javafx/NewBook.fxml").toURI().toURL();
+			AnchorPane homeView = (AnchorPane)FXMLLoader.load(context.getResource("NewBook.fxml")); 
 			scene = new Scene(homeView);
 			scene.getStylesheets().add(MainWindow.css);
 		

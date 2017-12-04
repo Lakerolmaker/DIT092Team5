@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
-import newbook.gui.javafx.NewBookUI;
+import frontend.newBookUI.*;
 import frontend.delayedBooksUI.*;
 import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
