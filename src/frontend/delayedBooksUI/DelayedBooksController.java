@@ -1,4 +1,4 @@
-package DelayedBooks;
+package frontend.delayedBooksUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;

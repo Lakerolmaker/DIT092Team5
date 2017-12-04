@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import frontend.*;
-import DelayedBooks.DelayedBook;
+import frontend.delayedBooksUI.*;
 import frontend.bookViewUI.BookViewUI;
 import frontend.booksUI.*;
 import frontend.emptyTemplateUI.EmptyTemplateUI;

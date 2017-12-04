@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
-import DelayedBooks.DelayedBook;
+import frontend.delayedBooksUI.*;
 import frontend.booksUI.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
