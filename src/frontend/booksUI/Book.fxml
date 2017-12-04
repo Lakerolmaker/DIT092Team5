@@ -135,7 +135,7 @@
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="basketList" layoutX="3.0" layoutY="246.0" opacity="0.63" prefHeight="200.0" prefWidth="284.0" style="-fx-background-color: f4f4f4;">
+                                    <ListView fx:id="basketList" layoutX="-4.0" layoutY="257.0" onMouseClicked="#basketListClick" opacity="0.63" prefHeight="200.0" prefWidth="284.0" style="-fx-background-color: f4f4f4;" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="4.0">
                                        <effect>
                                           <InnerShadow />
                                        </effect>
@@ -143,7 +143,10 @@
                                           <Insets />
                                        </opaqueInsets>
                                     </ListView>
-                                    <Text fx:id="basketText" layoutX="26.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Basket" />
+                                    <Text fx:id="basketText" fill="#0000001a" layoutX="82.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Basket">
+                                       <font>
+                                          <Font name="EXCESS" size="36.0" />
+                                       </font></Text>
                                     <Button fx:id="loanBtn" layoutX="202.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#loanBtnClicked" prefHeight="31.0" prefWidth="74.0" text="Loan" />
                                     <TextField fx:id="userIdField" layoutX="115.0" layoutY="177.0" prefHeight="31.0" prefWidth="70.0" />
                                     <Button fx:id="goBtn" layoutX="203.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#goBtnClicked" prefHeight="31.0" prefWidth="73.0" text="Go" />
@@ -158,6 +161,8 @@
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="basketQtyText" fill="#000000a6" layoutX="8.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qty" />
+                                    <Text fx:id="basketTitleText" fill="#000000a6" layoutX="105.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" />
                                  </children>
                               </AnchorPane>
                            </items>

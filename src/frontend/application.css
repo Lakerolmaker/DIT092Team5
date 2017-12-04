@@ -39,3 +39,11 @@
 #booktable {
 	-fx-font-size: 16px;
 }
+
+#bookTitleBasket {
+	-fx-font-size: 18px;
+}
+
+#bookIsbnBasket {
+	-fx-text-fill: transparent;
+}

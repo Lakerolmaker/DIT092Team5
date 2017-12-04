@@ -24,7 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.Light.Point;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import newbook.gui.javafx.NewBookUI;
+import frontend.newBookUI.*;
 import program.Book;
 
 public class DelayedBooksController {

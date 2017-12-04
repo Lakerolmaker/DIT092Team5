@@ -17,7 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import newbook.gui.javafx.NewBookUI;
+import frontend.newBookUI.*;
 import program.Book;
 
 
@@ -97,8 +97,5 @@ public class BookViewUI implements Initializable{
 	public void openRegister() {
 		RegisterUserUI.display();
 	}
-
-
-	
 
 }
