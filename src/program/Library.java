@@ -33,8 +33,12 @@ public class Library {
 				return;
 			}
 		}
-		Book newbook = new Book(isbn, title, author, year, category, shelf, qty);
-		bookDirectory.add(newbook);
+		try {
+			Book newbook = new Book(isbn, title, author, year, category, shelf, qty);
+			bookDirectory.add(newbook);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 	/** Remove book from library */

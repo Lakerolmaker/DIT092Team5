@@ -30,7 +30,8 @@ public class Book {
 
 	static private AtomicInteger idGen = new AtomicInteger();
 
-	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity) {
+	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity) throws Exception {
+//		throw new Exception("isbn has invalid format");
 		this.id = idGen.incrementAndGet();
 		this.isbn = isbn;
 		this.title = title;
