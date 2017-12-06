@@ -451,7 +451,8 @@ public class BooksUI implements Initializable {
 		for (int i = user.getBookList().size() - 1 ; i >= 0 ; i--) {
 			MainWindow.lib.returnBook(user, user.getBookList().get(i));
 		}
-		System.out.println("All books returned for + " + user.getName());
+		
+		System.out.println("All books returned for : " + user.getName());
 		display();
 	}
 

@@ -29,6 +29,9 @@ public class DelayedBook{
 				scene = new Scene(bookView,1192,650);
 				scene.getStylesheets().add(MainWindow.css);
 				
+				
+				
+				
 				MainWindow.window.setScene(scene);
 				MainWindow.window.show();
 

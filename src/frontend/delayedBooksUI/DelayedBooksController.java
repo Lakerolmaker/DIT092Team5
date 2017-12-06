@@ -3,6 +3,9 @@ package frontend.delayedBooksUI;
 import java.awt.MouseInfo;
 import java.awt.PointerInfo;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import frontend.emptyTemplateUI.*;
@@ -25,7 +28,10 @@ import javafx.scene.effect.Light.Point;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import frontend.newBookUI.*;
+import frontend.registerUserUI.RegisterUserUI;
 import program.Book;
+import program.User;
+import sun.util.resources.LocaleData;
 
 public class DelayedBooksController {
 
@@ -35,8 +41,10 @@ public class DelayedBooksController {
 	@FXML public TableColumn<DelayedPerson, String> NameColumn;
 	@FXML public TableColumn<DelayedPerson, Double > debtColumn;
 	@FXML public TableColumn<DelayedPerson, Integer>  userIdColumn; 
+	@FXML public TableColumn<DelayedPerson, String>  dateLoanedColumn; 
 	
 	private ContextMenu cm = new ContextMenu();
+	DelayedPerson selectedBook;
 	 
 	public void initialize() {
 		
@@ -44,9 +52,10 @@ public class DelayedBooksController {
 		NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 		debtColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 		userIdColumn.setCellValueFactory(new PropertyValueFactory<>("debt"));
+		dateLoanedColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-		delayedBook.setItems(getBooks());
 		
+
 			MenuItem mi1 = new MenuItem("Go to User");
 	        	MenuItem mi2 = new MenuItem("Go to Book");
 	        cm.getItems().add(mi1);
@@ -56,18 +65,33 @@ public class DelayedBooksController {
 	        mi2.setOnAction(e -> System.out.println("Delete"));
 	        cm.setAutoHide(true);
 	        cm.setHideOnEscape(true);
-		
+	        
+	    	delayedBook.setItems(getBooks());
+	    	
+		System.out.println("hello");
 	}
 	
 	// Return list of books
 	public ObservableList<DelayedPerson> getBooks() {
 		ObservableList<DelayedPerson> persons = FXCollections.observableArrayList();
-		for (Book book : MainWindow.lib.getBookList()) {
+		for (User user : MainWindow.lib.getUserList()) {
 				
-		// TODO check delayed
-		DelayedPerson newdelay = new DelayedPerson(book.getTitle(), "Jacob Olsson", 1, 0.0);
-		persons.add(newdelay);
+			ArrayList<Book> delayedbooks =  user.getDelayedBooks();
 			
+			for (Book book : delayedbooks ) {
+				
+				LocalDate date = user.getBorrowedBookReturnDate(book.getId());
+				System.out.println(date);
+				
+				DelayedPerson newdelay = new DelayedPerson(
+						book.getTitle(),
+						user.getFirstName() + user.getLastName() ,
+						user.getUserId(), 
+						user.getDebt(),
+						date.toString());
+				
+				persons.add(newdelay);
+			}
 		}
 			return persons;
 	}
@@ -76,7 +100,7 @@ public class DelayedBooksController {
 	public void gridLeftCLick() {
 		 if (delayedBook.getSelectionModel().getSelectedItem() != null) { // Check if selected cell contains a book
 			 	
-			 	DelayedPerson selectedBook = delayedBook.getSelectionModel().getSelectedItem();
+			 	selectedBook = delayedBook.getSelectionModel().getSelectedItem();
 	
 		        PointerInfo a = MouseInfo.getPointerInfo();
 		        java.awt.Point b = a.getLocation();
@@ -93,7 +117,6 @@ public class DelayedBooksController {
 		if (cm.isShowing()) {
     			cm.hide(); 
 		}
-		System.out.println("called");
 	}
 	
 		
@@ -113,5 +136,8 @@ public class DelayedBooksController {
 		}
 		public void usersMenuAction() {
 			UserListUI.display();
-		}	
+		}
+		public void openRegister() {
+			RegisterUserUI.display();
+		}
 }

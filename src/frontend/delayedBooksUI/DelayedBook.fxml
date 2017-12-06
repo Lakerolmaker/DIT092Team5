@@ -111,7 +111,7 @@
               <children>
                <Label fx:id="topMenu1" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="170.0" style="&#10;" text="Delayed Books" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                         <Group layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0" />
-                        <TableView fx:id="delayedBook" layoutX="29.0" layoutY="85.0" onContextMenuRequested="#gridLeftCLick" onMousePressed="#gridClick" prefHeight="382.0" prefWidth="661.0">
+                        <TableView fx:id="delayedBook" layoutX="29.0" layoutY="85.0" onContextMenuRequested="#gridLeftCLick" onMousePressed="#gridClick" prefHeight="382.0" prefWidth="878.0">
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
@@ -120,6 +120,7 @@
                               <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name of User" />
                               <TableColumn fx:id="userIdColumn" prefWidth="75.0" text="User ID" />
                               <TableColumn fx:id="debtColumn" prefWidth="75.0" text="Debt Accumulated" />
+                              <TableColumn fx:id="dateLoanedColumn" prefWidth="75.0" text="Date Loaned" />
                            </columns>
                         </TableView>
               </children>
