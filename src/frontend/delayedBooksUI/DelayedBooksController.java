@@ -70,14 +70,17 @@ public class DelayedBooksController {
 	    	
 		System.out.println("hello");
 	}
-	
-	// Return list of books
+	/**
+	 * User class has been rewritten. It don't uses the book's id any more instead it uses the index the book has in the users bookList.
+	 * Commented out to keep the program from errors when calling the view
+	 */
+	// Return list of books TODO:
 	public ObservableList<DelayedPerson> getBooks() {
 		ObservableList<DelayedPerson> persons = FXCollections.observableArrayList();
+		/*
 		for (User user : MainWindow.lib.getUserList()) {
 				
 			ArrayList<Book> delayedbooks =  user.getDelayedBooks();
-			
 			for (Book book : delayedbooks ) {
 				
 				LocalDate date = user.getBorrowedBookReturnDate(book.getId());
@@ -93,7 +96,9 @@ public class DelayedBooksController {
 				persons.add(newdelay);
 			}
 		}
+		*/
 			return persons;
+			
 	}
 	
 	
