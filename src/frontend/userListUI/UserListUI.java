@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import frontend.newBookUI.*;
 import program.Book;
+import userSearchUI.UserSearchUI;
 
 
 /**
@@ -39,7 +40,7 @@ public class UserListUI implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO: Code goes here :)
 		// Example
-		topMenu1.setText("Header Here");
+		//topMenu1.setText("Header Here");
 		
 		
 		
@@ -95,6 +96,11 @@ public class UserListUI implements Initializable{
 	}	
 	public void openRegister() {
 		RegisterUserUI.display();
+	}
+
+	/******** User List Buttons ******/
+	public void seachForUserAction(){
+		UserSearchUI.display();
 	}
 	
 	
