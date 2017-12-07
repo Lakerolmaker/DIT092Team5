@@ -2,6 +2,7 @@ package frontend;
 
 import java.net.URL;
 import frontend.userListUI.*;
+import frontend.userprofileUI.UserProfileUI;
 import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import javafx.application.Application;
@@ -50,8 +51,11 @@ public class MainWindow extends Application {
 		}
 		
 		// Show first page
-		HomeUI.display();
-
+		//HomeUI.display();
+		
+		UserProfileUI.SetUser(lib.getUser(1));
+		UserProfileUI.display();
+		
 	}
 	
 	public Library getLibrary(){

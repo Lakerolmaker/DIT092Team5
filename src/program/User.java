@@ -1,11 +1,7 @@
 package program;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -13,32 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * phone number, street, zip code and city) and getters/setters.
  * @author Tihana Causevic
  */
-
-class BorrowedBooks{
-	Book book;
-	LocalDate date;
-	
-	BorrowedBooks(Book book, LocalDate date){
-		this.book = book;
-		this.date = date;
-	}
-	
-	public void setBook(Book book) {
-		this.book = book;
-	}
-	
-	public Book getBook() {
-		return this.book;
-	}
-	
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-	
-	public LocalDate getDate() {
-		return this.date;
-	}
-}
 
 public class User {
 
@@ -51,8 +21,7 @@ public class User {
 	private String street;
 	private String zipCode;
 	private String city;
-	private ArrayList<Book> books = new ArrayList<>();
-	private ArrayList<BorrowedBooks> bB = new ArrayList<BorrowedBooks>();
+	private ArrayList<LoanInstance> bookList = new ArrayList<>();
 	static AtomicInteger nextId = new AtomicInteger();
 
 	public User(String firstName, String lastName, String ssn, String phoneNr, String street, String zipCode, String city) {
@@ -136,10 +105,10 @@ public class User {
 		this.city = city;
 	}
 
-	public double getDelayfee(int bookID) {
+	public double getDelayfee(int bookListIndex) {
 
 		LocalDate today = LocalDate.now();
-		LocalDate returnDate = getBorrowedBookReturnDate(bookID);
+		LocalDate returnDate = getBorrowedBookReturnDate(bookListIndex);
 
 		double days = today.toEpochDay() - returnDate.toEpochDay();
 
@@ -152,77 +121,62 @@ public class User {
 
 	}
 
-	public LocalDate getBorrowedBookReturnDate(int bookID) {
-
-		for(BorrowedBooks b : bB) {
-			if(b.getBook().getId() == bookID) {
-				System.out.println(b.getDate());
-				return b.getDate();
-			}
-			System.out.println("Book ID: " + b.getBook().getId());
-		}
-		return LocalDate.now();
-
+	public LocalDate getBorrowedBookReturnDate(int bookListIndex) {
+		LocalDate loanDate = bookList.get(bookListIndex).getDate();
+		int loanDays = Library.LOAN_ALLOWANCE;
+		LocalDate returnDate = loanDate.plusDays(loanDays);
+		return returnDate;
 	}
 	
-	public int getDaysLeft(Book book) {
+	public int getDaysLeft(int bookListIndex) {
 		LocalDate today = LocalDate.now();
-		LocalDate returnDate = getBorrowedBookReturnDate(book.getId());
+		LocalDate returnDate = getBorrowedBookReturnDate(bookListIndex);
 		int days = (int) (returnDate.toEpochDay() - today.toEpochDay());
-		
 		return days;
 	}
 	
-	public ArrayList<BorrowedBooks> getBookList() {
-		return bB;
+	public ArrayList<LoanInstance> getBookList() throws Exception {
+		if (bookList == null) {
+			throw new Exception("Users BookList is empty");
+		}else {
+			return bookList;
+		}
 	}
+
 	
 	public void borrowBook(Book book) {
-		LocalDate today = LocalDate.now();
-		this.bB.add(new BorrowedBooks(book, today));
-		
-		for (BorrowedBooks b: bB) {
-			System.out.println(b.getBook().getId());
-		}
-		
-		System.out.println("This book id has been borrowed: " + book.getId());
-		
+		LoanInstance tmp = new LoanInstance(book);
+		bookList.add(tmp);
 		book.loan();
 	}
 	
-	public ArrayList<Book> getDelayedBooks(){
-		ArrayList<Book> temp = new ArrayList<Book>();
-		
-		/*for(int i = 0; i < getBookList().size(); i++) {
-			
-			Book selectedBook = books.get(i);
-			
-			if(getDaysLeft(selectedBook) < 0) {
-				temp.add(selectedBook);
-			}	
-		}*/
-		
-		for (BorrowedBooks b : bB) {
-			if (b.getDate().isAfter(LocalDate.now())) {
-				temp.add(b.getBook());
+	public ArrayList<LoanInstance> getDelayedBooks(){
+		ArrayList<LoanInstance> temp = new ArrayList<>();
+		for (int i = 0; i < bookList.size(); i++) {
+			if(getDaysLeft(i) < 0) {
+				temp.add(bookList.get(i));
 			}
 		}
-		
 		return temp;
 	}
 	
-	/**
-	public void setLendDate(Book book, LocalDate date) {
-		
+	public void setLendDate(int bookListIndex, LocalDate date) {
+		bookList.get(bookListIndex).setDate(date);
 	}
-	**/
+	
 
-	public void removeBorrowedBook(Book book) {
-		for (BorrowedBooks b : bB) {
-			if (b.getBook().getId() == book.getId()) {
-				bB.remove(b);
+	public void removeBorrowedBook(int bookListIndex) {
+		bookList.get(bookListIndex).getBook().returnBook();
+		bookList.remove(bookListIndex);
+	}
+	
+	public ArrayList<Integer> getBookIndex(Book book) {
+		ArrayList<Integer> tmp = new ArrayList<>();
+		for (int i = 0; i < bookList.size(); i++) {
+			if(bookList.get(i).getBook().getIsbn().equals(book.getIsbn())) {
+				tmp.add(i);
 			}
 		}
+		return tmp;
 	}
-
 }
