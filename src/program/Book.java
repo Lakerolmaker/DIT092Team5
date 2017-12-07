@@ -11,6 +11,7 @@ package program;
  * 
 ************************************/
 
+import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Book {
@@ -31,7 +32,28 @@ public class Book {
 	static private AtomicInteger idGen = new AtomicInteger();
 
 	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity) throws Exception {
-//		throw new Exception("isbn has invalid format");
+		
+		if (isbn.length()> 15) {
+			throw new Exception("isbn has invalid format");
+		}
+		
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		if (year > currentYear) {
+			throw new Exception ("Year can not be larger than current year");
+		}
+		
+		if(year < 1) {
+			throw new Exception ("Year can not be less than 1");	
+		}
+		
+		if (shelf < 0 ) {
+			throw new Exception ("The shelf can not be less than 0");
+		}
+		
+		if (quantity < 1) {
+			throw new Exception ("Quantity can not be less than 1");	
+		}
+		
 		this.id = idGen.incrementAndGet();
 		this.isbn = isbn;
 		this.title = title;
