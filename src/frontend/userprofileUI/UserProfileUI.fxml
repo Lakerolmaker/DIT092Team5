@@ -19,7 +19,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.registerUserUI.RegisterUserUI">
+<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.userprofileUI.UserProfileUI">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -108,7 +108,7 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="547.0" prefWidth="1001.0">
               <children>
-                <Label fx:id="topMenu1" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="170.0" style="&#10;" text="RegisterUser" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                <Label fx:id="topMenu1" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="170.0" style="&#10;" text="User Profile" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                         <SplitPane layoutX="707.0" layoutY="-1.0" prefHeight="588.0" prefWidth="292.0" AnchorPane.bottomAnchor="-40.0" AnchorPane.leftAnchor="710.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
                            <items>
                               <AnchorPane prefHeight="562.0" prefWidth="290.0" />
@@ -116,7 +116,7 @@
                         </SplitPane>
                         <Group layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0" />
                         <Button layoutX="55.0" layoutY="441.0" mnemonicParsing="false" onAction="#cancelButtonAction" text="Cancel" />
-                        <Button layoutX="414.0" layoutY="441.0" mnemonicParsing="false" onAction="#submitButtonAction" text="Register" />
+                        <Button layoutX="433.0" layoutY="441.0" mnemonicParsing="false" onAction="#submitButtonAction" text="Save" />
                         <GridPane layoutX="55.0" layoutY="56.0" prefHeight="373.0" prefWidth="419.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -126,6 +126,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -174,6 +175,12 @@
                                  </font>
                               </Label>
                               <TextField fx:id="city" prefHeight="25.0" prefWidth="229.0" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label text="Debt:" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="debt" disable="true" editable="false" prefHeight="25.0" prefWidth="229.0" promptText="Debt" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
               </children>
