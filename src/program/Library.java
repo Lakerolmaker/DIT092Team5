@@ -118,14 +118,21 @@ public class Library {
 	
 	/** Return book **/
 	public void returnBook(User user, Book book) {
-		// TODO: This is temporary (hopefully)
-		for (Book tmp : bookDirectory) {
-			if (tmp.getIsbn().equals(book.getIsbn())) {
-				int index = this.bookDirectory.indexOf(tmp);
-				user.removeBorrowedBook(bookDirectory.get(index));
+		ArrayList<Integer> list = user.getBookIndex(book);
+		if(list.size() == 1) {
+			user.removeBorrowedBook(list.get(0));
+		}else {
+			// User have multiple copies - Returning the copy that was borrowed first
+			int firstToReturn = 0;
+			int daysLeft = user.getDaysLeft(list.get(0));
+			for (int i = 1; i < list.size(); i++) {
+				if (user.getDaysLeft(list.get(i)) < daysLeft) {
+					daysLeft = user.getDaysLeft(list.get(i));
+					firstToReturn = list.get(i);
+				}
 			}
+			user.removeBorrowedBook(firstToReturn);
 		}
-		
 	}
 	
 	public void setLoanAllowance(int value) {

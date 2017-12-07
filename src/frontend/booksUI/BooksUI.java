@@ -2,6 +2,7 @@ package frontend.booksUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -67,6 +68,8 @@ public class BooksUI implements Initializable {
 	@FXML public Text basketQtyText;
 	@FXML public Text basketTitleText;
 	@FXML public CheckBox showOnlyAv;
+	@FXML public Text onlyNumText;
+	@FXML public Text noUserFoundText;
 	
 	private static boolean showOnlyAvailable;
 	private static String searchFieldString = "";
@@ -115,7 +118,16 @@ public class BooksUI implements Initializable {
 		if(Functions.isInt(idStr)) {
 			int id = Integer.parseInt(idStr);
 			MainWindow.user = MainWindow.lib.getUser(id);
-			showSidePanel();
+			if (MainWindow.user != null) {
+				showSidePanel();
+			}else {
+				onlyNumText.setVisible(false);
+				noUserFoundText.setVisible(true);
+			}
+			
+		}else {
+			noUserFoundText.setVisible(false);
+			onlyNumText.setVisible(true);
 		}
 	}
 	
@@ -373,6 +385,8 @@ public class BooksUI implements Initializable {
 	public void showSidePanel(){
 		User user = MainWindow.user;
 		if (user == null) {
+			noUserFoundText.setVisible(false);
+			onlyNumText.setVisible(false);
 			basketQtyText.setVisible(false);
 			basketTitleText.setVisible(false);
 			booksLoaningAmount.setText("");
@@ -391,11 +405,13 @@ public class BooksUI implements Initializable {
 			
 		} else {
 			String bookCount = "";
-			if(user.getBookList() == null) {
-				bookCount = "0";
-			}else {
+			try {
 				bookCount = Integer.toString(user.getBookList().size());
+			}catch (Exception e) {
+				bookCount = "0";
 			}
+			noUserFoundText.setVisible(false);
+			onlyNumText.setVisible(false);
 			basketQtyText.setVisible(true);
 			basketTitleText.setVisible(true);
 			enterIdText.setVisible(false);
@@ -414,6 +430,13 @@ public class BooksUI implements Initializable {
 			updateBasket();
 			
 		}
+	}
+	
+	public void onEnterSearch(ActionEvent event){
+		searchFunc(event);
+	}
+	public void onEnterLogIn() {
+		goBtnClicked();
 	}
 	
 	/******** File MENU ********/
@@ -448,12 +471,20 @@ public class BooksUI implements Initializable {
 	// for DEBUGGING
 	public void returnAllBooks(){
 		User user = MainWindow.user;
-		for (int i = user.getBookList().size() - 1 ; i >= 0 ; i--) {
-			MainWindow.lib.returnBook(user, user.getBookList().get(i));
+		ArrayList<LoanInstance> bookList;
+		try {
+			bookList = user.getBookList();
+			for (int i = bookList.size() - 1 ; i >= 0 ; i--) {
+				MainWindow.lib.returnBook(user, user.getBookList().get(i).getBook());
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-		
+	
 		System.out.println("All books returned for : " + user.getName());
 		display();
+		
 	}
+	
 
 }

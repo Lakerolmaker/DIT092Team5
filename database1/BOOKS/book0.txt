@@ -1,1 +1,1 @@
-{"id":1,"isbn":"9780563528821","title":"Lord of the Rings","author":"Hobbit Writer","year":1990,"category":"Sci Fiction","shelf":1,"quantity":1,"loaned":0}
+{"id":1,"isbn":"9780563528821","title":"Lord of the Rings","author":"Hobbit Writer","year":1990,"category":"Sci Fiction","shelf":1,"quantity":5,"loaned":0}

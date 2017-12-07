@@ -1,1 +1,1 @@
-{"firstName":"James","lastName":"Bond","ssn":"9501019999","userId":1,"debt":0.0,"phoneNr":"0303123456","street":"Fifth Avenue","zipCode":"666666","city":"Los Angeles","books":[{"id":2,"isbn":"9789544464912","title":"Harry Potter","author":"JK Rowling","year":1995,"category":"Sci Fiction","shelf":1,"quantity":1,"loaned":1}],"booksBorrowed":{"0":{"year":2016,"month":12,"day":6}}}
+{"firstName":"James","lastName":"Bond","ssn":"201712059999","userId":1,"debt":0.0,"phoneNr":"123456789","street":"5th Aveneue","zipCode":"99930","city":"Los Angeles","bookList":[]}
