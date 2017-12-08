@@ -1,6 +1,7 @@
 package program;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class LoanInstance {
 	
@@ -10,7 +11,7 @@ public class LoanInstance {
 	
 	public LoanInstance(Book book) {
 		this.book = book;
-		this.date = LocalDate.now();
+		this.date = LocalDate.now().plus(2, ChronoUnit.WEEKS);
 	}
 
 

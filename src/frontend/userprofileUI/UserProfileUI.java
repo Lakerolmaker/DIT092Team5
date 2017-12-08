@@ -14,21 +14,31 @@ import frontend.userListUI.UserListUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import frontend.delayedBooksUI.*;
 import frontend.booksUI.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import frontend.newBookUI.*;
 import frontend.registerUserUI.RegisterUserUI;
+import program.LoanInstance;
 import program.User;
+import program.UserBookList;
 
 public class UserProfileUI implements Initializable{
 
@@ -37,7 +47,7 @@ public class UserProfileUI implements Initializable{
 		private static User tmpuser;
 		
 		@FXML private Label topMenu1; // Link to the fx:id in scenebuilder
-		@FXML private TextField fName;
+		@FXML private TextField fName; 
 		@FXML private TextField lName;
 		@FXML private TextField SSN;
 		@FXML private TextField phoneNr;
@@ -45,6 +55,9 @@ public class UserProfileUI implements Initializable{
 		@FXML private TextField street;
 		@FXML private TextField city;
 		@FXML private TextField debt;
+		@FXML private TableView<UserBookList> borrowedBooks;
+		@FXML private Label booksBorrowed;
+		@FXML private Button edit;
 		
 		public static void SetUser(User user) {
 			tmpuser = user;
@@ -61,6 +74,36 @@ public class UserProfileUI implements Initializable{
 			street.setText(tmpuser.getStreet());
 			city.setText(tmpuser.getCity());
 			debt.setText(tmpuser.getDebt() + "");
+			
+			try {
+				ObservableList<UserBookList> b = FXCollections.observableArrayList();
+				for(LoanInstance book : tmpuser.getBookList()) {
+					b.add(new UserBookList(book));
+				}
+				
+				System.out.println(tmpuser.getBookList().size());
+				
+				borrowedBooks.setItems(b);
+				
+				TableColumn titleCol = new TableColumn("Title");
+				titleCol.setMinWidth(210);
+		        titleCol.setCellValueFactory(
+		                new PropertyValueFactory<UserBookList, String>("title"));
+		        
+		        TableColumn authorCol = new TableColumn("Author");
+				authorCol.setMinWidth(120);
+		        authorCol.setCellValueFactory(
+		                new PropertyValueFactory<UserBookList, String>("author"));
+		        
+		        TableColumn dateCol = new TableColumn("Date");
+				dateCol.setMinWidth(50);
+		        dateCol.setCellValueFactory(
+		                new PropertyValueFactory<UserBookList, LocalDate>("date"));
+		         
+		        borrowedBooks.getColumns().addAll(titleCol, authorCol, dateCol);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		public static void display() {
@@ -85,7 +128,7 @@ public class UserProfileUI implements Initializable{
 		@FXML
 		public void submitButtonAction(Event event)
 		{
-			if(!fName.getText().equals("") || !lName.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
+			if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
 				tmpuser = new User(fName.getText(), lName.getText(), SSN.getText(), phoneNr.getText(), street.getText(), zCode.getText(), city.getText());
 			}else {
 				JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
@@ -98,6 +141,16 @@ public class UserProfileUI implements Initializable{
 			EmptyTemplateUI.display(); // displays the empty template (instead of the home screen, for now)
 		}
 
+		@FXML
+		public void editButtonClick(Event event) {
+			fName.setDisable(false);
+			lName.setDisable(false);
+			SSN.setDisable(false);
+			phoneNr.setDisable(false);
+			street.setDisable(false);
+			city.setDisable(false);
+			zCode.setDisable(false);
+		}
 		
 		
 		/******** File MENU ********/

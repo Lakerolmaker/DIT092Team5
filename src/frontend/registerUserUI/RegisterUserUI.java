@@ -29,10 +29,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import frontend.newBookUI.*;
-import program.Book;
-import program.User;
+import program.*;
 
 public class RegisterUserUI implements Initializable{
+	private static Library lib = new Library("database1");
 	private static VBox root;
 	private static Scene userScene;
 	private static User user;
@@ -77,8 +77,13 @@ public class RegisterUserUI implements Initializable{
 	@FXML
 	public void submitButtonAction(Event event)
 	{
-		if(!fName.getText().equals("") || !lName.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
-			user = new User(fName.getText(), lName.getText(), SSN.getText(), phoneNr.getText(), street.getText(), zCode.getText(), city.getText());
+		if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
+			try {
+				lib.addUser(fName.getText(), lName.getText(), SSN.getText(), phoneNr.getText(), street.getText(), zCode.getText(), city.getText());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else {
 			JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
 		}

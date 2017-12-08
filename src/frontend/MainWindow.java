@@ -1,10 +1,13 @@
 package frontend;
 
 import java.net.URL;
+import java.time.LocalDate;
+
 import frontend.userListUI.*;
 import frontend.userprofileUI.UserProfileUI;
 import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
+import frontend.registerUserUI.RegisterUserUI;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -24,12 +27,10 @@ public class MainWindow extends Application {
 	public static void main(String[] args) {
 		lib.load();		
 		launch(args);
-
-
 	}
 	
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage){
 		
 		//: Adds the css file to a variabel.
 		URL cssURL = this.getClass().getResource("application.css");
@@ -53,8 +54,20 @@ public class MainWindow extends Application {
 		// Show first page
 		//HomeUI.display();
 		
-		UserProfileUI.SetUser(lib.getUser(1));
-		UserProfileUI.display();
+		User u = lib.getUser(1);  //testing
+		try {
+			Book b = new Book("00000000", "title2", "author", 7, "category", 5, 8);
+			u.borrowBook(b);
+			//u.setLendDate(b.getId(), LocalDate.of(2018, 1, 1));
+			//u.borrowBook(new Book ("John", "Doe", "",1, "", 2, 7));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    UserProfileUI.SetUser(u);
+		UserProfileUI.display(); 
+		
+		//RegisterUserUI.display();
 		
 	}
 	
