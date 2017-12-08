@@ -29,6 +29,7 @@ import userSearchUI.UserSearchUI;
  *
  */
 
+// NADJA is awesome"!
 public class UserListUI implements Initializable{
 	private static VBox root;
 	private static Scene emptyTemplate;
