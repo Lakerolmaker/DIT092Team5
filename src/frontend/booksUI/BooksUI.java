@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
+import javafx.util.Callback;
 import frontend.newBookUI.*;
 import frontend.delayedBooksUI.*;
 import frontend.homeUI.HomeUI;
@@ -19,6 +20,7 @@ import frontend.registerUserUI.*;
 import frontend.userListUI.*;
 import frontend.bookViewUI.*;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,10 +32,14 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import program.*;
@@ -47,6 +53,7 @@ public class BooksUI implements Initializable {
 	@FXML public TableColumn<Book, String> yearColumn;
 	@FXML public TableColumn<Book, String> isbnColumn;
 	@FXML public TableColumn<Book, String> qtyAvColumn;
+	@FXML public TableColumn<Button, String> loanActCol;
 	@FXML public TextField searchField;
 	@FXML public Label menuHome;
 	@FXML public Label menuBooks;
@@ -70,6 +77,8 @@ public class BooksUI implements Initializable {
 	@FXML public CheckBox showOnlyAv;
 	@FXML public Text onlyNumText;
 	@FXML public Text noUserFoundText;
+	@FXML public ImageView logoImage;
+	@FXML public Button loanActionBtn;
 	
 	private static boolean showOnlyAvailable;
 	private static String searchFieldString = "";
@@ -84,6 +93,8 @@ public class BooksUI implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Image logo = new Image("resources/logo.png");
+		logoImage.setImage(logo);
 		showOnlyAv.setSelected(showOnlyAvailable);
 		showOnlyAv.setOnAction(e -> {
 			showOnlyAvailable = showOnlyAv.isSelected();
@@ -101,6 +112,14 @@ public class BooksUI implements Initializable {
 		
 		if(MainWindow.user == null) {
 			newBasket();
+		}else {
+			try {
+				ArrayList<LoanInstance> loanList = MainWindow.user.getBookList();
+				
+			}catch  (Exception e){
+				// User is not currently loaning any books
+			}
+			
 		}
 		
  		try {
@@ -188,21 +207,62 @@ public class BooksUI implements Initializable {
 		yearColumn = new TableColumn<>("Year");
 		yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
 		yearColumn.setMaxWidth(2500);
+		yearColumn.setStyle("-fx-alignment: CENTER;");
 		// ISBN column
 		isbnColumn = new TableColumn<>("ISBN");
 		isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-		isbnColumn.setMaxWidth(4000);
+		isbnColumn.setMaxWidth(4500);
+		isbnColumn.setStyle("-fx-alignment: CENTER;");
 		// Available quantity
 		qtyAvColumn = new TableColumn<>("Available");
 		qtyAvColumn.setCellValueFactory(c-> new SimpleStringProperty(Integer.toString(c.getValue().getAvailableQuantity())));
-		qtyAvColumn.setMaxWidth(3000);
+		qtyAvColumn.setMaxWidth(2500);
 		qtyAvColumn.setId("qtyAvColumn");
 		qtyAvColumn.setStyle("-fx-alignment: CENTER;");
+		// Loan column
 
+        TableColumn loanActCol = new TableColumn("");
+        loanActCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+        Callback<TableColumn<Book, String>, TableCell<Book, String>> cellFactory
+                = 
+                new Callback<TableColumn<Book, String>, TableCell<Book, String>>() {
+            @Override
+            public TableCell call(final TableColumn<Book, String> param) {
+                final TableCell<Book, String> cell = new TableCell<Book, String>() {
+
+                    final Button loanActionBtn = new Button("Loan");
+                    
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                        	
+                            loanActionBtn.setOnAction(event -> {
+                                Book book = getTableView().getItems().get(getIndex());
+                                addToBasket(book);
+                            });
+                            loanActionBtn.setId("loanActionBtn");
+                            setGraphic(loanActionBtn);
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        loanActCol.setCellFactory(cellFactory);
+        loanActCol.setStyle("-fx-alignment: CENTER;");
+        loanActCol.setMaxWidth(2000);
 
 		
 		tableBook.setItems(getBooks());
-		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn);
+		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn, loanActCol);
 	}
 
 	/** Book List Table click functions **/
@@ -251,7 +311,14 @@ public class BooksUI implements Initializable {
 				HBox hBox = (HBox) basketList.getSelectionModel().getSelectedItem();
 				ObservableList list =  hBox.getChildren();
 				Text txt1 = (Text) list.get(0);
-				int qty = Integer.parseInt((txt1.getText()));
+				String tmpQty = txt1.getText().substring(0, 2);
+				int tmpQty2 = 0;
+				if (Functions.isInt(tmpQty)) {
+					tmpQty2 = Integer.parseInt(tmpQty);
+				}else {
+					tmpQty2 = Integer.parseInt(tmpQty.substring(0, 1));
+				}
+				final int qty = tmpQty2;
 				Label lbl1 = (Label) list.get(1);
 				String title = lbl1.getText();
 				Label lbl2 = (Label) list.get(2);
@@ -325,9 +392,15 @@ public class BooksUI implements Initializable {
 		for (Entry<Book, Integer> book : booksInBasket.entrySet()) {
 			Label isbn = new Label(book.getKey().getIsbn());
 			isbn.setId("bookIsbnBasket");
-			Label title = new Label(book.getKey().getTitle());
-			title.setId("bookTitleBasket");
-			HBox hBox = new HBox(new Text(book.getValue().toString()), title, isbn);
+			
+			String title = book.getKey().getTitle();
+			if (title.length() > 20) {
+				title = title.substring(0, 20) + "...";
+			}
+			Label titleLabel = new Label(title);
+			
+			titleLabel.setId("bookTitleBasket");
+			HBox hBox = new HBox(new Text(book.getValue().toString() + "pcs"), titleLabel, isbn);
 			hBox.setSpacing(15);
 			basketList.getItems().add(hBox);
 		}
@@ -445,6 +518,9 @@ public class BooksUI implements Initializable {
 	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
+	}
+	public void saveMenuBtnClick() {
+		MainWindow.lib.save();
 	}
 	
 	/******** Main menu ********/

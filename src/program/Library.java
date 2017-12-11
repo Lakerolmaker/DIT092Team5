@@ -161,6 +161,7 @@ public class Library {
 	public void save() {
 		DatabaseHelper db = new DatabaseHelper();
 		db.saveLibrary(this);
+		System.out.println("Session saved");
 	
 	}
 	/** Load library **/

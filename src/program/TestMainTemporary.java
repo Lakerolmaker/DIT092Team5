@@ -10,14 +10,40 @@ public class TestMainTemporary {
 
 	public static void main(String[] args) {
 		lib.load();
+		
+		/*
+		try {
+			lib.addBook("9780563528821", "Lord of the Rings", "Hobbit Writer", 1990, "Sci Fiction", 1, 2);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		lib.save();
+		*/
+		/*
+		
+		try {
+			lib.addUser("James", "Bond", "201712059999", "123456789","5th Aveneue" , "99930", "Los Angeles");
+		}catch (Exception e) {
+			e.getMessage();
+		}
+		lib.save();
+		
+		 */
 
 		Book tmpBook = lib.findBookByIsbn("9789544464912");
 		System.out.println(tmpBook.getTitle() + ": Available quantity " + tmpBook.getAvailableQuantity());
 
-		User user1 = lib.findUser("9301019999");
-		System.out.println(user1.getName() + "  currently loaning " + user1.getBookList().size() + " books.");
-	
+		User user1 = lib.findUser("201712059999");
+		try {
+			System.out.println(user1.getName() + "  currently loaning " + user1.getBookList().size() + " books.");
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
+		user1.borrowBook(tmpBook);
+		//lib.save();
+		/*
 		try {
 			lib.loanBook(user1, tmpBook);
 			System.out.println(user1.getName() + " loaned " + tmpBook.getTitle());
