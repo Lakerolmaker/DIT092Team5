@@ -16,8 +16,10 @@ public class DatabaseHelper {
 	private static Gson gson = new Gson();
 	private ArrayList<User> userDirectory;
 	private ArrayList<Book> bookDirectory;
-	private int LOAN_ALLOWANCE = 14;
-	
+	private int LOAN_ALLOWANCE;
+	private int ID;
+
+
 	public DatabaseHelper() {
 		userDirectory = new ArrayList<User>();
 		bookDirectory = new ArrayList<Book>();
@@ -63,13 +65,21 @@ public class DatabaseHelper {
 			}
 		}
 		
-		String fileName = "LOAN_ALLOWANCE";
-		String directory = libDir;
-		String loanValue = file.readFromTextFile( fileName , directory );
+		String LOANfileName = "LOAN_ALLOWANCE";
+		String LOANdirectory = libDir;
+		String loanValue = file.readFromTextFile( LOANfileName , LOANdirectory );
 		LOAN_ALLOWANCE = Integer.parseInt(loanValue);
+		
+		
+		String IDfileName = "ID";
+		String IDdirectory = libDir;
+		String IDValue = file.readFromTextFile( IDfileName , IDdirectory);
+		ID = Integer.parseInt(IDValue);
+		
 		
 		System.out.println(("Books : " + indexBook));
 		System.out.println(("Users : " + indexUSer));
+		System.out.println(("Loan Allowance : " + LOAN_ALLOWANCE));
 		
 	}
 
@@ -103,11 +113,19 @@ public class DatabaseHelper {
 			
 		}
 		
-		String value = String.valueOf(lib.getLoanAllowance());
+		String value = String.valueOf(LOAN_ALLOWANCE);
 		String fileName = "LOAN_ALLOWANCE";
 		String directory = libDir;
 		file.createTextFile(fileName , directory);
 		file.writeToTextFile(fileName  ,value , directory);
+		
+		String IDvalue = String.valueOf(ID);
+		String IDName = "ID";
+		String IDdirectory = libDir;
+		file.createTextFile(IDName , IDdirectory);
+		file.writeToTextFile(IDName  ,IDvalue , IDdirectory);
+		
+		
 	}
 	
 	public boolean deleteDatabase(String LibraryID) {
@@ -130,4 +148,15 @@ public class DatabaseHelper {
 		return LOAN_ALLOWANCE;
 	}
 
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public void setLOAN_ALLOWANCE(int lOAN_ALLOWANCE) {
+		LOAN_ALLOWANCE = lOAN_ALLOWANCE;
+	}
 }

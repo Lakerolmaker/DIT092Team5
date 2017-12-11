@@ -187,4 +187,12 @@ public class User {
 		}
 		return tmp;
 	}
+
+	public static AtomicInteger getNextId() {
+		return nextId;
+	}
+
+	public static void setNextId(AtomicInteger nextId) {
+		User.nextId = nextId;
+	}
 }
