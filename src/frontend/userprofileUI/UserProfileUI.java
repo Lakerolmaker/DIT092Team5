@@ -59,10 +59,6 @@ public class UserProfileUI implements Initializable{
 		@FXML private Label booksBorrowed;
 		@FXML private Button edit;
 		
-		public static void SetUser(User user) {
-			tmpuser = user;
-		}
-		
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			
@@ -106,14 +102,14 @@ public class UserProfileUI implements Initializable{
 			}
 		}
 		
-		public static void display() {
+		public static void display(User user) {
+			tmpuser = user;
 			Class context = UserProfileUI.class;
 			try {
 				// This is the scene that is going to be shown inside the window ( Main window in this case )
 				VBox userView = (VBox)FXMLLoader.load(context.getResource("UserProfileUI.fxml")); 
 				userScene = new Scene(userView,1192,650);
 				userScene.getStylesheets().add(MainWindow.css);
-				
 
 				// Set the main window to show this scene
 				MainWindow.window.setScene(userScene);
