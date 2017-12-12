@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import frontend.MainWindow;
+
 /**
  * Description: User class with attributes (first name, last name, ssn, user ID (library card number), dept, 
  * phone number, street, zip code and city) and getters/setters.
@@ -164,9 +166,15 @@ public class User {
 		bookList.get(bookListIndex).setDate(date);
 	}
 	
-
+	
 	public void removeBorrowedBook(int bookListIndex) {
-		bookList.get(bookListIndex).getBook().returnBook();
+		Book book = bookList.get(bookListIndex).getBook();
+		ArrayList<Book> mainBookList = MainWindow.lib.getBookList();
+		for (Book tmpBook : mainBookList) {
+			if (tmpBook.getIsbn().equals(book.getIsbn())) { 
+				tmpBook.returnBook();
+			}
+		}
 		bookList.remove(bookListIndex);
 	}
 	
@@ -178,5 +186,13 @@ public class User {
 			}
 		}
 		return tmp;
+	}
+
+	public static AtomicInteger getNextId() {
+		return nextId;
+	}
+
+	public static void setNextId(AtomicInteger nextId) {
+		User.nextId = nextId;
 	}
 }

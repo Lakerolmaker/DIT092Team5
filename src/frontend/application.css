@@ -49,3 +49,31 @@
 	-fx-font-size: 1px;
 }
 
+#loanActionBtn {
+	    -fx-background-color: 
+        #3c7fb1,
+        linear-gradient(#fafdfe, #e8f5fc),
+        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 3 10 3 10;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+#loanActionBtn:hover {
+	    -fx-background-color: 
+        #fafdfe,
+        linear-gradient(#e8f5fc, #3c7fb1),
+        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 3 10 3 10;
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+}
+#loanActionBtn:pressed {
+	    -fx-font-size: 15px;
+}
+
+

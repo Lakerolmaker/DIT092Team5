@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.userListUI.UserListUI;
+import frontend.userprofileUI.UserProfileUI;
 import frontend.MainWindow;
 import frontend.booksUI.*;
 import javafx.collections.FXCollections;
@@ -30,6 +31,7 @@ import javafx.scene.text.Text;
 import frontend.newBookUI.*;
 import frontend.registerUserUI.RegisterUserUI;
 import program.Book;
+import program.LoanInstance;
 import program.User;
 import sun.util.resources.LocaleData;
 
@@ -44,7 +46,7 @@ public class DelayedBooksController {
 	@FXML public TableColumn<DelayedPerson, String>  dateLoanedColumn; 
 	
 	private ContextMenu cm = new ContextMenu();
-	DelayedPerson selectedBook;
+	DelayedPerson selectedPerson;
 	 
 	public void initialize() {
 		
@@ -61,14 +63,17 @@ public class DelayedBooksController {
 	        cm.getItems().add(mi1);
 	        cm.getItems().add(mi2);
 	      
-	        mi1.setOnAction(e -> System.out.println("loan"));
+	        mi1.setOnAction(e -> {
+	        	User forwardUser = MainWindow.lib.getUser(selectedPerson.getUserId());
+	        	UserProfileUI.SetUser(forwardUser);
+	        	UserProfileUI.display();
+	        });
 	        mi2.setOnAction(e -> System.out.println("Delete"));
 	        cm.setAutoHide(true);
 	        cm.setHideOnEscape(true);
 	        
 	    	delayedBook.setItems(getBooks());
-	    	
-		System.out.println("hello");
+	    
 	}
 	/**
 	 * User class has been rewritten. It don't uses the book's id any more instead it uses the index the book has in the users bookList.
@@ -77,15 +82,15 @@ public class DelayedBooksController {
 	// Return list of books TODO:
 	public ObservableList<DelayedPerson> getBooks() {
 		ObservableList<DelayedPerson> persons = FXCollections.observableArrayList();
-		/*
+		
 		for (User user : MainWindow.lib.getUserList()) {
 				
-			ArrayList<Book> delayedbooks =  user.getDelayedBooks();
-			for (Book book : delayedbooks ) {
+			ArrayList<LoanInstance> delayedbooks =  user.getDelayedBooks();
+			for (LoanInstance loanInst : delayedbooks ) {
+				Book book =  loanInst.getBook();
 				
-				LocalDate date = user.getBorrowedBookReturnDate(book.getId());
-				System.out.println(date);
-				
+				LocalDate date = loanInst.getDate();
+
 				DelayedPerson newdelay = new DelayedPerson(
 						book.getTitle(),
 						user.getFirstName() + user.getLastName() ,
@@ -96,7 +101,7 @@ public class DelayedBooksController {
 				persons.add(newdelay);
 			}
 		}
-		*/
+		
 			return persons;
 			
 	}
@@ -105,7 +110,7 @@ public class DelayedBooksController {
 	public void gridLeftCLick() {
 		 if (delayedBook.getSelectionModel().getSelectedItem() != null) { // Check if selected cell contains a book
 			 	
-			 	selectedBook = delayedBook.getSelectionModel().getSelectedItem();
+			 	selectedPerson = delayedBook.getSelectionModel().getSelectedItem();
 	
 		        PointerInfo a = MouseInfo.getPointerInfo();
 		        java.awt.Point b = a.getLocation();

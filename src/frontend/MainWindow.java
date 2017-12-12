@@ -24,8 +24,12 @@ public class MainWindow extends Application {
 	public static String css ; 
 	public static User user;
 	
-	public static void main(String[] args) {
-		lib.load();		
+	public static void main(String[] args) throws Exception {
+		lib.load();	
+		
+		
+		lib.addUser("Tihana", "Causevic", "19940306XXX", "0733224433", "almstätts gatan ", "233 33", "göteborg");
+		
 		launch(args);
 	}
 	
@@ -78,7 +82,6 @@ public class MainWindow extends Application {
 	/** Handle's the close program request **/
 	public static void closeProgram() {
 		lib.save(); // Saves library session
-		System.out.println("Session saved");
 		window.close(); // Exiting program
 	}
 }

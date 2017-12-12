@@ -1,5 +1,6 @@
 package program;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.gson.Gson;
 
@@ -155,12 +156,27 @@ public class Library {
 		return this.userDirectory;
 	}
 	
+	
+	public void setID(int newID){
+		AtomicInteger AtomicInteger = new AtomicInteger();
+		AtomicInteger.set(newID);
+		this.userDirectory.get(0).setNextId(AtomicInteger);
+		
+	}
 
+	public int getID(){
+		return this.userDirectory.get(0).getNextId().get();
+	}
+	
+	
 	
 	/** Save library **/
 	public void save() {
 		DatabaseHelper db = new DatabaseHelper();
+		db.setLOAN_ALLOWANCE(LOAN_ALLOWANCE);
+		db.setID(this.getID());
 		db.saveLibrary(this);
+		System.out.println("Session saved");
 	
 	}
 	/** Load library **/
@@ -170,6 +186,7 @@ public class Library {
 		userDirectory = db.getUserList();
 		bookDirectory = db.getBookList();
 		LOAN_ALLOWANCE = db.getLOAN_ALLOWANCE();
+		this.setID(db.getID());
 	}
 
 	//: Removes all items in the library

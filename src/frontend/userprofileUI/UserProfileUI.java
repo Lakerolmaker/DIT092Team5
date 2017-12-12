@@ -83,18 +83,15 @@ public class UserProfileUI implements Initializable{
 				
 				TableColumn titleCol = new TableColumn("Title");
 				titleCol.setMinWidth(210);
-		        titleCol.setCellValueFactory(
-		                new PropertyValueFactory<UserBookList, String>("title"));
+		        titleCol.setCellValueFactory( new PropertyValueFactory<UserBookList, String>("title"));
 		        
 		        TableColumn authorCol = new TableColumn("Author");
 				authorCol.setMinWidth(120);
-		        authorCol.setCellValueFactory(
-		                new PropertyValueFactory<UserBookList, String>("author"));
+		        authorCol.setCellValueFactory(new PropertyValueFactory<UserBookList, String>("author"));
 		        
 		        TableColumn dateCol = new TableColumn("Date");
 				dateCol.setMinWidth(50);
-		        dateCol.setCellValueFactory(
-		                new PropertyValueFactory<UserBookList, LocalDate>("date"));
+		        dateCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("date"));
 		         
 		        borrowedBooks.getColumns().addAll(titleCol, authorCol, dateCol);
 			} catch (Exception e) {
