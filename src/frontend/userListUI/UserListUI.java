@@ -1,4 +1,19 @@
+/*
+@Author: Nadja Kosir
+UI for Directory of users.
+
+1) shows first a table with all users.
+
+options to:
+-search for a user,
+-to see users with debts,
+-to see users with borrowed books.
+
+2) when you click on one user, it opens the UserProfile UI.
+
+*/
 package frontend.userListUI;
+
 
 
         import java.io.IOException;
@@ -68,6 +83,7 @@ public class UserListUI implements Initializable {
     @FXML public Button btnSearch;
     @FXML public Label directoryOfUsers;
     @FXML public Label label2;
+
     @FXML public Button btnShowAllUsers;
     @FXML public Button btnShowUsersWithDebts;
     @FXML public Button btnShowUsersWithBooks;
@@ -91,6 +107,11 @@ public class UserListUI implements Initializable {
         menuBooks.setId("menuBooks");
         menuUsers.setId("menuBooks");
         menuDelayed.setId("menuDelayed");
+
+        try {
+            initTable();
+        }catch (NullPointerException e) {}
+
     }
 
     public static void display() {
@@ -107,9 +128,98 @@ public class UserListUI implements Initializable {
             e.printStackTrace();
         }
     }
+//_____________________________________________________________
+    public void initTable() {                                                       //table - all users
+        createTable();
+        tableUser.setItems(getUsers());
+        tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+    }
 
-    // Initialize table
-    public void initTable() {
+    //_____________________________________________________________                     list - all users
+
+    public ObservableList<User> getUsers() {
+        ObservableList<User> users = FXCollections.observableArrayList();
+            for (User user: MainWindow.lib.getUserList()) {
+             users.add(user); }
+        return users;
+}
+
+//________________________________________________________________________________  list -  users with books
+
+    public ObservableList<User> getUsersWithBooks(){
+        ObservableList<User> usersWithBooks = FXCollections.observableArrayList();
+        try{
+            for (User users: MainWindow.lib.getUserList()){
+                if(users.getBookList().size() > 0 ){
+                    usersWithBooks.add(users);
+                }
+            }
+        } catch (Exception exception){ }
+        return usersWithBooks;
+    }
+    /*
+    public void initTableWithBooks() {
+
+       createTable();
+       tableUserWithBooks.setItems(getUsersWithBooks());
+       tableUserWithBooks.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+     }*/
+    //______________________________________________________________________________ list -  users with debts
+
+    public ObservableList<User> getUsersWithDebts(){
+        ObservableList<User> usersWithDebts = FXCollections.observableArrayList();
+        try{
+            for (User users: MainWindow.lib.getUserList()){
+                if(users.getDebt() > 0 ){
+                    usersWithDebts.add(users);
+                }
+            }
+        } catch (Exception exception){ }
+        return usersWithDebts;
+    }
+
+//_____________________________________________________________________________    button click functions
+
+    public void BtnShowUsersWithBooksClick(MouseEvent event) {                       // btn: users with books
+        // table - with books
+        if (event.getButton() == MouseButton.SECONDARY) {
+            tableUser.setItems(getUsersWithBooks());
+            tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+        }
+    }
+
+
+
+    public void BtnShowAllUsersWithDebtsClick(MouseEvent event) {                    // btn: users with debts
+        // table - with debts
+        if (event.getButton() == MouseButton.SECONDARY) {
+            tableUser.setItems(getUsersWithDebts());
+            tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+        }
+    }
+
+
+     public void BtnShowAllUsersClick(MouseEvent event){                            // btn: all users
+        if (event.getButton() == MouseButton.SECONDARY) {                           // table - all users
+            tableUser.setItems(getUsers());
+            tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+        }
+        }
+
+    // _____________________________________________________________________    table click functions
+    @FXML
+    public void clickItem(MouseEvent event) {
+
+        if (event.getClickCount() == 2) {
+            User selectedUser = tableUser.getSelectionModel().getSelectedItem(); // Retrieve selected cell
+            if (selectedUser != null) {
+                goToUserView(selectedUser);
+            }
+        }
+    }
+
+//__________________________________________________________________________     create a table
+    public void createTable() {
 
         // Name column
         nameColumn = new TableColumn<>("Name");
@@ -137,58 +247,10 @@ public class UserListUI implements Initializable {
         amountDebtColumn = new TableColumn<>("Debt");
         amountDebtColumn.setCellValueFactory(new PropertyValueFactory<>("debt"));
         amountDebtColumn.setStyle("-fx-alignment: CENTER;");
-
-
-       tableUser.setItems(getUsers());
-        tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
-
-    }
-
-    // Return list of users
-    public ObservableList<User> getUsers() {
-        ObservableList<User> users = FXCollections.observableArrayList();
-        for (User user: MainWindow.lib.getUserList()) {
-            users.add(user);
-        }
-
-        return users;
-    }
-
-//TODO!!!
-    public ObservableList<User> getUsersWithBooks(){
-        ObservableList<User> usersWithBooks = FXCollections.observableArrayList();
-        for (User users: MainWindow.lib.getUserList()){
-            if(users.getBookList.size >0 ){
-
-            }
-        }
-
-    }
-
-    //throw away
-    // Return list of users
-    /*public void getUsers() {
-        ArrayList<User> listUsers = new ArrayList();
-        for (User user : MainWindow.lib.getUserList ()){
-
-            listUsers.add(user);
-        }
-    }
-*/
-    // table click functions
-    @FXML
-    public void clickItem(MouseEvent event) {
-
-        if (event.getClickCount() == 2) {
-            User selectedUser = tableUser.getSelectionModel().getSelectedItem(); // Retrieve selected cell
-            if (selectedUser != null) {
-                goToUserView(selectedUser);
-            }
-        }
     }
 
 
-    /******** File MENU ********/
+        /******** File MENU ********/
     public void newBook(){
         NewBookUI.display();
     }
@@ -218,5 +280,6 @@ public class UserListUI implements Initializable {
     public void goToUserView(User user){
         UserProfileUI.display(user);
     }
+
 
 }
