@@ -29,6 +29,17 @@ public class Functions {
 			s1 = s2;
 			s2 = tmp;
 		}
+		if (s1.length() <= 1 && s2.length() <= 1) {
+			return (s1.charAt(0) == s2.charAt(0));
+		}
+		if (s1.length() <= 1) {
+			for (int i = 0; i < s2.length(); i++) {
+				if (s2.charAt(i) == s1.charAt(0)) {
+					return true;
+				}
+			}
+			return false;
+		}
 		double percent = 0;
 		double tmpPercent = compToPercent(s1, s2);
 		if (s1.length() <= s2.length() || s1.length() > 1) {

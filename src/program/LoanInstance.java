@@ -7,13 +7,40 @@ public class LoanInstance {
 	
 	private Book book;
 	private LocalDate date;
+	private LocalDate returnDate;
 	
 	
 	public LoanInstance(Book book) {
 		this.book = book;
-		this.date = LocalDate.now().plus(2, ChronoUnit.WEEKS);
+		this.date = LocalDate.now();
+		this.returnDate = LocalDate.now().plusDays(Library.LOAN_ALLOWANCE);
+	}
+	
+	public LoanInstance(Book book, LocalDate returnDate) throws Exception {
+		this.book = book;
+		this.date = LocalDate.now();
+		setReturnDate(returnDate);
+	}
+	
+	public LocalDate getReturnDate() {
+		return returnDate;
 	}
 
+	public void setReturnDate(LocalDate returnDate) throws Exception {
+		LocalDate now = LocalDate.now();
+		if(returnDate.isAfter(now)) {
+			if (returnDate.isBefore(now.plusDays(Library.LOAN_ALLOWANCE +1))) {
+				this.returnDate = returnDate;
+			}
+			else {
+				throw new Exception("Maximum loan allowance is " + (Library.LOAN_ALLOWANCE) + " days");
+			}
+		}
+		else {
+			throw new Exception("Return date has to be after today.");
+		}
+		
+	}
 
 	public Book getBook() {
 		return book;

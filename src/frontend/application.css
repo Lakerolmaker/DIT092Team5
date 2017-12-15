@@ -1,7 +1,3 @@
-.root {
-     -fx-background-image: url("/resources/images/testbackground.jpg");
-}
-
 #logo-text {
 	-fx-font-size: 48px;
 	-fx-font-family: "Arial Black";
@@ -76,4 +72,10 @@
 	    -fx-font-size: 15px;
 }
 
+#switchUserText:hover {
+		-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 2, 0.0 , 0 , 1 );
+}
+#switchUserText:pressed {
+		-fx-font-size: 14px;
+}
 

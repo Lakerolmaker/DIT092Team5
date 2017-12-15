@@ -2,17 +2,22 @@ package frontend.booksUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
+import javafx.stage.PopupWindow;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import frontend.newBookUI.*;
+import frontend.preferences.PreferencesUI;
 import frontend.delayedBooksUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.MainWindow;
@@ -20,7 +25,6 @@ import frontend.registerUserUI.*;
 import frontend.userListUI.*;
 import frontend.bookViewUI.*;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,14 +33,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,53 +51,60 @@ import program.*;
 
 
 public class BooksUI implements Initializable {
-	
-	@FXML public TableView<Book> tableBook;
-	@FXML public TableColumn<Book, String> titleColumn;
-	@FXML public TableColumn<Book, String> authorColumn;
-	@FXML public TableColumn<Book, String> yearColumn;
-	@FXML public TableColumn<Book, String> isbnColumn;
-	@FXML public TableColumn<Book, String> qtyAvColumn;
-	@FXML public TableColumn<Button, String> loanActCol;
-	@FXML public TextField searchField;
-	@FXML public Label menuHome;
-	@FXML public Label menuBooks;
-	@FXML public Label menuUsers;
-	@FXML public Label menuDelayed;
-	@FXML public Text nameText;
-	@FXML public Text streetText;
-	@FXML public Text cityText;
-	@FXML public Text balanceText;
-	@FXML public Text amountText;
-	@FXML public Text basketText;
-	@FXML public Text booksLoaningText;
-	@FXML public Text booksLoaningAmount;
-	@FXML public ListView<HBox> basketList;
-	@FXML public Button loanBtn;
-	@FXML public Text enterIdText;
-	@FXML public TextField userIdField;
-	@FXML public Button goBtn; 
-	@FXML public Text basketQtyText;
-	@FXML public Text basketTitleText;
-	@FXML public CheckBox showOnlyAv;
-	@FXML public Text onlyNumText;
-	@FXML public Text noUserFoundText;
-	@FXML public ImageView logoImage;
-	@FXML public Button loanActionBtn;
-	
+	private static Scene bookScene;
 	private static boolean showOnlyAvailable;
 	private static String searchFieldString = "";
-	
 	public static HashMap<Book, Integer> booksInBasket;
-	//public static ArrayList<Book> booksInBasket;
+	@FXML private TableView<Book> tableBook;
+	@FXML private TableColumn<Book, String> titleColumn;
+	@FXML private TableColumn<Book, String> authorColumn;
+	@FXML private TableColumn<Book, String> yearColumn;
+	@FXML private TableColumn<Book, String> isbnColumn;
+	@FXML private TableColumn<Book, String> qtyAvColumn;
+	@FXML private TableColumn<Button, String> loanActCol;
+	@FXML private TextField searchField;
+	@FXML private Label menuHome;
+	@FXML private Label menuBooks;
+	@FXML private Label menuUsers;
+	@FXML private Label menuDelayed;
+	@FXML private Text nameText;
+	@FXML private Text streetText;
+	@FXML private Text cityText;
+	@FXML private Text balanceText;
+	@FXML private Text amountText;
+	@FXML private Text basketText;
+	@FXML private Text booksLoaningText;
+	@FXML private Text booksLoaningAmount;
+	@FXML private ListView<HBox> basketList;
+	@FXML private Button loanBtn;
+	@FXML private Text enterIdText;
+	@FXML private TextField userIdField;
+	@FXML private Button goBtn; 
+	@FXML private Text basketQtyText;
+	@FXML private Text basketTitleText;
+	@FXML private CheckBox showOnlyAv;
+	@FXML private Text onlyNumText;
+	@FXML private Text noUserFoundText;
+	@FXML private ImageView logoImage;
+	@FXML private Button loanActionBtn;
+	@FXML private Button cancelBtn;
+	@FXML private Text bookTableStatusBar;
+	@FXML private int showingCounter = 0;
+	@FXML private int totalBooks;
+	@FXML private Text switchUserText;
+	@FXML private Text returnDateText;
+	@FXML private DatePicker datePicker;
+	@FXML private Text dateErrorText;
 	private ContextMenu cm;
 	private ContextMenu cm2;
-	private static Scene bookScene;
+
 	
 
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		switchUserText.setId("switchUserText");
 		Image logo = new Image("resources/logo.png");
 		logoImage.setImage(logo);
 		showOnlyAv.setSelected(showOnlyAvailable);
@@ -102,6 +114,8 @@ public class BooksUI implements Initializable {
 		});
 		
 		searchField.setText(searchFieldString);
+		
+		totalBooks = MainWindow.lib.getBookList().size();
 		
 		menuHome.setId("menuHome");
 		menuBooks.setId("menuBooks");
@@ -130,6 +144,10 @@ public class BooksUI implements Initializable {
 	
 	public void newBasket(){
 		booksInBasket = new HashMap<>();
+		if(MainWindow.user!=null) {
+			basketText.setVisible(true);
+			cancelBtn.setDisable(true);
+		}
 	}
 
 	public void goBtnClicked(){
@@ -156,9 +174,13 @@ public class BooksUI implements Initializable {
 			Class<BooksUI> context = BooksUI.class;
 			VBox bookView = (VBox)FXMLLoader.load(context.getResource("Book.fxml"));
 			bookScene = new Scene(bookView,1192,650);
-			bookScene.getStylesheets().add(MainWindow.css);
+		    bookScene.getStylesheets().add(
+		    	      MainWindow.class.getResource("application.css").toExternalForm()
+		    	    );
+			bookView.getStyleClass().add("bookView");
 			
 			MainWindow.window.setScene(bookScene);
+			//MainWindow.window.setResizable(false);
 			MainWindow.window.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -167,11 +189,25 @@ public class BooksUI implements Initializable {
 	
 	/** Loan button **/
 	public void loanBtnClicked(){
-		//for (Book book : booksInBasket) {
+		LocalDate returnDate = datePicker.getValue(); // TODO
+		if(returnDate==null){
+			dateErrorText.setText("Please fill in return date");
+			return;
+		}
+		if (!returnDate.isAfter(LocalDate.now())) {
+			dateErrorText.setText("Return date has to be after today");
+			dateErrorText.setVisible(true);
+			return;
+		}
+		if(!returnDate.isBefore(LocalDate.now().plusDays(Library.LOAN_ALLOWANCE+1))){
+			dateErrorText.setText("Maximum days to loan is " + Library.LOAN_ALLOWANCE);
+			return;
+		}
+		dateErrorText.setText("");
 		for (Entry<Book, Integer> book : booksInBasket.entrySet()) {
 			for (int i = 0; i < book.getValue(); i++) {
 				try {
-					MainWindow.lib.loanBook(MainWindow.user, book.getKey());
+					MainWindow.lib.loanBook(MainWindow.user, book.getKey(), returnDate);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
@@ -184,17 +220,25 @@ public class BooksUI implements Initializable {
 	}
 	
 	/** Search Button **/
-	public void searchFunc(ActionEvent event){
+	public void searchFunc(){
 		String searchString = searchField.getText().toString();
-		tableBook.setItems(getMatchingBooks(searchString));
+		ObservableList<Book> bookList = getMatchingBooks(searchString);
+		tableBook.setItems(bookList);
 		searchFieldString = searchString;
+		updateStatusBar(bookList.size());
+		
 	}
 	
+	
+	public void updateStatusBar(int showingCount) {
+		bookTableStatusBar.setText("Showing " + showingCount + " out of " + totalBooks + " books in library");
+	}
 	
 
 	/******** BOOK VIEW FUNCTIONS ********/
 
 	// Initialize table
+	@SuppressWarnings("unchecked")
 	public void initTable(){
 		// Title column
 		titleColumn = new TableColumn<>("Title");
@@ -260,10 +304,12 @@ public class BooksUI implements Initializable {
         loanActCol.setStyle("-fx-alignment: CENTER;");
         loanActCol.setMaxWidth(2000);
 
-		
-		tableBook.setItems(getBooks());
+		ObservableList<Book> bookList = getBooks();
+		tableBook.setItems(bookList);
+		showingCounter = bookList.size();
 		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn, loanActCol);
-	}
+		updateStatusBar	(bookList.size());
+		}
 
 	/** Book List Table click functions **/
 	@FXML
@@ -407,8 +453,10 @@ public class BooksUI implements Initializable {
 		
 		if (booksInBasket.isEmpty()) {
 			basketText.setVisible(true);
+			cancelBtn.setDisable(true);
 		}else {
 			basketText.setVisible(false);
+			cancelBtn.setDisable(false);
 		}
 	
 		
@@ -424,8 +472,9 @@ public class BooksUI implements Initializable {
 		if(showOnlyAv.isSelected()) {
 			books = showOnlyAvailable(books);
 		}
-		return books;
+		return books; 
 	}
+	
 	// Return matching list of books
 	public ObservableList<Book> getMatchingBooks(String search) {
 		if (search.length() < 1) {
@@ -458,6 +507,12 @@ public class BooksUI implements Initializable {
 	public void showSidePanel(){
 		User user = MainWindow.user;
 		if (user == null) {
+			dateErrorText.setText("");
+			dateErrorText.setVisible(false);
+			returnDateText.setVisible(false);
+			datePicker.setVisible(false);
+			switchUserText.setVisible(false);
+			cancelBtn.setVisible(false);
 			noUserFoundText.setVisible(false);
 			onlyNumText.setVisible(false);
 			basketQtyText.setVisible(false);
@@ -483,6 +538,12 @@ public class BooksUI implements Initializable {
 			}catch (Exception e) {
 				bookCount = "0";
 			}
+			dateErrorText.setVisible(true);
+			returnDateText.setVisible(true);
+			datePicker.setVisible(true);
+			datePicker.setValue(LocalDate.now().plusDays(Library.LOAN_ALLOWANCE));
+			switchUserText.setVisible(true);
+			cancelBtn.setVisible(true);
 			noUserFoundText.setVisible(false);
 			onlyNumText.setVisible(false);
 			basketQtyText.setVisible(true);
@@ -505,8 +566,18 @@ public class BooksUI implements Initializable {
 		}
 	}
 	
+	public void switchUserClick() {
+		MainWindow.user = null;
+		display();
+	}
+	
+	public void cancelBtnClicked() {
+		booksInBasket.clear();
+		updateBasket();
+	}
+	
 	public void onEnterSearch(ActionEvent event){
-		searchFunc(event);
+		searchFunc();
 	}
 	public void onEnterLogIn() {
 		goBtnClicked();
@@ -521,6 +592,9 @@ public class BooksUI implements Initializable {
 	}
 	public void saveMenuBtnClick() {
 		MainWindow.lib.save();
+	}
+	public void prefMenuBtnClick(){
+		PreferencesUI.display();
 	}
 	
 	/******** Main menu ********/

@@ -27,8 +27,11 @@ public class MainWindow extends Application {
 	public static void main(String[] args) throws Exception {
 		lib.load();	
 		
-		
-		lib.addUser("Tihana", "Causevic", "19940306XXX", "0733224433", "almstÃ¤tts gatan ", "233 33", "gÃ¶teborg");
+		try {
+			lib.addUser("Tihana", "Causevic", "19940306XXX", "0733224433", "almstätts gatan ", "233 33", "göteborg");
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
 		launch(args);
 	}
@@ -47,6 +50,7 @@ public class MainWindow extends Application {
 			window.setMinHeight(650);
 			window.setMaxWidth(1192);
 			window.setMaxHeight(650);
+			window.setResizable(false);
 			window.setOnCloseRequest(e -> {
 				e.consume(); // Take care of the close event so it wont close anyways
 				closeProgram();
@@ -56,8 +60,8 @@ public class MainWindow extends Application {
 		}
 		
 		// Show first page
-		//HomeUI.display();
-		
+		HomeUI.display();
+		/*
 		User u = lib.getUser(1);  //testing
 		try {
 			Book b = new Book("00000000", "title2", "author", 7, "category", 5, 8);
@@ -72,7 +76,7 @@ public class MainWindow extends Application {
 		UserProfileUI.display(); 
 		
 		//RegisterUserUI.display();
-		
+		*/
 	}
 	
 	public Library getLibrary(){

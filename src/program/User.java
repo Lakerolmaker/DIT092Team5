@@ -124,9 +124,7 @@ public class User {
 	}
 
 	public LocalDate getBorrowedBookReturnDate(int bookListIndex) {
-		LocalDate loanDate = bookList.get(bookListIndex).getDate();
-		int loanDays = Library.LOAN_ALLOWANCE;
-		LocalDate returnDate = loanDate.plusDays(loanDays);
+		LocalDate returnDate = bookList.get(bookListIndex).getReturnDate();
 		return returnDate;
 	}
 	
@@ -146,8 +144,8 @@ public class User {
 	}
 
 	
-	public void borrowBook(Book book) {
-		LoanInstance tmp = new LoanInstance(book);
+	public void borrowBook(Book book, LocalDate returnDate) throws Exception {
+		LoanInstance tmp = new LoanInstance(book, returnDate);
 		bookList.add(tmp);
 		book.loan();
 	}

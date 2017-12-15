@@ -1,4 +1,5 @@
 package program;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -109,9 +110,9 @@ public class Library {
 	
 
 	/** Loan book  **/
-	public void loanBook(User user, Book book) throws Exception {
+	public void loanBook(User user, Book book, LocalDate returnDate) throws Exception {
 		if (book.getAvailableQuantity() > 0) {
-			user.borrowBook(book);
+			user.borrowBook(book, returnDate);
 		}else {
 			throw new Exception("Error: The book is not avalaible.");
 		}

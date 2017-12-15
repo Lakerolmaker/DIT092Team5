@@ -65,8 +65,8 @@ public class DelayedBooksController {
 	      
 	        mi1.setOnAction(e -> {
 	        	User forwardUser = MainWindow.lib.getUser(selectedPerson.getUserId());
-	        	UserProfileUI.SetUser(forwardUser);
-	        	UserProfileUI.display();
+	        	//UserProfileUI.SetUser(forwardUser);
+	        	UserProfileUI.display(forwardUser);
 	        });
 	        mi2.setOnAction(e -> System.out.println("Delete"));
 	        cm.setAutoHide(true);
