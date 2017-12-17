@@ -79,3 +79,13 @@
 		-fx-font-size: 14px;
 }
 
+#amountTextNegative {
+	-fx-fill: #ff4848;
+
+	
+}
+#amountText {
+	-fx-fill: #575757;
+
+}
+

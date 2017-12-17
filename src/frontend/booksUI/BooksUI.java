@@ -8,19 +8,17 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
-import javafx.stage.PopupWindow;
-import javafx.stage.Window;
 import javafx.util.Callback;
 import frontend.newBookUI.*;
-import frontend.preferences.PreferencesUI;
+import frontend.preferencesUI.PreferencesUI;
 import frontend.delayedBooksUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.MainWindow;
+import frontend.aboutUI.AboutUI;
 import frontend.registerUserUI.*;
 import frontend.userListUI.*;
 import frontend.bookViewUI.*;
@@ -41,7 +39,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -51,52 +48,34 @@ import program.*;
 
 
 public class BooksUI implements Initializable {
+	public static HashMap<Book, Integer> booksInBasket;
+	
 	private static Scene bookScene;
 	private static boolean showOnlyAvailable;
 	private static String searchFieldString = "";
-	public static HashMap<Book, Integer> booksInBasket;
+	// Left Panel
+	@FXML private ImageView logoImage;
+	@FXML private Label menuHome, menuBooks, menuUsers, menuDelayed;
+	// SidePanel
+	@FXML private Text nameText,streetText,cityText,balanceText,basketText,booksLoaningText,booksLoaningAmount,enterIdText, amountText,currencyText;
+	@FXML private Text onlyNumText,noUserFoundText,switchUserText,returnDateText,dateErrorText, basketTitleText, basketQtyText;
+ 	@FXML private Button goBtn,loanBtn,loanActionBtn,cancelBtn;
+	@FXML private TextField userIdField;
+	@FXML private DatePicker datePicker;
+	@FXML private ListView<HBox> basketList;
+	private ContextMenu cm2; // BasketList context menu
+	// Class Main
+	@FXML private CheckBox showOnlyAv;
 	@FXML private TableView<Book> tableBook;
-	@FXML private TableColumn<Book, String> titleColumn;
-	@FXML private TableColumn<Book, String> authorColumn;
-	@FXML private TableColumn<Book, String> yearColumn;
-	@FXML private TableColumn<Book, String> isbnColumn;
-	@FXML private TableColumn<Book, String> qtyAvColumn;
+	@FXML private TableColumn<Book, String> titleColumn,authorColumn,yearColumn,isbnColumn,qtyAvColumn;
 	@FXML private TableColumn<Button, String> loanActCol;
 	@FXML private TextField searchField;
-	@FXML private Label menuHome;
-	@FXML private Label menuBooks;
-	@FXML private Label menuUsers;
-	@FXML private Label menuDelayed;
-	@FXML private Text nameText;
-	@FXML private Text streetText;
-	@FXML private Text cityText;
-	@FXML private Text balanceText;
-	@FXML private Text amountText;
-	@FXML private Text basketText;
-	@FXML private Text booksLoaningText;
-	@FXML private Text booksLoaningAmount;
-	@FXML private ListView<HBox> basketList;
-	@FXML private Button loanBtn;
-	@FXML private Text enterIdText;
-	@FXML private TextField userIdField;
-	@FXML private Button goBtn; 
-	@FXML private Text basketQtyText;
-	@FXML private Text basketTitleText;
-	@FXML private CheckBox showOnlyAv;
-	@FXML private Text onlyNumText;
-	@FXML private Text noUserFoundText;
-	@FXML private ImageView logoImage;
-	@FXML private Button loanActionBtn;
-	@FXML private Button cancelBtn;
 	@FXML private Text bookTableStatusBar;
 	@FXML private int showingCounter = 0;
 	@FXML private int totalBooks;
-	@FXML private Text switchUserText;
-	@FXML private Text returnDateText;
-	@FXML private DatePicker datePicker;
-	@FXML private Text dateErrorText;
+	
 	private ContextMenu cm;
-	private ContextMenu cm2;
+	
 
 	
 
@@ -142,31 +121,7 @@ public class BooksUI implements Initializable {
 	}
 	
 	
-	public void newBasket(){
-		booksInBasket = new HashMap<>();
-		if(MainWindow.user!=null) {
-			basketText.setVisible(true);
-			cancelBtn.setDisable(true);
-		}
-	}
 
-	public void goBtnClicked(){
-		String idStr = userIdField.getText();
-		if(Functions.isInt(idStr)) {
-			int id = Integer.parseInt(idStr);
-			MainWindow.user = MainWindow.lib.getUser(id);
-			if (MainWindow.user != null) {
-				showSidePanel();
-			}else {
-				onlyNumText.setVisible(false);
-				noUserFoundText.setVisible(true);
-			}
-			
-		}else {
-			noUserFoundText.setVisible(false);
-			onlyNumText.setVisible(true);
-		}
-	}
 	
 	public static void display() {
 		
@@ -187,37 +142,6 @@ public class BooksUI implements Initializable {
 		}
 	}
 	
-	/** Loan button **/
-	public void loanBtnClicked(){
-		LocalDate returnDate = datePicker.getValue(); // TODO
-		if(returnDate==null){
-			dateErrorText.setText("Please fill in return date");
-			return;
-		}
-		if (!returnDate.isAfter(LocalDate.now())) {
-			dateErrorText.setText("Return date has to be after today");
-			dateErrorText.setVisible(true);
-			return;
-		}
-		if(!returnDate.isBefore(LocalDate.now().plusDays(Library.LOAN_ALLOWANCE+1))){
-			dateErrorText.setText("Maximum days to loan is " + Library.LOAN_ALLOWANCE);
-			return;
-		}
-		dateErrorText.setText("");
-		for (Entry<Book, Integer> book : booksInBasket.entrySet()) {
-			for (int i = 0; i < book.getValue(); i++) {
-				try {
-					MainWindow.lib.loanBook(MainWindow.user, book.getKey(), returnDate);
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-			}
-			showSidePanel(); // Update side panel
-			basketList.getItems().clear(); // Clear basket
-			newBasket();
-		}
-		tableBook.refresh();
-	}
 	
 	/** Search Button **/
 	public void searchFunc(){
@@ -227,6 +151,9 @@ public class BooksUI implements Initializable {
 		searchFieldString = searchString;
 		updateStatusBar(bookList.size());
 		
+	}
+	public void onEnterSearch(ActionEvent event){
+		searchFunc();
 	}
 	
 	
@@ -345,6 +272,110 @@ public class BooksUI implements Initializable {
 	
 	
 	
+
+	// Return list of books
+	public ObservableList<Book> getBooks() {
+		ObservableList<Book> books = FXCollections.observableArrayList();
+		for (Book book : MainWindow.lib.getBookList()) {
+			books.add(book);
+		}
+		
+		if(showOnlyAv.isSelected()) {
+			books = showOnlyAvailable(books);
+		}
+		return books; 
+	}
+	
+	// Return matching list of books
+	public ObservableList<Book> getMatchingBooks(String search) {
+		if (search.length() < 1) {
+			return getBooks(); // If search is empty - returns a list of all books
+		}
+		ObservableList<Book> books = FXCollections.observableArrayList(); // Create new list
+		for (Book book : MainWindow.lib.getBookList()) {
+			if (Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
+				books.add(book); // If match add the book to list
+			}
+		}
+		if(showOnlyAv.isSelected()) {
+			books = showOnlyAvailable(books);
+		}
+		return books; // Return the new composed list
+	}
+	
+	
+	public ObservableList<Book> showOnlyAvailable(ObservableList<Book> bookList) {
+		ObservableList<Book> newBookList = FXCollections.observableArrayList();
+		for (Book book : bookList) {
+			if (book.getAvailableQuantity() > 0) {
+				newBookList.add(book);
+			}
+		}
+		return newBookList;
+	}
+	
+	
+	/************************* SIDE PANEL ***************************/
+
+	/** Loan button **/
+	public void loanBtnClicked(){
+		LocalDate returnDate = datePicker.getValue(); // TODO
+		if(returnDate==null){
+			dateErrorText.setText("Please fill in return date");
+			return;
+		}
+		if (!returnDate.isAfter(LocalDate.now())) {
+			dateErrorText.setText("Return date has to be after today");
+			dateErrorText.setVisible(true);
+			return;
+		}
+		if(!returnDate.isBefore(LocalDate.now().plusDays(Library.LOAN_ALLOWANCE+1))){
+			dateErrorText.setText("Maximum days to loan is " + Library.LOAN_ALLOWANCE);
+			return;
+		}
+		dateErrorText.setText("");
+		for (Entry<Book, Integer> book : booksInBasket.entrySet()) {
+			for (int i = 0; i < book.getValue(); i++) {
+				try {
+					MainWindow.lib.loanBook(MainWindow.user, book.getKey(), returnDate);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			showSidePanel(); // Update side panel
+			basketList.getItems().clear(); // Clear basket
+			newBasket();
+		}
+		tableBook.refresh();
+	}
+	
+	public void newBasket(){
+		booksInBasket = new HashMap<>();
+		if(MainWindow.user!=null) {
+			basketText.setVisible(true);
+			cancelBtn.setDisable(true);
+		}
+	}
+
+	public void goBtnClicked(){
+		String idStr = userIdField.getText();
+		if(Functions.isInt(idStr)) {
+			int id = Integer.parseInt(idStr);
+			MainWindow.user = MainWindow.lib.getUser(id);
+			if (MainWindow.user != null) {
+				showSidePanel();
+			}else {
+				onlyNumText.setVisible(false);
+				noUserFoundText.setVisible(true);
+			}
+			
+		}else {
+			noUserFoundText.setVisible(false);
+			onlyNumText.setVisible(true);
+		}
+	}
+	
+	
 	public void basketListClick(MouseEvent event) {
 		
 	   	if (cm2 != null) {
@@ -457,56 +488,14 @@ public class BooksUI implements Initializable {
 		}else {
 			basketText.setVisible(false);
 			cancelBtn.setDisable(false);
-		}
-	
-		
-	}
-	
-	// Return list of books
-	public ObservableList<Book> getBooks() {
-		ObservableList<Book> books = FXCollections.observableArrayList();
-		for (Book book : MainWindow.lib.getBookList()) {
-			books.add(book);
-		}
-		
-		if(showOnlyAv.isSelected()) {
-			books = showOnlyAvailable(books);
-		}
-		return books; 
-	}
-	
-	// Return matching list of books
-	public ObservableList<Book> getMatchingBooks(String search) {
-		if (search.length() < 1) {
-			return getBooks(); // If search is empty - returns a list of all books
-		}
-		ObservableList<Book> books = FXCollections.observableArrayList(); // Create new list
-		for (Book book : MainWindow.lib.getBookList()) {
-			if (Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
-				books.add(book); // If match add the book to list
-			}
-		}
-		if(showOnlyAv.isSelected()) {
-			books = showOnlyAvailable(books);
-		}
-		return books; // Return the new composed list
-	}
-	
-	
-	public ObservableList<Book> showOnlyAvailable(ObservableList<Book> bookList) {
-		ObservableList<Book> newBookList = FXCollections.observableArrayList();
-		for (Book book : bookList) {
-			if (book.getAvailableQuantity() > 0) {
-				newBookList.add(book);
-			}
-		}
-		return newBookList;
+		}	
 	}
 
 	
 	public void showSidePanel(){
 		User user = MainWindow.user;
 		if (user == null) {
+			currencyText.setVisible(false);
 			dateErrorText.setText("");
 			dateErrorText.setVisible(false);
 			returnDateText.setVisible(false);
@@ -538,10 +527,11 @@ public class BooksUI implements Initializable {
 			}catch (Exception e) {
 				bookCount = "0";
 			}
+			currencyText.setVisible(true);
 			dateErrorText.setVisible(true);
 			returnDateText.setVisible(true);
 			datePicker.setVisible(true);
-			datePicker.setValue(LocalDate.now().plusDays(Library.LOAN_ALLOWANCE));
+			setDatePicker();
 			switchUserText.setVisible(true);
 			cancelBtn.setVisible(true);
 			noUserFoundText.setVisible(false);
@@ -557,12 +547,30 @@ public class BooksUI implements Initializable {
 			booksLoaningText.setVisible(true);
 			booksLoaningAmount.setText(bookCount);
 			balanceText.setVisible(true);
-			amountText.setText(Double.toString(user.getDebt()));
+			int dept = (int) user.getDebt();
+			String deptStr = "";
+			if (dept > 0) {
+				deptStr += "- ";
+				amountText.setId("amountTextNegative");
+			}else {
+				amountText.setId("amountText");
+			}
+			deptStr += Integer.toString(dept);
+			amountText.setText(deptStr);
 			basketText.setVisible(true);
 			basketList.setVisible(true);
 			loanBtn.setVisible(true);
 			updateBasket();
 			
+		}
+	}
+	
+	public void setDatePicker(){
+		int maxDays = Library.LOAN_ALLOWANCE;
+		if (maxDays < 14) {
+			datePicker.setValue(LocalDate.now().plusDays(Library.LOAN_ALLOWANCE));
+		}else {
+			datePicker.setValue(LocalDate.now().plusDays(14));
 		}
 	}
 	
@@ -576,9 +584,6 @@ public class BooksUI implements Initializable {
 		updateBasket();
 	}
 	
-	public void onEnterSearch(ActionEvent event){
-		searchFunc();
-	}
 	public void onEnterLogIn() {
 		goBtnClicked();
 	}
@@ -595,6 +600,9 @@ public class BooksUI implements Initializable {
 	}
 	public void prefMenuBtnClick(){
 		PreferencesUI.display();
+	}
+	public void aboutMenuBtnClick() {
+		AboutUI.display();
 	}
 	
 	/******** Main menu ********/
@@ -635,6 +643,4 @@ public class BooksUI implements Initializable {
 		display();
 		
 	}
-	
-
 }

@@ -1,1 +1,1 @@
-{"firstName":"Jacob","lastName":"Olsson","ssn":"19980405XXXX","userId":1,"debt":0.0,"phoneNr":"07334432XX","street":"alaforskyrkvÃ¤g","zipCode":"434 96","city":"MalmÃ¶","bookList":[]}
+{"firstName":"Jacob","lastName":"Olsson","ssn":"19980405XXXX","userId":1,"debt":0.0,"phoneNr":"07334432XX","street":"alaforskyrkväg 23","zipCode":"434 96","city":"Malmö","bookList":[]}

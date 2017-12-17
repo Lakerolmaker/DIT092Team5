@@ -3,6 +3,7 @@ package frontend.homeUI;
 
 import frontend.booksUI.*;
 import frontend.*;
+import frontend.aboutUI.AboutUI;
 import frontend.bookViewUI.BookViewUI;
 
 import java.io.File;
@@ -17,8 +18,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import frontend.newBookUI.*;
+import frontend.preferencesUI.PreferencesUI;
 import program.Book;
 
 
@@ -26,13 +30,13 @@ public class HomeUI implements Initializable{
 	private static VBox root;
 	private static Scene homeScene;
 	
+	@FXML private ImageView logoImage;
 	@FXML private Label topMenu1; // Link to the fx:id in scenebuilder
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO: Code goes here :)
-		
-		
+		Image logo = new Image("resources/logo.png");
+		logoImage.setImage(logo);		
 		
 	}
 	
@@ -63,6 +67,15 @@ public class HomeUI implements Initializable{
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
 	}
+	public void saveMenuBtnClick() {
+		MainWindow.lib.save();
+	}
+	public void prefMenuBtnClick(){
+		PreferencesUI.display();
+	}
+	public void aboutMenuBtnClick() {
+		AboutUI.display();
+	}
 	
 	/******** Main menu ********/
 	public void homeMenuAction(){
@@ -83,5 +96,4 @@ public class HomeUI implements Initializable{
 	public void openRegister() {
 		RegisterUserUI.display();
 	}
-
 }

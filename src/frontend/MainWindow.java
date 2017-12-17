@@ -27,11 +27,7 @@ public class MainWindow extends Application {
 	public static void main(String[] args) throws Exception {
 		lib.load();	
 		
-		try {
-			lib.addUser("Tihana", "Causevic", "19940306XXX", "0733224433", "almstätts gatan ", "233 33", "göteborg");
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		
 		
 		launch(args);
 	}
@@ -51,6 +47,7 @@ public class MainWindow extends Application {
 			window.setMaxWidth(1192);
 			window.setMaxHeight(650);
 			window.setResizable(false);
+			window.setTitle("That Library");
 			window.setOnCloseRequest(e -> {
 				e.consume(); // Take care of the close event so it wont close anyways
 				closeProgram();
@@ -61,22 +58,7 @@ public class MainWindow extends Application {
 		
 		// Show first page
 		HomeUI.display();
-		/*
-		User u = lib.getUser(1);  //testing
-		try {
-			Book b = new Book("00000000", "title2", "author", 7, "category", 5, 8);
-			u.borrowBook(b);
-			//u.setLendDate(b.getId(), LocalDate.of(2018, 1, 1));
-			//u.borrowBook(new Book ("John", "Doe", "",1, "", 2, 7));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	    UserProfileUI.SetUser(u);
-		UserProfileUI.display(); 
-		
-		//RegisterUserUI.display();
-		*/
+
 	}
 	
 	public Library getLibrary(){

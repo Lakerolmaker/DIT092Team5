@@ -31,35 +31,17 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="MenuFileBtn1" mnemonicParsing="false" onAction="#newBook" text="New Book" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
             <MenuItem fx:id="saveMenuBtn" mnemonicParsing="false" onAction="#saveMenuBtnClick" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#prefMenuBtnClick" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#quitMenuClick" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#aboutMenuBtnClick" text="About" />
           </items>
         </Menu>
       </menus>
@@ -125,11 +107,6 @@
                                     </Text>
                                     <Text fx:id="streetText" layoutX="22.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5th Avenue" />
                                     <Text fx:id="cityText" layoutX="22.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="444 60 Bigh High" />
-                                    <Text fx:id="amountText" fill="#000000a6" layoutX="194.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-14">
-                                       <font>
-                                          <Font name="EXCESS" size="21.0" />
-                                       </font>
-                                    </Text>
                                     <Text fx:id="balanceText" fill="#000000a6" layoutX="23.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
@@ -156,7 +133,7 @@
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="booksLoaningAmount" fill="#000000a6" layoutX="195.0" layoutY="163.0" onMouseClicked="#returnAllBooks" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                    <Text fx:id="booksLoaningAmount" fill="#000000a6" layoutX="217.0" layoutY="165.0" onMouseClicked="#returnAllBooks" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
@@ -174,6 +151,16 @@
                                     <DatePicker fx:id="datePicker" layoutX="110.0" layoutY="460.0" prefHeight="31.0" prefWidth="162.0" />
                                     <Text fx:id="returnDateText" fill="#000000a6" layoutX="23.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return Date" />
                                     <Text fx:id="dateErrorText" fill="#ff0000a6" layoutX="24.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                    <Text fx:id="amountText" fill="#000000a6" layoutX="188.64892578125" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.rightAnchor="66.6123046875">
+                                       <font>
+                                          <Font name="EXCESS" size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="currencyText" fill="#000000a6" layoutX="234.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEK">
+                                       <font>
+                                          <Font name="System Italic" size="13.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </AnchorPane>
                            </items>
