@@ -121,8 +121,11 @@ public class Library {
 	/** Return book **/
 	public void returnBook(User user, Book book) {
 		ArrayList<Integer> list = user.getBookIndex(book);
+		
 		if(list.size() == 1) {
+			user.setDebt( user.getDebt() +  user.getDelayfee(list.get(0)) );
 			user.removeBorrowedBook(list.get(0));
+			
 		}else {
 			// User have multiple copies - Returning the copy that was borrowed first
 			int firstToReturn = 0;
@@ -133,6 +136,7 @@ public class Library {
 					firstToReturn = list.get(i);
 				}
 			}
+			user.setDebt(  user.getDebt() + user.getDelayfee(firstToReturn) );
 			user.removeBorrowedBook(firstToReturn);
 		}
 	}

@@ -26,9 +26,7 @@ public class MainWindow extends Application {
 	
 	public static void main(String[] args) throws Exception {
 		lib.load();	
-		
-		
-		
+
 		launch(args);
 	}
 	

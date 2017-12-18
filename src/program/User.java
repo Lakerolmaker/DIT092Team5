@@ -54,16 +54,17 @@ public class User {
 		return this.userId;
 	}
 
+	//: Gets the total debt , from both the debt from previously borrowed books and currently borrowed books.
 	public double getDebt() {
-		calculateDebt();
-		return this.debt;
+		return this.debt + calculateDebt();
 	}
 	
 	public void setDebt(double debt) {
 		this.debt = debt;
 	}
 	
-	public void calculateDebt() {
+	//: Get's the total debt from currently borrowed books.
+	public double calculateDebt() {
 		
 		double tempDebt =  0;
 		
@@ -71,7 +72,7 @@ public class User {
 			tempDebt += this.getDelayfee(i);
 		}
 	
-		this.debt = tempDebt;
+		return tempDebt;
 		
 	}
 
@@ -157,7 +158,6 @@ public class User {
 		}
 	}
 
-	
 	public void borrowBook(Book book, LocalDate returnDate) throws Exception {
 		LoanInstance tmp = new LoanInstance(book, returnDate);
 		bookList.add(tmp);
