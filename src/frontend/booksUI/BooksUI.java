@@ -212,12 +212,19 @@ public class BooksUI implements Initializable {
                             setGraphic(null);
                             setText(null);
                         } else {
-                        	
+                        	Book book = getTableView().getItems().get(getIndex());
+                        	int available = book.getAvailableQuantity();
                             loanActionBtn.setOnAction(event -> {
-                                Book book = getTableView().getItems().get(getIndex());
                                 addToBasket(book);
+                                if (bookInBasket(book) >= available) {
+                                	loanActionBtn.setDisable(true);
+                                }
                             });
                             loanActionBtn.setId("loanActionBtn");
+                            if (available < 1 || bookInBasket(book) >= available) {
+                            	loanActionBtn.setDisable(true);
+                            }
+                            
                             setGraphic(loanActionBtn);
                             setText(null);
                         }
@@ -270,8 +277,15 @@ public class BooksUI implements Initializable {
 	    }
 	}
 	
-	
-	
+	// TODO
+	private int bookInBasket(Book book) {
+		if (book != null) {
+			if (booksInBasket.containsKey(book)) {
+				return booksInBasket.get(book);
+			}
+		}
+		return -1;
+	}
 
 	// Return list of books
 	public ObservableList<Book> getBooks() {

@@ -1,1 +1,1 @@
-{"firstName":"Jacob","lastName":"Olsson","ssn":"19980405XXXX","userId":1,"debt":924.0,"street":"alaforskyrkväg 23","zipCode":"434 96","city":"Malmö","bookList":[]}
+{"firstName":"Jacob","lastName":"Olsson","ssn":"19980405XXXX","userId":1,"debt":924.0,"street":"alaforskyrkväg 23","zipCode":"434 96","city":"Malmö","bookList":[]}{"firstName":"Jacob","lastName":"Olsson","ssn":"19980405XXXX","userId":1,"debt":924.0,"street":"alaforskyrkväg 23","zipCode":"434 96","city":"Malmö","bookList":[]}
