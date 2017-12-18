@@ -1,1 +1,1 @@
-{"id":1,"isbn":"9780935717235","title":"Designing Interfaces 2nd edition","author":"Jenifer Tidwell","year":2011,"category":"Education","shelf":4,"quantity":5,"loaned":1}
+{"id":1,"isbn":"9780935717235","title":"Designing Interfaces 2nd edition","author":"Jenifer Tidwell","year":2011,"category":"Education","shelf":4,"quantity":5,"loaned":0}

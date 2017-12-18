@@ -167,7 +167,7 @@
                         </SplitPane>
                         <Group layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
                            <children>
-                              <TableView id="tableBook" fx:id="tableBook" cacheShape="false" centerShape="false" depthTest="DISABLE" focusTraversable="false" layoutX="7.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickItem" pickOnBounds="false" prefHeight="417.0" prefWidth="711.0" scaleShape="false">
+                              <TableView id="tableBook" fx:id="tableBook" cacheShape="false" centerShape="false" depthTest="DISABLE" focusTraversable="false" layoutX="7.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickItem" pickOnBounds="false" prefHeight="417.0" prefWidth="711.0" scaleShape="false" style="-fx-cell-size: 100;">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>

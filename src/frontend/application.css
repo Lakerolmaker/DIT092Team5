@@ -32,8 +32,9 @@
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 2, 0.0 , 0 , 1 );
 }
 
-#booktable {
-	-fx-font-size: 16px;
+
+.table-row-cell {
+    -fx-cell-size: 34px;
 }
 
 #bookTitleBasket {
