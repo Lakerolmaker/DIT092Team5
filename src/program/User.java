@@ -55,7 +55,24 @@ public class User {
 	}
 
 	public double getDebt() {
+		calculateDebt();
 		return this.debt;
+	}
+	
+	public void setDebt(double debt) {
+		this.debt = debt;
+	}
+	
+	public void calculateDebt() {
+		
+		double tempDebt =  0;
+		
+		for(int i = 0 ;  i < bookList.size(); i++) {
+			tempDebt += this.getDelayfee(i);
+		}
+	
+		this.debt = tempDebt;
+		
 	}
 
 	public String getSsn() {
@@ -73,11 +90,7 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-	public void setDebt(double debt) {
-		this.debt = debt;
-	}
-
+	
 	public void setPhoneNr(String phoneNr) {
 		this.phoneNr = phoneNr;
 	}
@@ -116,9 +129,9 @@ public class User {
 		double days = today.toEpochDay() - returnDate.toEpochDay();
 
 		if (days > 0)
-			this.debt = days * 2;
+			return days * 2;
 
-		return this.debt;
+		return 0;
 
 		// debt for 1 book only; iterate through borrowed books to get full debt
 
