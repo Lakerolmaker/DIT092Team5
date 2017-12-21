@@ -2,6 +2,7 @@ package frontend;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import frontend.userListUI.*;
 import frontend.userprofileUI.UserProfileUI;
@@ -56,6 +57,8 @@ public class MainWindow extends Application {
 		
 		// Show first page
 		HomeUI.display();
+		
+		
 
 	}
 	

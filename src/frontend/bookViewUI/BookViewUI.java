@@ -8,16 +8,23 @@ import frontend.homeUI.HomeUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.userListUI.UserListUI;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
 import java.util.Map.Entry;
 
 import frontend.delayedBooksUI.*;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,9 +77,12 @@ public class BookViewUI implements Initializable{
 	private static Book selectedBook;
 	private String title;
 	private String author;
+	private String imageName;
 	private int year;
 	private int availableQty;
 	@FXML public Label bookTitle;
+	@FXML private ImageView bookImageView;
+	private Image bookImage;
 	
 	
 	@Override
@@ -80,10 +90,20 @@ public class BookViewUI implements Initializable{
 		title = selectedBook.getTitle();
 		author = selectedBook.getAuthor();
 		year = selectedBook.getYear();
+		imageName = selectedBook.getImage();
 		availableQty = selectedBook.getAvailableQuantity();
 		bookTitle.setId("bookTitle");
 		bookTitle.setStyle("-fx-alignment: TOP_LEFT;");
-
+		try {
+			//Image tmp = new Image(BookViewUI.class.getResource("/bookimages/") + imageName);
+			BufferedImage bookImageBuffered = ImageIO.read(new File("bookimages/"+ imageName));
+			bookImage = SwingFXUtils.toFXImage(bookImageBuffered, null);
+			bookImageView.setImage(bookImage);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		switchUserText.setId("switchUserText");
 		Image logo = new Image("resources/logo.png");
 		logoImage.setImage(logo);

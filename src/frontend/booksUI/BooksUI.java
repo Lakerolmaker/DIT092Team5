@@ -279,7 +279,7 @@ public class BooksUI implements Initializable {
 	
 	// TODO
 	private int bookInBasket(Book book) {
-		if (book != null) {
+		if (book != null && booksInBasket != null) {
 			if (booksInBasket.containsKey(book)) {
 				return booksInBasket.get(book);
 			}
@@ -480,29 +480,32 @@ public class BooksUI implements Initializable {
 	
 	public void updateBasket(){
 		basketList.getItems().clear();
-		for (Entry<Book, Integer> book : booksInBasket.entrySet()) {
-			Label isbn = new Label(book.getKey().getIsbn());
-			isbn.setId("bookIsbnBasket");
-			
-			String title = book.getKey().getTitle();
-			if (title.length() > 20) {
-				title = title.substring(0, 20) + "...";
+		if(booksInBasket!= null) {
+			for (Entry<Book, Integer> book : booksInBasket.entrySet()) {
+				Label isbn = new Label(book.getKey().getIsbn());
+				isbn.setId("bookIsbnBasket");
+				
+				String title = book.getKey().getTitle();
+				if (title.length() > 20) {
+					title = title.substring(0, 20) + "...";
+				}
+				Label titleLabel = new Label(title);
+				
+				titleLabel.setId("bookTitleBasket");
+				HBox hBox = new HBox(new Text(book.getValue().toString() + "pcs"), titleLabel, isbn);
+				hBox.setSpacing(15);
+				basketList.getItems().add(hBox);
 			}
-			Label titleLabel = new Label(title);
-			
-			titleLabel.setId("bookTitleBasket");
-			HBox hBox = new HBox(new Text(book.getValue().toString() + "pcs"), titleLabel, isbn);
-			hBox.setSpacing(15);
-			basketList.getItems().add(hBox);
-		}
 		
-		if (booksInBasket.isEmpty()) {
-			basketText.setVisible(true);
-			cancelBtn.setDisable(true);
-		}else {
-			basketText.setVisible(false);
-			cancelBtn.setDisable(false);
-		}	
+			
+			if (booksInBasket.isEmpty()) {
+				basketText.setVisible(true);
+				cancelBtn.setDisable(true);
+			}else {
+				basketText.setVisible(false);
+				cancelBtn.setDisable(false);
+			}
+		}
 	}
 
 	

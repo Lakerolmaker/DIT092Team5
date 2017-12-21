@@ -1,1 +1,1 @@
-{"id":2,"isbn":"9789544464912","title":"Harry Potter","author":"JK Rowling","year":1995,"category":"Sci Fiction","shelf":1,"quantity":5,"loaned":0}
+{"id":2,"isbn":"9789544464912","title":"Harry Potter","author":"JK Rowling","year":1995,"category":"Sci Fiction","shelf":1,"quantity":5,"loaned":0,"image":"harrypotter1.jpeg"}

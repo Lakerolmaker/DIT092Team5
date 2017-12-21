@@ -1,0 +1,1 @@
+{"id":1,"isbn":"1234567891234","title":"tgesat","author":"teads","year":2017,"category":"Horror","shelf":4,"quantity":4,"loaned":0,"image":"genericBookCover.jpg"}

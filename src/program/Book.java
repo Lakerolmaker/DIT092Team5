@@ -14,6 +14,8 @@ package program;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javafx.scene.image.Image;
+
 public class Book {
 
 	private int id;
@@ -25,13 +27,14 @@ public class Book {
 	private int shelf;
 	private int quantity;
 	private int loaned;
+	private String image;
 
 	// private String publisher;
 	// exists in library class for sorting.
 
 	static private AtomicInteger idGen = new AtomicInteger();
 
-	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity) throws Exception {
+	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity, String image) throws Exception {
 		
 		if (isbn.length()> 15) {
 			throw new Exception("isbn has invalid format");
@@ -63,6 +66,15 @@ public class Book {
 		this.shelf = shelf;
 		this.quantity = quantity;
 		this.loaned = 0;
+		this.image = image;
+	}
+	
+	public String getImage(){
+		return image;
+	}
+	
+	public void setImage(String image){
+		this.image =  image;
 	}
 
 	public int getId() {

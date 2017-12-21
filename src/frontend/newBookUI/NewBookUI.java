@@ -2,16 +2,22 @@ package frontend.newBookUI;
 
 
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import frontend.MainWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +26,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -36,6 +44,11 @@ public class NewBookUI implements Initializable{
 	@FXML private TextField categoryText;
 	@FXML private TextField shelfText;
 	@FXML private TextField quantityText;
+	
+	@FXML private TextField imageText;
+	private BufferedImage bufferedImage = null;
+	private String imagePath;
+	private String imageName;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -122,7 +135,20 @@ public class NewBookUI implements Initializable{
 		int qty = Integer.parseInt(quantityText.getText().trim());
 		
 		try {
-			frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty);
+			String bookImage = "genericBookCover.jpg";
+			if(bufferedImage != null) {
+				try {
+		            File outputfile = new File("bookimages/" + imageName);
+		            ImageIO.write(bufferedImage, "png", outputfile);
+		            System.out.println(outputfile.getAbsolutePath());
+		            System.out.println(outputfile.toPath());
+		            System.out.println(outputfile.toURL());
+		            bookImage = imageName;
+				}catch (Exception c) {
+					c.printStackTrace();
+				}
+			}
+			frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty, bookImage);
 			new Alert(Alert.AlertType.NONE, "Book added successfully!", ButtonType.OK).showAndWait();
 			window.close();
 		} catch (Exception e) {
@@ -131,4 +157,25 @@ public class NewBookUI implements Initializable{
 		}
 	}
 
+	public void browseBtnClick(){
+        FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+         
+        //Show open file dialog
+        File file = fileChooser.showOpenDialog(null);
+                  
+        try {
+            bufferedImage = ImageIO.read(file);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imagePath = file.getAbsolutePath();
+            imageName = file.getName();
+            imageText.setText(imageName);
+        } catch (Exception ex) {
+            //Logger.getLogger(NewBookUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	}
 }

@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 
 import database.DatabaseHelper;
 import database.FileClass;
+import javafx.scene.image.Image;
 
 
 public class Library {
@@ -27,7 +28,7 @@ public class Library {
 	}
 
 	/** Add book to library **/
-	public void addBook(String isbn, String title, String author, int year, String category, int shelf, int qty) throws Exception {
+	public void addBook(String isbn, String title, String author, int year, String category, int shelf, int qty, String image) throws Exception {
 		for (Book book : bookDirectory) {
 			if (book.getIsbn().equals(isbn)) {
 				int currentQty = book.getQuantity();
@@ -36,7 +37,7 @@ public class Library {
 			}
 		}
 		try {
-			Book newbook = new Book(isbn, title, author, year, category, shelf, qty);
+			Book newbook = new Book(isbn, title, author, year, category, shelf, qty, image);
 			bookDirectory.add(newbook);
 		} catch (Exception e) {
 			throw e;
@@ -170,7 +171,7 @@ public class Library {
 	}
 
 	public int getID(){
-		return this.userDirectory.get(0).getNextId().get();
+		return User.getNextId().intValue();
 	}
 	
 	

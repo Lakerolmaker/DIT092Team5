@@ -162,6 +162,7 @@
                            </items>
                         </SplitPane>
                         <Group layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0" />
+                        <ImageView fx:id="bookImageView" fitHeight="222.0" fitWidth="189.0" layoutX="45.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" />
               </children>
             </AnchorPane>
           </content>
