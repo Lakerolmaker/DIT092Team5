@@ -28,6 +28,7 @@ public class Book {
 	private int quantity;
 	private int loaned;
 	private String image;
+	private String description;
 
 	// private String publisher;
 	// exists in library class for sorting.
@@ -67,6 +68,19 @@ public class Book {
 		this.quantity = quantity;
 		this.loaned = 0;
 		this.image = image;
+		this.description = "";
+	}
+	
+	public String getDescription(){
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		if(description.length() <= 450) {
+			this.description = description;
+		}else {
+			this.description = description.substring(0, 450) + "...";
+		}
 	}
 	
 	public String getImage(){

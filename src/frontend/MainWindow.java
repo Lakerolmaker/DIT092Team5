@@ -8,6 +8,7 @@ import frontend.userListUI.*;
 import frontend.userprofileUI.UserProfileUI;
 import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
+import frontend.newBookUI.NewBookUI2;
 import frontend.registerUserUI.RegisterUserUI;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -57,7 +58,6 @@ public class MainWindow extends Application {
 		
 		// Show first page
 		HomeUI.display();
-		
 		
 
 	}

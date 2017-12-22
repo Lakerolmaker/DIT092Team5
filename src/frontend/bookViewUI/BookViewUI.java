@@ -78,8 +78,16 @@ public class BookViewUI implements Initializable{
 	private String title;
 	private String author;
 	private String imageName;
+	private String isbn;
 	private int year;
 	private int availableQty;
+	private String category,shelfText, quantity, description;
+	@FXML private Text titleText,quantityText,availableText,descriptionText;
+	@FXML private Text authorText;
+	@FXML private Text isbnText;
+	@FXML private Text yearText;
+	@FXML private Text categoryText;
+	@FXML private Button loanBtn2,backBtn;
 	@FXML public Label bookTitle;
 	@FXML private ImageView bookImageView;
 	private Image bookImage;
@@ -87,22 +95,47 @@ public class BookViewUI implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		description = selectedBook.getDescription();
+		if(description != null && description.length() > 0) {
+			descriptionText.setText(description);
+		}else {
+			descriptionText.setText("This book has no description, and may be lacking other information." 
+									+" Books should have a summary to inform others of the content, author, source, and date if possible. "
+					+"If you know or have access to such information, please add it to the book page. ");
+		}
 		title = selectedBook.getTitle();
 		author = selectedBook.getAuthor();
+		isbn = selectedBook.getIsbn();
 		year = selectedBook.getYear();
+		category = selectedBook.getCategory();
 		imageName = selectedBook.getImage();
+		quantity = Integer.toString(selectedBook.getQuantity());
 		availableQty = selectedBook.getAvailableQuantity();
 		bookTitle.setId("bookTitle");
 		bookTitle.setStyle("-fx-alignment: TOP_LEFT;");
+		titleText.setText(title);
+		authorText.setText(author);
+		isbnText.setText(isbn);
+		yearText.setText(Integer.toString(year));
+		categoryText.setText(category);
+		quantityText.setText(quantity);
+		availableText.setText(Integer.toString(availableQty));
+		if(availableQty < 1 || BooksUI.bookInBasket(selectedBook) >= availableQty) {
+			loanBtn2.setDisable(true);
+		}else {
+			loanBtn2.setDisable(false);;
+		}
+		
 		try {
-			//Image tmp = new Image(BookViewUI.class.getResource("/bookimages/") + imageName);
 			BufferedImage bookImageBuffered = ImageIO.read(new File("bookimages/"+ imageName));
 			bookImage = SwingFXUtils.toFXImage(bookImageBuffered, null);
 			bookImageView.setImage(bookImage);
+			bookImageView.autosize();
+			bookImageView.resize(170, 270);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		
 		switchUserText.setId("switchUserText");
 		Image logo = new Image("resources/logo.png");
@@ -147,6 +180,12 @@ public class BookViewUI implements Initializable{
 		}
 	}
 	
+	public void loanBtn2Click(){
+		addToBasket(selectedBook);
+		if(availableQty < 1 || BooksUI.bookInBasket(selectedBook) >= availableQty) {
+			loanBtn2.setDisable(true);
+		}
+	}
 	/************************* SIDE PANEL ***************************/
 	
 	/** Loan button **/
@@ -319,7 +358,12 @@ public class BookViewUI implements Initializable{
 		}else {
 			basketText.setVisible(false);
 			cancelBtn.setDisable(false);
-		}	
+		}
+		if(availableQty < 1 || BooksUI.bookInBasket(selectedBook) >= availableQty) {
+			loanBtn2.setDisable(true);
+		}else {
+			loanBtn2.setDisable(false);
+		}
 	}
 
 	

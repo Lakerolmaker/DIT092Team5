@@ -151,6 +151,7 @@ public class NewBookUI implements Initializable{
 			frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty, bookImage);
 			new Alert(Alert.AlertType.NONE, "Book added successfully!", ButtonType.OK).showAndWait();
 			window.close();
+			NewBookUI2.display(isbn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			new Alert(Alert.AlertType.WARNING, "Failed to add book! \n" + e.getMessage()).showAndWait();

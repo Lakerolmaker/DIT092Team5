@@ -265,12 +265,12 @@ public class BooksUI implements Initializable {
 	        if (tableBook.getSelectionModel().getSelectedItem() != null) { // Check if selected cell contains a book
 		        Book selectedBook = tableBook.getSelectionModel().getSelectedItem();
 		        cm = new ContextMenu();
-		        MenuItem mi1 = new MenuItem("Loan");
+		        MenuItem mi1 = new MenuItem("Go to");
+		        MenuItem mi2 = new MenuItem("Loan");
 		        cm.getItems().add(mi1);
-		        MenuItem mi2 = new MenuItem("Delete");
 		        cm.getItems().add(mi2);
-		        mi1.setOnAction(e -> addToBasket(selectedBook));
-		        mi2.setOnAction(e -> System.out.println("Delete"));
+		        mi1.setOnAction(e ->  BookViewUI.display(selectedBook));
+		        mi2.setOnAction(e ->  addToBasket(selectedBook));
 		        cm.setAutoHide(true);
 	        	cm.show(tableBook , event.getScreenX() , event.getScreenY()); // Context menu is shown
 	        }
@@ -278,7 +278,7 @@ public class BooksUI implements Initializable {
 	}
 	
 	// TODO
-	private int bookInBasket(Book book) {
+	public static int bookInBasket(Book book) {
 		if (book != null && booksInBasket != null) {
 			if (booksInBasket.containsKey(book)) {
 				return booksInBasket.get(book);
