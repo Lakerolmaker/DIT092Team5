@@ -32,7 +32,7 @@ import frontend.newBookUI.*;
 import program.*;
 
 public class RegisterUserUI implements Initializable{
-	private static Library lib = new Library("database1");
+	private static Library lib = MainWindow.lib;
 	private static VBox root;
 	private static Scene userScene;
 	private static User user;
@@ -80,6 +80,7 @@ public class RegisterUserUI implements Initializable{
 		if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
 			try {
 				lib.addUser(fName.getText(), lName.getText(), SSN.getText(), phoneNr.getText(), street.getText(), zCode.getText(), city.getText());
+				lib.save();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
