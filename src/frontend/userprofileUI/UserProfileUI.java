@@ -109,7 +109,23 @@ public class UserProfileUI implements Initializable{
 										} else {
 											UserBookList book = getTableView().getItems().get(getIndex());
 											returnBtn.setOnAction(event -> {
-
+												//tmpuser.removeBorrowedBook(book.getBookId());
+												//Remove book from list
+												tmpuser.removeBorrowedBook(tmpuser.getBookIndex(book.getBook()).get(0));
+												
+												try {
+													ObservableList<UserBookList> b = FXCollections.observableArrayList();
+													for(LoanInstance book2 : tmpuser.getBookList()) {
+														b.add(new UserBookList(book2));
+													}
+													borrowedBooks.setItems(b);
+												} catch (Exception e) {
+													// TODO Auto-generated catch block
+													e.printStackTrace();
+												}
+												
+												
+												System.out.println("Try to remove the book: " + book.getBookId() + ", " + book.getTitle());
 											});
 											returnBtn.setId("returnActionBtn");
 
@@ -121,7 +137,7 @@ public class UserProfileUI implements Initializable{
 								return cell;
 							}
 						};
-						
+	 					
 						returnCol.setCellFactory(cellFactory);
 				        returnCol.setStyle("-fx-alignment: CENTER;");
 				        returnCol.setMaxWidth(2000);
