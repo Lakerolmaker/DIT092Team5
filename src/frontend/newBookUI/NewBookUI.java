@@ -68,6 +68,20 @@ public class NewBookUI implements Initializable{
             }
         });
 		
+		isbnText.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            	if (!newValue.matches("\\d{0,13}")) {
+            		String text = newValue.replaceAll("[^\\d]", "");
+            		if(text.length() > 13) {
+            			text = text.substring(0, 13);
+            		}
+            		isbnText.setText(text);
+                }
+            }
+        });
+		
+		
 		shelfText.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {

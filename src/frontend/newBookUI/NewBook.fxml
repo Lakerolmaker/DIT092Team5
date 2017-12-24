@@ -55,9 +55,9 @@
          </font>
       </Label>
       <TextField fx:id="authorText" layoutX="117.0" layoutY="104.0" prefHeight="25.0" prefWidth="293.0" promptText="Author" />
-      <TextField fx:id="isbnText" layoutX="117.0" layoutY="140.0" prefHeight="25.0" prefWidth="293.0" promptText="ISBN" />
-      <TextField fx:id="quantityText" layoutX="117.0" layoutY="244.0" prefHeight="25.0" prefWidth="293.0" promptText="Quantity" />
-      <TextField fx:id="shelfText" layoutX="117.0" layoutY="279.0" prefHeight="25.0" prefWidth="293.0" promptText="Shelf" />
+      <TextField fx:id="isbnText" layoutX="117.0" layoutY="140.0" prefHeight="25.0" prefWidth="293.0" promptText="ISBN - max 13 digits" />
+      <TextField fx:id="quantityText" layoutX="117.0" layoutY="244.0" prefHeight="25.0" prefWidth="293.0" promptText="Quantity - max 5 digits" />
+      <TextField fx:id="shelfText" layoutX="117.0" layoutY="279.0" prefHeight="25.0" prefWidth="293.0" promptText="Shelf number" />
       <TextField fx:id="yearText" layoutX="117.0" layoutY="175.0" prefHeight="25.0" prefWidth="293.0" promptText="Year" />
       <Label layoutX="39.0" layoutY="319.0" text="Image">
          <font>
