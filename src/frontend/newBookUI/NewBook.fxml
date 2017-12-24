@@ -67,5 +67,40 @@
       <TextField fx:id="imageText" layoutX="116.0" layoutY="315.0" prefHeight="31.0" prefWidth="220.0" />
       <Button layoutX="342.0" layoutY="315.0" mnemonicParsing="false" onAction="#browseBtnClick" text="Browse" />
       <ComboBox fx:id="categoryText" layoutX="115.0" layoutY="209.0" prefHeight="25.0" prefWidth="293.0" />
+      <Label layoutX="410.0" layoutY="66.0" text="*" textFill="#e30e0e">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="103.0" text="*" textFill="#e30e0e">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="139.0" text="*" textFill="#e30e0e">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="208.0" text="*" textFill="#e30e0e">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="245.0" text="*" textFill="#e30e0e">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="280.0" text="*" textFill="#e30e0e">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="174.0" text="*" textFill="#e30e0e">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
