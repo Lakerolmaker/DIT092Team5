@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import frontend.MainWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -25,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -41,7 +44,7 @@ public class NewBookUI implements Initializable{
 	@FXML private TextField titleText;
 	@FXML private TextField authorText;
 	@FXML private TextField yearText;
-	@FXML private TextField categoryText;
+	@FXML private ComboBox<String>  categoryText;
 	@FXML private TextField shelfText;
 	@FXML private TextField quantityText;
 	
@@ -90,6 +93,8 @@ public class NewBookUI implements Initializable{
                 }
             }
         });
+		
+		categoryText.setItems(FXCollections.observableArrayList("Novel"));
 	}
 	
 	public static void display() {
@@ -121,7 +126,7 @@ public class NewBookUI implements Initializable{
 				shelfText.getText().trim().equals("") ||
 				quantityText.getText().trim().equals("") || 
 				yearText.getText().trim().equals("") || 
-				categoryText.getText().trim().equals("")) {
+				categoryText.getValue().toString().trim().equals("")) {
 			new Alert(Alert.AlertType.NONE, "Please fill in all fields!", ButtonType.OK).showAndWait();
 			return;
 		}
@@ -130,7 +135,7 @@ public class NewBookUI implements Initializable{
 		String title = titleText.getText().trim();
 		String author = authorText.getText().trim(); 
 		int year = Integer.parseInt(yearText.getText().trim());
-		String category = categoryText.getText().trim();
+		String category = categoryText.getValue().toString().trim();
 		int shelf = Integer.parseInt(shelfText.getText().trim());
 		int qty = Integer.parseInt(quantityText.getText().trim());
 		
