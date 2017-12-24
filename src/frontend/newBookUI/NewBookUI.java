@@ -94,7 +94,37 @@ public class NewBookUI implements Initializable{
             }
         });
 		
-		categoryText.setItems(FXCollections.observableArrayList("Novel"));
+		categoryText.setItems(FXCollections.observableArrayList(
+				"Science fiction",
+				"Satire",
+				"Drama",
+				"Action and Adventure",
+				"Romance",
+				"Mystery",
+				"Horror",
+				"Health",
+				"Guide",
+				"Travel",
+				"Children's",
+				"Science",
+				"History",
+				"Math",
+				"Anthology",
+				"Poetry",
+				"Encyclopedias",
+				"Dictionaries",
+				"Comics",
+				"Art",
+				"Cookbooks",
+				"Diaries",
+				"Journals",
+				"Series",
+				"Trilogy",
+				"Biographies",
+				"Autobiographies",
+				"Fantasy"
+				));
+		categoryText.setValue("Comics");
 	}
 	
 	public static void display() {
