@@ -1,4 +1,5 @@
 package program;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -6,6 +7,7 @@ import com.google.gson.Gson;
 
 import database.DatabaseHelper;
 import database.FileClass;
+import javafx.scene.image.Image;
 
 
 public class Library {
@@ -26,7 +28,7 @@ public class Library {
 	}
 
 	/** Add book to library **/
-	public void addBook(String isbn, String title, String author, int year, String category, int shelf, int qty) throws Exception {
+	public void addBook(String isbn, String title, String author, int year, String category, int shelf, int qty, String image) throws Exception {
 		for (Book book : bookDirectory) {
 			if (book.getIsbn().equals(isbn)) {
 				int currentQty = book.getQuantity();
@@ -35,7 +37,7 @@ public class Library {
 			}
 		}
 		try {
-			Book newbook = new Book(isbn, title, author, year, category, shelf, qty);
+			Book newbook = new Book(isbn, title, author, year, category, shelf, qty, image);
 			bookDirectory.add(newbook);
 		} catch (Exception e) {
 			throw e;
@@ -109,9 +111,9 @@ public class Library {
 	
 
 	/** Loan book  **/
-	public void loanBook(User user, Book book) throws Exception {
+	public void loanBook(User user, Book book, LocalDate returnDate) throws Exception {
 		if (book.getAvailableQuantity() > 0) {
-			user.borrowBook(book);
+			user.borrowBook(book, returnDate);
 		}else {
 			throw new Exception("Error: The book is not avalaible.");
 		}
@@ -120,8 +122,11 @@ public class Library {
 	/** Return book **/
 	public void returnBook(User user, Book book) {
 		ArrayList<Integer> list = user.getBookIndex(book);
+		
 		if(list.size() == 1) {
+			user.setDebt( user.getDebt() +  user.getDelayfee(list.get(0)) );
 			user.removeBorrowedBook(list.get(0));
+			
 		}else {
 			// User have multiple copies - Returning the copy that was borrowed first
 			int firstToReturn = 0;
@@ -132,6 +137,7 @@ public class Library {
 					firstToReturn = list.get(i);
 				}
 			}
+			user.setDebt(  user.getDebt() + user.getDelayfee(firstToReturn) );
 			user.removeBorrowedBook(firstToReturn);
 		}
 	}
@@ -165,7 +171,7 @@ public class Library {
 	}
 
 	public int getID(){
-		return this.userDirectory.get(0).getNextId().get();
+		return User.getNextId().intValue();
 	}
 	
 	

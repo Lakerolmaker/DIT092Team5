@@ -83,7 +83,7 @@ public class UserListUI implements Initializable {
     @FXML public Button btnSearch;
     @FXML public Label directoryOfUsers;
     @FXML public Label label2;
-
+    
     @FXML public Button btnShowAllUsers;
     @FXML public Button btnShowUsersWithDebts;
     @FXML public Button btnShowUsersWithBooks;
@@ -184,17 +184,24 @@ public class UserListUI implements Initializable {
         // table - with books
         if (event.getButton() == MouseButton.SECONDARY) {
             tableUser.setItems(getUsersWithBooks());
-            tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+            //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
         }
+    }
+    
+    public void NewBookButtonClicked(MouseEvent event) {
+    	//TODO
+    }
+
+    public void btnSearchUserAction() {
+    	//TODO
     }
 
 
-
-    public void BtnShowAllUsersWithDebtsClick(MouseEvent event) {                    // btn: users with debts
+    public void BtnShowUsersWithDebtsClick(MouseEvent event) {                    // btn: users with debts
         // table - with debts
         if (event.getButton() == MouseButton.SECONDARY) {
             tableUser.setItems(getUsersWithDebts());
-            tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+            //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
         }
     }
 
@@ -202,7 +209,7 @@ public class UserListUI implements Initializable {
      public void BtnShowAllUsersClick(MouseEvent event){                            // btn: all users
         if (event.getButton() == MouseButton.SECONDARY) {                           // table - all users
             tableUser.setItems(getUsers());
-            tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+            //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
         }
         }
 
@@ -212,6 +219,7 @@ public class UserListUI implements Initializable {
 
         if (event.getClickCount() == 2) {
             User selectedUser = tableUser.getSelectionModel().getSelectedItem(); // Retrieve selected cell
+            MainWindow.user = selectedUser;
             if (selectedUser != null) {
                 goToUserView(selectedUser);
             }

@@ -54,8 +54,26 @@ public class User {
 		return this.userId;
 	}
 
+	//: Gets the total debt , from both the debt from previously borrowed books and currently borrowed books.
 	public double getDebt() {
-		return this.debt;
+		return this.debt + calculateDebt();
+	}
+	
+	public void setDebt(double debt) {
+		this.debt = debt;
+	}
+	
+	//: Get's the total debt from currently borrowed books.
+	public double calculateDebt() {
+		
+		double tempDebt =  0;
+		
+		for(int i = 0 ;  i < bookList.size(); i++) {
+			tempDebt += this.getDelayfee(i);
+		}
+	
+		return tempDebt;
+		
 	}
 
 	public String getSsn() {
@@ -73,11 +91,7 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-	public void setDebt(double debt) {
-		this.debt = debt;
-	}
-
+	
 	public void setPhoneNr(String phoneNr) {
 		this.phoneNr = phoneNr;
 	}
@@ -106,6 +120,7 @@ public class User {
 	public void setCity(String city) {
 		this.city = city;
 	}
+	
 
 	public double getDelayfee(int bookListIndex) {
 
@@ -115,18 +130,16 @@ public class User {
 		double days = today.toEpochDay() - returnDate.toEpochDay();
 
 		if (days > 0)
-			this.debt = days * 2;
+			return days * 2;
 
-		return this.debt;
+		return 0;
 
 		// debt for 1 book only; iterate through borrowed books to get full debt
 
 	}
 
 	public LocalDate getBorrowedBookReturnDate(int bookListIndex) {
-		LocalDate loanDate = bookList.get(bookListIndex).getDate();
-		int loanDays = Library.LOAN_ALLOWANCE;
-		LocalDate returnDate = loanDate.plusDays(loanDays);
+		LocalDate returnDate = bookList.get(bookListIndex).getReturnDate();
 		return returnDate;
 	}
 	
@@ -145,9 +158,8 @@ public class User {
 		}
 	}
 
-	
-	public void borrowBook(Book book) {
-		LoanInstance tmp = new LoanInstance(book);
+	public void borrowBook(Book book, LocalDate returnDate) throws Exception {
+		LoanInstance tmp = new LoanInstance(book, returnDate);
 		bookList.add(tmp);
 		book.loan();
 	}

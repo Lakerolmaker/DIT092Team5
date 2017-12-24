@@ -52,8 +52,8 @@ public class DelayedBooksController {
 		
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-		debtColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-		userIdColumn.setCellValueFactory(new PropertyValueFactory<>("debt"));
+		debtColumn.setCellValueFactory(new PropertyValueFactory<>("debt"));
+		userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 		dateLoanedColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
 		
@@ -65,8 +65,8 @@ public class DelayedBooksController {
 	      
 	        mi1.setOnAction(e -> {
 	        	User forwardUser = MainWindow.lib.getUser(selectedPerson.getUserId());
-	        	UserProfileUI.SetUser(forwardUser);
-	        	UserProfileUI.display();
+	        	//UserProfileUI.SetUser(forwardUser);
+	        	UserProfileUI.display(forwardUser);
 	        });
 	        mi2.setOnAction(e -> System.out.println("Delete"));
 	        cm.setAutoHide(true);

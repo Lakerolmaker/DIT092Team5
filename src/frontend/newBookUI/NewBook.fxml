@@ -7,16 +7,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="387.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.newBookUI.NewBookUI">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.newBookUI.NewBookUI">
    <children>
-      <Button fx:id="cancelbutton" layoutX="38.0" layoutY="340.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="71.0" text="Cancel" />
+      <Button fx:id="cancelbutton" layoutX="38.0" layoutY="369.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="25.0" prefWidth="71.0" text="Cancel" />
       <Label layoutX="44.0" layoutY="-2.0" prefHeight="38.0" prefWidth="146.0" text="New book">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <Separator layoutX="38.0" layoutY="37.0" prefHeight="0.0" prefWidth="372.0" />
-      <Button fx:id="okbutton" layoutX="293.0" layoutY="340.0" mnemonicParsing="false" onAction="#newBookAction" prefHeight="25.0" prefWidth="117.0" text="OK" />
+      <Button fx:id="okbutton" layoutX="293.0" layoutY="369.0" mnemonicParsing="false" onAction="#newBookAction" prefHeight="25.0" prefWidth="117.0" text="OK" />
       <Label layoutX="40.0" layoutY="71.0" prefHeight="17.0" prefWidth="101.0" text="Title:">
          <font>
             <Font size="14.0" />
@@ -59,5 +59,12 @@
       <TextField fx:id="quantityText" layoutX="117.0" layoutY="244.0" prefHeight="25.0" prefWidth="293.0" promptText="Quantity" />
       <TextField fx:id="shelfText" layoutX="117.0" layoutY="279.0" prefHeight="25.0" prefWidth="293.0" promptText="Shelf" />
       <TextField fx:id="yearText" layoutX="117.0" layoutY="175.0" prefHeight="25.0" prefWidth="293.0" promptText="Year" />
+      <Label layoutX="39.0" layoutY="319.0" text="Image">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="imageText" layoutX="116.0" layoutY="315.0" prefHeight="31.0" prefWidth="220.0" />
+      <Button layoutX="342.0" layoutY="315.0" mnemonicParsing="false" onAction="#browseBtnClick" text="Browse" />
    </children>
 </AnchorPane>

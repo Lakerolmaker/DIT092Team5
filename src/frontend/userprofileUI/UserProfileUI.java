@@ -27,15 +27,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import frontend.newBookUI.*;
 import frontend.registerUserUI.RegisterUserUI;
+import javafx.util.Callback;
 import program.LoanInstance;
 import program.User;
 import program.UserBookList;
@@ -77,12 +74,10 @@ public class UserProfileUI implements Initializable{
 					b.add(new UserBookList(book));
 				}
 				
-				System.out.println(tmpuser.getBookList().size());
-				
 				borrowedBooks.setItems(b);
 				
 				TableColumn titleCol = new TableColumn("Title");
-				titleCol.setMinWidth(210);
+				titleCol.setMinWidth(220);
 		        titleCol.setCellValueFactory( new PropertyValueFactory<UserBookList, String>("title"));
 		        
 		        TableColumn authorCol = new TableColumn("Author");
@@ -92,8 +87,62 @@ public class UserProfileUI implements Initializable{
 		        TableColumn dateCol = new TableColumn("Date");
 				dateCol.setMinWidth(50);
 		        dateCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("date"));
+
+				TableColumn returnCol = new TableColumn("");
+				returnCol.setCellValueFactory(new PropertyValueFactory<>("extraBtn"));
+
+				Callback<TableColumn<UserBookList, String>, TableCell<UserBookList, String>> cellFactory
+						=
+						new Callback<TableColumn<UserBookList, String>, TableCell<UserBookList, String>>() {
+							@Override
+							public TableCell call(final TableColumn<UserBookList, String> param) {
+								final TableCell<UserBookList, String> cell = new TableCell<UserBookList, String>() {
+
+									final Button returnBtn = new Button("Return");
+
+									@Override
+									public void updateItem(String item, boolean empty) {
+										super.updateItem(item, empty);
+										if (empty) {
+											setGraphic(null);
+											setText(null);
+										} else {
+											UserBookList book = getTableView().getItems().get(getIndex());
+											returnBtn.setOnAction(event -> {
+												//tmpuser.removeBorrowedBook(book.getBookId());
+												//Remove book from list
+												tmpuser.removeBorrowedBook(tmpuser.getBookIndex(book.getBook()).get(0));
+												
+												try {
+													ObservableList<UserBookList> b = FXCollections.observableArrayList();
+													for(LoanInstance book2 : tmpuser.getBookList()) {
+														b.add(new UserBookList(book2));
+													}
+													borrowedBooks.setItems(b);
+												} catch (Exception e) {
+													// TODO Auto-generated catch block
+													e.printStackTrace();
+												}
+												
+												
+												System.out.println("Try to remove the book: " + book.getBookId() + ", " + book.getTitle());
+											});
+											returnBtn.setId("returnActionBtn");
+
+											setGraphic(returnBtn);
+											setText(null);
+										}
+									}
+								};
+								return cell;
+							}
+						};
+	 					
+						returnCol.setCellFactory(cellFactory);
+				        returnCol.setStyle("-fx-alignment: CENTER;");
+				        returnCol.setMaxWidth(2000);
 		         
-		        borrowedBooks.getColumns().addAll(titleCol, authorCol, dateCol);
+		        borrowedBooks.getColumns().addAll(titleCol, authorCol, dateCol, returnCol);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -116,13 +165,21 @@ public class UserProfileUI implements Initializable{
 			}
 		}
 		
-
-
 		@FXML
 		public void submitButtonAction(Event event)
 		{
 			if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
-				tmpuser = new User(fName.getText(), lName.getText(), SSN.getText(), phoneNr.getText(), street.getText(), zCode.getText(), city.getText());
+				tmpuser.setFirstName(fName.getText());
+				tmpuser.setLastName(lName.getText());
+				tmpuser.setStreet(street.getText());
+				tmpuser.setZipCode(zCode.getText());
+				tmpuser.setCity(city.getText());
+				tmpuser.setPhoneNr(phoneNr.getText());
+
+				MainWindow.lib.updateUser(tmpuser);
+				MainWindow.lib.save();
+				
+				JOptionPane.showMessageDialog(null, "Successfully saved!");
 			}else {
 				JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
 			}
@@ -170,7 +227,4 @@ public class UserProfileUI implements Initializable{
 		public void openRegister() {
 			RegisterUserUI.display();
 		}
-		
-		
-
 	}

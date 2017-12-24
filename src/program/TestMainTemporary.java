@@ -41,7 +41,6 @@ public class TestMainTemporary {
 			System.out.println(e.getMessage());
 		}
 		
-		user1.borrowBook(tmpBook);
 		//lib.save();
 		/*
 		try {

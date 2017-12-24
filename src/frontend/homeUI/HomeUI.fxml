@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -21,36 +22,17 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="MenuFileBtn1" mnemonicParsing="false" onAction="#newBook" text="New Book" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
+            <MenuItem fx:id="saveMenuBtn" mnemonicParsing="false" onAction="#saveMenuBtnClick" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <MenuItem mnemonicParsing="false" onAction="#prefMenuBtnClick" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#quitMenuClick" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#aboutMenuBtnClick" text="About" />
           </items>
         </Menu>
       </menus>
@@ -60,14 +42,6 @@
       <items>
         <AnchorPane prefHeight="552.0" prefWidth="344.0" style="-fx-max-width: 500;">
           <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Library" textAlignment="CENTER" wrapText="false">
-              <font>
-                <Font size="18.0" fx:id="x1" />
-              </font>
-              <textFill>
-                <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-              </textFill>
-            </Label>
                   <Pane layoutX="7.0" layoutY="139.0" prefHeight="413.0" prefWidth="121.0">
                      <children>
                         <Label fx:id="menuHome" layoutX="22.0" layoutY="14.0" onMouseClicked="#homeMenuAction" prefHeight="27.0" prefWidth="162.0" text="Home" textFill="#727272" underline="true">
@@ -97,13 +71,20 @@
                         </Label>
                      </children>
                   </Pane>
+                  <ImageView fx:id="logoImage" fitHeight="117.0" fitWidth="138.0" layoutX="28.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="517.0" prefWidth="1003.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="547.0" prefWidth="1001.0">
               <children>
-                <Label fx:id="topMenu1" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="170.0" style="&#10;" text="Home" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                <Label fx:id="topMenu1" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="170.0" style="&#10;" text="Home" textAlignment="CENTER" wrapText="false">
+                           <font>
+                      <Font size="18.0" fx:id="x1" />
+                           </font>
+                           <textFill>
+                      <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+                           </textFill></Label>
                         <SplitPane layoutX="707.0" layoutY="-1.0" prefHeight="588.0" prefWidth="292.0" AnchorPane.bottomAnchor="-40.0" AnchorPane.leftAnchor="710.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
                            <items>
                               <AnchorPane prefHeight="562.0" prefWidth="290.0" />

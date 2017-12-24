@@ -144,8 +144,8 @@
                                  </font>
                               </Label>
                               <TextField fx:id="lName" prefHeight="25.0" prefWidth="229.0" promptText="Last name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="SSN" prefWidth="229.0" promptText="Social security number" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Social security number:" GridPane.rowIndex="2">
+                              <TextField fx:id="SSN" prefWidth="229.0" promptText="YYYYMMDD-XXXX" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Personal ID number:" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -155,13 +155,13 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="phoneNr" prefHeight="25.0" prefWidth="229.0" promptText="Phone number" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="phoneNr" prefHeight="25.0" prefWidth="225.0" promptText="07X-XXX-XXXX" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label text="Street:" GridPane.rowIndex="4">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="street" prefHeight="25.0" prefWidth="229.0" promptText="Street" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="street" prefHeight="25.0" prefWidth="229.0" promptText="Street Name" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Label text="Zip Code:" GridPane.rowIndex="5">
                                  <font>
                                     <Font size="14.0" />

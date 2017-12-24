@@ -4,6 +4,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -30,35 +31,17 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="MenuFileBtn1" mnemonicParsing="false" onAction="#newBook" text="New Book" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
             <MenuItem fx:id="saveMenuBtn" mnemonicParsing="false" onAction="#saveMenuBtnClick" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <MenuItem mnemonicParsing="false" onAction="#prefMenuBtnClick" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#quitMenuClick" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#aboutMenuBtnClick" text="About" />
           </items>
         </Menu>
       </menus>
@@ -102,7 +85,7 @@
         </AnchorPane>
         <ScrollPane prefHeight="517.0" prefWidth="1003.0">
           <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="547.0" prefWidth="1001.0">
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="584.0" prefWidth="1001.0">
               <children>
                 <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="170.0" style="&#10;" text="Search in library" textAlignment="CENTER" wrapText="false">
                            <font>
@@ -113,28 +96,23 @@
                            </textFill></Label>
                         <TextField fx:id="searchField" layoutX="23.0" layoutY="56.0" onAction="#onEnterSearch" prefHeight="31.0" prefWidth="421.0" />
                         <Button id="SearchBtn" fx:id="searchBtn1" layoutX="457.0" layoutY="56.0" mnemonicParsing="false" onAction="#searchFunc" prefHeight="31.0" prefWidth="76.0" text="Search" />
-                        <SplitPane layoutX="707.0" layoutY="-1.0" prefHeight="588.0" prefWidth="292.0" AnchorPane.bottomAnchor="-40.0" AnchorPane.leftAnchor="710.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
+                        <SplitPane layoutX="707.0" layoutY="-1.0" prefHeight="588.0" prefWidth="298.0" AnchorPane.bottomAnchor="-40.0" AnchorPane.leftAnchor="710.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="-1.0">
                            <items>
-                              <AnchorPane prefHeight="562.0" prefWidth="290.0">
+                              <AnchorPane prefHeight="566.0" prefWidth="417.0">
                                  <children>
-                                    <Text fx:id="nameText" fill="#000000a6" layoutX="22.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname Lastname">
+                                    <Text fx:id="nameText" fill="#000000a6" layoutX="22.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname Lastname">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="streetText" layoutX="22.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5th Avenue" />
-                                    <Text fx:id="cityText" layoutX="22.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="444 60 Bigh High" />
-                                    <Text fx:id="amountText" fill="#000000a6" layoutX="194.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-14">
+                                    <Text fx:id="streetText" layoutX="22.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5th Avenue" />
+                                    <Text fx:id="cityText" layoutX="22.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="444 60 Bigh High" />
+                                    <Text fx:id="balanceText" fill="#000000a6" layoutX="23.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="balanceText" fill="#000000a6" layoutX="23.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance">
-                                       <font>
-                                          <Font name="EXCESS" size="21.0" />
-                                       </font>
-                                    </Text>
-                                    <ListView fx:id="basketList" layoutX="-4.0" layoutY="257.0" onMouseClicked="#basketListClick" opacity="0.63" prefHeight="200.0" prefWidth="284.0" style="-fx-background-color: f4f4f4;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="11.0">
+                                    <ListView fx:id="basketList" layoutX="7.0" layoutY="256.0" onMouseClicked="#basketListClick" opacity="0.63" prefHeight="200.0" prefWidth="284.0" style="-fx-background-color: f4f4f4;" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0">
                                        <effect>
                                           <InnerShadow />
                                        </effect>
@@ -142,28 +120,47 @@
                                           <Insets />
                                        </opaqueInsets>
                                     </ListView>
-                                    <Text fx:id="basketText" fill="#0000001a" layoutX="82.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Basket">
+                                    <Text fx:id="basketText" fill="#0000001a" layoutX="90.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Basket">
                                        <font>
                                           <Font name="EXCESS" size="36.0" />
                                        </font></Text>
-                                    <Button fx:id="loanBtn" layoutX="193.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#loanBtnClicked" prefHeight="31.0" prefWidth="74.0" text="Loan" />
-                                    <TextField fx:id="userIdField" layoutX="115.0" layoutY="177.0" onAction="#onEnterLogIn" prefHeight="31.0" prefWidth="70.0" />
-                                    <Button fx:id="goBtn" layoutX="203.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#goBtnClicked" prefHeight="31.0" prefWidth="73.0" text="Go" />
-                                    <Text fx:id="enterIdText" layoutX="16.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter User ID" />
-                                    <Text fx:id="booksLoaningText" fill="#000000a6" layoutX="23.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Books loaning">
+                                    <Button fx:id="loanBtn" layoutX="199.0" layoutY="527.0" mnemonicParsing="false" onMouseClicked="#loanBtnClicked" prefHeight="31.0" prefWidth="74.0" text="Loan" />
+                                    <TextField fx:id="userIdField" layoutX="69.0" layoutY="227.0" onAction="#onEnterLogIn" prefHeight="31.0" prefWidth="70.0" />
+                                    <Button fx:id="goBtn" layoutX="157.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#goBtnClicked" prefHeight="31.0" prefWidth="73.0" text="Go" />
+                                    <Text fx:id="enterIdText" layoutX="68.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter User ID" />
+                                    <Text fx:id="booksLoaningText" fill="#000000a6" layoutX="23.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Books loaning">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="booksLoaningAmount" fill="#000000a6" layoutX="195.0" layoutY="146.0" onMouseClicked="#returnAllBooks" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                    <Text fx:id="booksLoaningAmount" fill="#000000a6" layoutX="217.0" layoutY="165.0" onMouseClicked="#returnAllBooks" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="basketQtyText" fill="#000000a6" layoutX="14.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qty" />
-                                    <Text fx:id="basketTitleText" fill="#000000a6" layoutX="105.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" />
-                                    <Text fx:id="onlyNumText" fill="#ff0000a6" layoutX="105.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Only numbers" />
-                                    <Text fx:id="noUserFoundText" fill="#ff0000a6" layoutX="110.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No user found" />
+                                    <Text fx:id="basketQtyText" fill="#000000a6" layoutX="16.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qty" />
+                                    <Text fx:id="basketTitleText" fill="#000000a6" layoutX="107.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" />
+                                    <Text fx:id="onlyNumText" fill="#ff0000a6" layoutX="70.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Only numbers" />
+                                    <Text fx:id="noUserFoundText" fill="#ff0000a6" layoutX="69.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No user found" />
+                                    <Button fx:id="cancelBtn" layoutX="23.0" layoutY="527.0" mnemonicParsing="false" onMousePressed="#cancelBtnClicked" prefHeight="31.0" prefWidth="74.0" text="Cancel" />
+                                    <Text fx:id="switchUserText" fill="#000000a6" layoutX="191.0" layoutY="28.0" onMouseClicked="#switchUserClick" strokeType="OUTSIDE" strokeWidth="0.0" text="switch user">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <DatePicker fx:id="datePicker" layoutX="110.0" layoutY="460.0" prefHeight="31.0" prefWidth="162.0" />
+                                    <Text fx:id="returnDateText" fill="#000000a6" layoutX="23.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return Date" />
+                                    <Text fx:id="dateErrorText" fill="#ff0000a6" layoutX="24.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                    <Text fx:id="amountText" fill="#000000a6" layoutX="188.64892578125" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.rightAnchor="66.6123046875">
+                                       <font>
+                                          <Font name="EXCESS" size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="currencyText" fill="#000000a6" layoutX="234.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEK">
+                                       <font>
+                                          <Font name="System Italic" size="13.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </AnchorPane>
                            </items>
@@ -179,6 +176,7 @@
                         </Group>
                         <CheckBox fx:id="showOnlyAv" layoutX="23.0" layoutY="96.0" mnemonicParsing="false" text="Show only availible" />
                         <Button id="SearchBtn" fx:id="searchBtn11" layoutX="552.0" layoutY="56.0" mnemonicParsing="false" onAction="#openDelayedBooks" prefHeight="31.0" prefWidth="121.0" text="Delayed Books" />
+                        <Text fx:id="bookTableStatusBar" layoutX="220.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="table status bar" />
               </children>
             </AnchorPane>
           </content>
