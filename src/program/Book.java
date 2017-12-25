@@ -32,9 +32,11 @@ public class Book {
 	private String publisher;
 
 
-	static private AtomicInteger idGen = new AtomicInteger();
+	static private AtomicInteger idGen = new AtomicInteger(); // it generates new ID 
 
 	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity, String image, String publisher) throws Exception {
+		
+		// Check the validity of inputs and throw exceptions if not valid 
 		
 		if (isbn.length()> 15) {
 			throw new Exception("isbn has invalid format");
