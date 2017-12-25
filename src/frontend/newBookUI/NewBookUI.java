@@ -47,6 +47,7 @@ public class NewBookUI implements Initializable{
 	@FXML private ComboBox<String>  categoryText;
 	@FXML private TextField shelfText;
 	@FXML private TextField quantityText;
+	@FXML private TextField publisherText; 
 	
 	@FXML private TextField imageText;
 	private BufferedImage bufferedImage = null;
@@ -169,8 +170,10 @@ public class NewBookUI implements Initializable{
 				authorText.getText().trim().equals("") ||
 				shelfText.getText().trim().equals("") ||
 				quantityText.getText().trim().equals("") || 
+				publisherText.getText().trim().equals("") ||
 				yearText.getText().trim().equals("") || 
-				categoryText.getValue().toString().trim().equals("")) {
+				categoryText.getValue().toString().trim().equals(""))
+		{
 			new Alert(Alert.AlertType.NONE, "Please fill in all fields!", ButtonType.OK).showAndWait();
 			return;
 		}
@@ -182,6 +185,7 @@ public class NewBookUI implements Initializable{
 		String category = categoryText.getValue().toString().trim();
 		int shelf = Integer.parseInt(shelfText.getText().trim());
 		int qty = Integer.parseInt(quantityText.getText().trim());
+		String publisher = publisherText.getText().trim();
 		
 		try {
 			String bookImage = "genericBookCover.jpg";
@@ -197,7 +201,7 @@ public class NewBookUI implements Initializable{
 					c.printStackTrace();
 				}
 			}
-			frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty, bookImage);
+			frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty, bookImage, publisher);
 			new Alert(Alert.AlertType.NONE, "Book added successfully!", ButtonType.OK).showAndWait();
 			window.close();
 			NewBookUI2.display(isbn);

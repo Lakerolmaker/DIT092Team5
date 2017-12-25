@@ -29,13 +29,12 @@ public class Book {
 	private int loaned;
 	private String image;
 	private String description;
+	private String publisher;
 
-	// private String publisher;
-	// exists in library class for sorting.
 
 	static private AtomicInteger idGen = new AtomicInteger();
 
-	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity, String image) throws Exception {
+	public Book(String isbn, String title, String author, int year, String category, int shelf, int quantity, String image, String publisher) throws Exception {
 		
 		if (isbn.length()> 15) {
 			throw new Exception("isbn has invalid format");
@@ -69,6 +68,7 @@ public class Book {
 		this.loaned = 0;
 		this.image = image;
 		this.description = "";
+		this.publisher = publisher; 
 	}
 	
 	public String getDescription(){
@@ -95,6 +95,14 @@ public class Book {
 		return this.id;
 	}
 
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	
 	public String getIsbn() {
 		return isbn;
 	}

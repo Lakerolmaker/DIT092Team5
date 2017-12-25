@@ -81,8 +81,8 @@ public class BookViewUI implements Initializable{
 	private String isbn;
 	private int year;
 	private int availableQty;
-	private String category,shelfText, quantity, description;
-	@FXML private Text titleText,quantityText,availableText,descriptionText;
+	private String category,shelfText, quantity, description, publisher;
+	@FXML private Text titleText,quantityText,availableText,descriptionText, publisherText;
 	@FXML private Text authorText;
 	@FXML private Text isbnText;
 	@FXML private Text yearText;
@@ -108,6 +108,7 @@ public class BookViewUI implements Initializable{
 		isbn = selectedBook.getIsbn();
 		year = selectedBook.getYear();
 		category = selectedBook.getCategory();
+		publisher = selectedBook.getPublisher(); 
 		imageName = selectedBook.getImage();
 		quantity = Integer.toString(selectedBook.getQuantity());
 		availableQty = selectedBook.getAvailableQuantity();
@@ -118,6 +119,7 @@ public class BookViewUI implements Initializable{
 		isbnText.setText(isbn);
 		yearText.setText(Integer.toString(year));
 		categoryText.setText(category);
+		publisherText.setText(publisher);
 		quantityText.setText(quantity);
 		availableText.setText(Integer.toString(availableQty));
 		if(availableQty < 1 || BooksUI.bookInBasket(selectedBook) >= availableQty) {
