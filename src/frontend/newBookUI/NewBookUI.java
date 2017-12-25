@@ -56,11 +56,13 @@ public class NewBookUI implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// use regular expression to force user to enter valid input
+	
 		yearText.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-            	if (!newValue.matches("\\d{0,4}")) {
-            		String text = newValue.replaceAll("[^\\d]", "");
+            	if (!newValue.matches("\\d{0,4}")) { // accepts 0 to 4 digits for year 
+            		String text = newValue.replaceAll("[^\\d]", ""); // removes non digit characters
             		if(text.length() > 4) {
             			text = text.substring(0, 4);
             		}
@@ -72,7 +74,7 @@ public class NewBookUI implements Initializable{
 		isbnText.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-            	if (!newValue.matches("\\d{0,13}")) {
+            	if (!newValue.matches("\\d{0,13}")) {  // accepts 0 to 13 digits for isbn
             		String text = newValue.replaceAll("[^\\d]", "");
             		if(text.length() > 13) {
             			text = text.substring(0, 13);
@@ -86,7 +88,7 @@ public class NewBookUI implements Initializable{
 		shelfText.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-            	if (!newValue.matches("\\d{0,5}")) {
+            	if (!newValue.matches("\\d{0,5}")) { // accepts 0 to 5 digits for shelf
             		String text = newValue.replaceAll("[^\\d]", "");
             		if(text.length() > 5) {
             			text = text.substring(0, 5);
@@ -99,7 +101,7 @@ public class NewBookUI implements Initializable{
 		quantityText.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-            	if (!newValue.matches("\\d{0,5}")) {
+            	if (!newValue.matches("\\d{0,5}")) { // accepts 0 to 5 digits for quantity
             		String text = newValue.replaceAll("[^\\d]", "");
             		if(text.length() > 5) {
             			text = text.substring(0, 5);
@@ -109,9 +111,11 @@ public class NewBookUI implements Initializable{
             }
         });
 		
+		// set all categories for comboBox 
 		categoryText.setItems(FXCollections.observableArrayList(
 				"Science fiction",
 				"Satire",
+				"Novel",
 				"Drama",
 				"Action and Adventure",
 				"Romance",
@@ -165,6 +169,7 @@ public class NewBookUI implements Initializable{
 	
 	@FXML
 	public void newBookAction() {	
+		// checking mandatory fields 
 		if(isbnText.getText().trim().equals("") ||
 				titleText.getText().trim().equals("") ||
 				authorText.getText().trim().equals("") ||
@@ -178,6 +183,7 @@ public class NewBookUI implements Initializable{
 			return;
 		}
 		
+		//get values from the form
 		String isbn = isbnText.getText().trim();
 		String title = titleText.getText().trim();
 		String author = authorText.getText().trim(); 
@@ -187,6 +193,7 @@ public class NewBookUI implements Initializable{
 		int qty = Integer.parseInt(quantityText.getText().trim());
 		String publisher = publisherText.getText().trim();
 		
+		// handles exceptions from addBook method
 		try {
 			String bookImage = "genericBookCover.jpg";
 			if(bufferedImage != null) {
@@ -201,6 +208,7 @@ public class NewBookUI implements Initializable{
 					c.printStackTrace();
 				}
 			}
+			// addBook can throw exception
 			frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty, bookImage, publisher);
 			new Alert(Alert.AlertType.NONE, "Book added successfully!", ButtonType.OK).showAndWait();
 			window.close();
