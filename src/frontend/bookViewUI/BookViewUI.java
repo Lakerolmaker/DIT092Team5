@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import frontend.delayedBooksUI.*;
 import javafx.collections.ObservableList;
@@ -31,7 +32,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -68,7 +71,7 @@ public class BookViewUI implements Initializable{
 	// SidePanel
 	@FXML private Text nameText,streetText,cityText,balanceText,amountText,basketText,booksLoaningText,booksLoaningAmount,enterIdText, currencyText;
 	@FXML private Text onlyNumText,noUserFoundText,switchUserText,returnDateText,dateErrorText, basketTitleText, basketQtyText;
-	@FXML private Button goBtn,loanBtn,loanActionBtn,cancelBtn, editBookBtn;
+	@FXML private Button goBtn,loanBtn,loanActionBtn,cancelBtn, editBookBtn, removeBookBtn;
 	@FXML private TextField userIdField;
 	@FXML private DatePicker datePicker;
 	@FXML private ListView<HBox> basketList;
@@ -193,6 +196,18 @@ public class BookViewUI implements Initializable{
 	public void editBookBtnClick(){
 		BookEditUI.display(selectedBook);
 	}
+	
+	public void removeBookBtnClick() {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this book?");
+		Optional <ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK ) {
+			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
+			new Alert(Alert.AlertType.INFORMATION, "Book: " + selectedBook.getTitle() + " has been removed!").showAndWait();
+			BooksUI.display();
+		}	
+	}
+	
+	
 	/************************* SIDE PANEL ***************************/
 	
 	/** Loan button **/
