@@ -1,8 +1,8 @@
-package frontend.bookViewUI;
+package frontend.bookEditUI;
 
 import frontend.*;
 import frontend.aboutUI.AboutUI;
-import frontend.bookEditUI.BookEditUI;
+import frontend.bookViewUI.BookViewUI;
 import frontend.booksUI.*;
 import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
@@ -24,6 +24,9 @@ import javax.imageio.ImageIO;
 import java.util.Map.Entry;
 
 import frontend.delayedBooksUI.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -31,12 +34,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,6 +52,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import frontend.newBookUI.*;
 import frontend.preferencesUI.PreferencesUI;
 import program.Book;
@@ -59,7 +67,7 @@ import program.User;
  *
  */
 
-public class BookViewUI implements Initializable{
+public class BookEditUI implements Initializable{
 	private static VBox root;
 	private static Scene bookView;
 	// Left Panel
@@ -68,7 +76,7 @@ public class BookViewUI implements Initializable{
 	// SidePanel
 	@FXML private Text nameText,streetText,cityText,balanceText,amountText,basketText,booksLoaningText,booksLoaningAmount,enterIdText, currencyText;
 	@FXML private Text onlyNumText,noUserFoundText,switchUserText,returnDateText,dateErrorText, basketTitleText, basketQtyText;
-	@FXML private Button goBtn,loanBtn,loanActionBtn,cancelBtn, editBookBtn;
+	@FXML private Button goBtn,loanBtn,loanActionBtn,cancelBtn;
 	@FXML private TextField userIdField;
 	@FXML private DatePicker datePicker;
 	@FXML private ListView<HBox> basketList;
@@ -81,21 +89,110 @@ public class BookViewUI implements Initializable{
 	private String imageName;
 	private String isbn;
 	private int year;
-	private int availableQty;
-	private String category,shelfText, quantity, description, publisher;
-	@FXML private Text titleText,quantityText,availableText,descriptionText, publisherText;
-	@FXML private Text authorText;
-	@FXML private Text isbnText;
-	@FXML private Text yearText;
-	@FXML private Text categoryText;
-	@FXML private Button loanBtn2,backBtn;
+	private String category,shelf, quantity, description, publisher;
+	@FXML private TextField titleText,shelfText, quantityText, publisherText, authorText, isbnText, yearText;
+	@FXML private ComboBox categoryText;
+	@FXML private TextArea descriptionText;
+	@FXML private Button saveBtn,backBtn;
 	@FXML public Label bookTitle;
 	@FXML private ImageView bookImageView;
 	private Image bookImage;
 	
+	@FXML private TextField imageText;
+	private BufferedImage bufferedImage = null;
+	private String imagePath;
+	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		// use regular expression to force user to enter valid input
+		
+			yearText.textProperty().addListener(new ChangeListener<String>() {
+	            @Override
+	            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+	            	if (!newValue.matches("\\d{0,4}")) { // accepts 0 to 4 digits for year 
+	            		String text = newValue.replaceAll("[^\\d]", ""); // removes non digit characters
+	            		if(text.length() > 4) {
+	            			text = text.substring(0, 4);
+	            		}
+	            		yearText.setText(text);
+	                }
+	            }
+	        });
+			
+			isbnText.textProperty().addListener(new ChangeListener<String>() {
+	            @Override
+	            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+	            	if (!newValue.matches("\\d{0,13}")) {  // accepts 0 to 13 digits for isbn
+	            		String text = newValue.replaceAll("[^\\d]", "");
+	            		if(text.length() > 13) {
+	            			text = text.substring(0, 13);
+	            		}
+	            		isbnText.setText(text);
+	                }
+	            }
+	        });
+			
+			
+			shelfText.textProperty().addListener(new ChangeListener<String>() {
+	            @Override
+	            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+	            	if (!newValue.matches("\\d{0,5}")) { // accepts 0 to 5 digits for shelf
+	            		String text = newValue.replaceAll("[^\\d]", "");
+	            		if(text.length() > 5) {
+	            			text = text.substring(0, 5);
+	            		}
+	            		shelfText.setText(text);
+	                }
+	            }
+	        });
+			
+			quantityText.textProperty().addListener(new ChangeListener<String>() {
+	            @Override
+	            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+	            	if (!newValue.matches("\\d{0,5}")) { // accepts 0 to 5 digits for quantity
+	            		String text = newValue.replaceAll("[^\\d]", "");
+	            		if(text.length() > 5) {
+	            			text = text.substring(0, 5);
+	            		}
+	            		quantityText.setText(text);
+	                }
+	            }
+	        });
+		
+		categoryText.setItems(FXCollections.observableArrayList(
+				"Science fiction",
+				"Satire",
+				"Novel",
+				"Drama",
+				"Action and Adventure",
+				"Romance",
+				"Mystery",
+				"Horror",
+				"Health",
+				"Guide",
+				"Travel",
+				"Children's",
+				"Science",
+				"History",
+				"Math",
+				"Anthology",
+				"Poetry",
+				"Encyclopedias",
+				"Dictionaries",
+				"Comics",
+				"Art",
+				"Cookbooks",
+				"Diaries",
+				"Journals",
+				"Series",
+				"Trilogy",
+				"Biographies",
+				"Autobiographies",
+				"Fantasy"
+				));
+		
 		description = selectedBook.getDescription();
 		if(description != null && description.length() > 0) {
 			descriptionText.setText(description);
@@ -112,22 +209,16 @@ public class BookViewUI implements Initializable{
 		publisher = selectedBook.getPublisher(); 
 		imageName = selectedBook.getImage();
 		quantity = Integer.toString(selectedBook.getQuantity());
-		availableQty = selectedBook.getAvailableQuantity();
 		bookTitle.setId("bookTitle");
 		bookTitle.setStyle("-fx-alignment: TOP_LEFT;");
 		titleText.setText(title);
 		authorText.setText(author);
 		isbnText.setText(isbn);
 		yearText.setText(Integer.toString(year));
-		categoryText.setText(category);
+		categoryText.setValue(category);
 		publisherText.setText(publisher);
 		quantityText.setText(quantity);
-		availableText.setText(Integer.toString(availableQty));
-		if(availableQty < 1 || BooksUI.bookInBasket(selectedBook) >= availableQty) {
-			loanBtn2.setDisable(true);
-		}else {
-			loanBtn2.setDisable(false);;
-		}
+		imageText.setText(imageName);
 		
 		try {
 			BufferedImage bookImageBuffered = ImageIO.read(new File("bookimages/"+ imageName));
@@ -167,11 +258,11 @@ public class BookViewUI implements Initializable{
 	}
 	
 	public static void display(Book book)  {
-		Class context = BookViewUI.class;
+		Class context = BookEditUI.class;
 		selectedBook = book;
 		try {
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
-			VBox bookViewContainer = (VBox)FXMLLoader.load(context.getResource("BookView.fxml")); 
+			VBox bookViewContainer = (VBox)FXMLLoader.load(context.getResource("BookEdit.fxml")); 
 			bookView = new Scene(bookViewContainer,1192,650);
 			bookView.getStylesheets().add(MainWindow.css);
 
@@ -183,16 +274,101 @@ public class BookViewUI implements Initializable{
 		}
 	}
 	
-	public void loanBtn2Click(){
-		addToBasket(selectedBook);
-		if(availableQty < 1 || BooksUI.bookInBasket(selectedBook) >= availableQty) {
-			loanBtn2.setDisable(true);
+	public void saveBtnClick(){
+		// checking mandatory fields 
+		if(isbnText.getText().trim().equals("") ||
+				titleText.getText().trim().equals("") ||
+				authorText.getText().trim().equals("") ||
+				shelfText.getText().trim().equals("") ||
+				quantityText.getText().trim().equals("") || 
+				publisherText.getText().trim().equals("") ||
+				yearText.getText().trim().equals("") || 
+				categoryText.getValue().toString().trim().equals(""))
+		{
+			new Alert(Alert.AlertType.NONE, "Please fill in all fields!", ButtonType.OK).showAndWait();
+			return;
 		}
+		
+		//get values from the form
+		String isbn = isbnText.getText().trim();
+		String title = titleText.getText().trim();
+		String author = authorText.getText().trim(); 
+		int year = Integer.parseInt(yearText.getText().trim());
+		String category = categoryText.getValue().toString().trim();
+		int shelf = Integer.parseInt(shelfText.getText().trim());
+		int qty = Integer.parseInt(quantityText.getText().trim());
+		String publisher = publisherText.getText().trim();
+		description = descriptionText.getText().trim();
+		
+		// handles exceptions from addBook method
+		try {
+			String bookImage = "genericBookCover.jpg";
+			if(bufferedImage != null) {
+				try {
+		            File outputfile = new File("bookimages/" + imageName);
+		            ImageIO.write(bufferedImage, "png", outputfile);
+		            System.out.println(outputfile.getAbsolutePath());
+		            System.out.println(outputfile.toPath());
+		            System.out.println(outputfile.toURL());
+		            bookImage = imageName;
+				}catch (Exception c) {
+					c.printStackTrace();
+				}
+			}
+			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
+			
+			// addBook can throw exception
+			boolean bookAdded = frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty, bookImage, publisher);
+			if (bookAdded == true)
+			{
+				new Alert(Alert.AlertType.NONE, "Book edited successfully!", ButtonType.OK).showAndWait();
+			}
+			else
+			{
+				new Alert(Alert.AlertType.NONE, "An error occured! Book was not edited!", ButtonType.OK).showAndWait();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			new Alert(Alert.AlertType.WARNING, "Failed to edit book! \n" + e.getMessage()).showAndWait();
+		}
+		
+		// go back to book view
+		selectedBook = frontend.MainWindow.lib.findBookByIsbn(isbn);
+		selectedBook.setDescription(description);
+		
+		BookViewUI.display(selectedBook);
 	}
 	
-	public void editBookBtnClick(){
-		BookEditUI.display(selectedBook);
+	public void imageBtnClick(){
+        FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+         
+        //Show open file dialog
+        File file = fileChooser.showOpenDialog(null);
+                  
+        try {
+            bufferedImage = ImageIO.read(file);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imagePath = file.getAbsolutePath();
+            imageName = file.getName();
+            imageText.setText(imageName);
+            bookImageView.setImage(image);
+			bookImageView.autosize();
+			bookImageView.resize(170, 270);
+        } catch (Exception ex) {
+            //Logger.getLogger(NewBookUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	}
+	
+	public void backBtnClick() {
+		BookViewUI.display(selectedBook);
+	}
+	
 	/************************* SIDE PANEL ***************************/
 	
 	/** Loan button **/
@@ -366,11 +542,6 @@ public class BookViewUI implements Initializable{
 			basketText.setVisible(false);
 			cancelBtn.setDisable(false);
 		}
-		if(availableQty < 1 || BooksUI.bookInBasket(selectedBook) >= availableQty) {
-			loanBtn2.setDisable(true);
-		}else {
-			loanBtn2.setDisable(false);
-		}
 	}
 
 	
@@ -498,7 +669,7 @@ public class BookViewUI implements Initializable{
 		UserListUI.display();
 	}
 	public void goToBookView(Book book){
-		BookViewUI.display(book);
+		BookEditUI.display(book);
 	}
 	public void openDelayedBooks() {
 		DelayedBook.display();
