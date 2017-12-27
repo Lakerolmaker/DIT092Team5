@@ -201,13 +201,13 @@ public class BookEditUI implements Initializable{
 									+" Books should have a summary to inform others of the content, author, source, and date if possible. "
 					+"If you know or have access to such information, please add it to the book page. ");
 		}
-		title = selectedBook.getTitle();
-		author = selectedBook.getAuthor();
-		isbn = selectedBook.getIsbn();
+		title = selectedBook.getTitle() != null ? selectedBook.getTitle() : "";
+		author = selectedBook.getAuthor() != null ? selectedBook.getAuthor() : "";
+		isbn = selectedBook.getIsbn() != null ? selectedBook.getIsbn() : "";
 		year = selectedBook.getYear();
-		category = selectedBook.getCategory();
-		publisher = selectedBook.getPublisher(); 
-		imageName = selectedBook.getImage();
+		category = selectedBook.getCategory() != null ? selectedBook.getCategory() : "";
+		publisher = selectedBook.getPublisher() != null ? selectedBook.getPublisher() : ""; 
+		imageName = selectedBook.getImage() != null ? selectedBook.getImage() : "";
 		quantity = Integer.toString(selectedBook.getQuantity());
 		bookTitle.setId("bookTitle");
 		bookTitle.setStyle("-fx-alignment: TOP_LEFT;");
