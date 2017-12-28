@@ -468,8 +468,8 @@ public class BooksUI implements Initializable {
 	// Add to basket
 	public void addToBasket(Book book){
 		if (book != null && MainWindow.user != null) {
-			if (booksInBasket.containsKey(book)) {
-				booksInBasket.put(book, booksInBasket.get(book) +1 );
+			if (booksInBasket.containsKey(book) == true) {
+				booksInBasket.put(book, booksInBasket.get(book) + 1 );
 			}else {
 				booksInBasket.put(book, 1);
 			}
