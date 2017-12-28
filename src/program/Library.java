@@ -79,6 +79,17 @@ public class Library {
 		}
 	}
 	
+	/** Register user **/
+	public void addUser(User user) throws Exception {
+		if (findUser(user.getSsn()) != null) {	// Search for duplicate using SSN
+			throw new Exception("Error: Customer with same SSN already exists in db");
+
+		}else {				// If no duplicate found - a new User are registered
+			userDirectory.add(user);
+		}
+	}
+	
+	
 	/** Remove user **/
 	public void removeUser(User user) throws Exception {
 		if (userDirectory.contains(user)) {
