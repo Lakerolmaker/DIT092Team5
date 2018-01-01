@@ -1,0 +1,1 @@
+{"id":1,"isbn":"23232","title":"dsd","author":"dsdds","year":323,"category":"Comics","shelf":1,"quantity":2,"loaned":0,"image":"genericBookCover.jpg","description":"","publisher":"dfdfd","loanTotal":0}

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -19,7 +25,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.registerUserUI.RegisterUserUI">
+<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.registerUserUI.RegisterUserUI">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -96,6 +102,11 @@
                            </font>
                         </Label>
                         <Label fx:id="menuHome" layoutX="22.0" layoutY="14.0" onMouseClicked="#booksMenuAction" prefHeight="27.0" prefWidth="162.0" text="Home" textFill="#727272">
+                           <font>
+                              <Font name="MS Reference Sans Serif" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label id="menuDelayed" layoutX="22.0" layoutY="187.0" onMouseClicked="#openStats" prefHeight="27.0" prefWidth="162.0" text="Statistics" textFill="#727272">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>

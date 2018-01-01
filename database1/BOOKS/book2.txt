@@ -1,1 +1,1 @@
-{"id":3,"isbn":"9780752832470","title":"The Godfather","author":"Whittaker, Owen","year":1995,"category":"Drama","shelf":2,"quantity":5,"loaned":0,"image":"thegodfather.jpg","description":"The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."}
+{"id":4,"isbn":"000003","title":"Fifty Shades of Grey","author":"E. L. James","year":2011,"category":"Erotic romance","shelf":3,"quantity":10,"loaned":1,"image":"genericBookCover.jpg","loanTotal":9}

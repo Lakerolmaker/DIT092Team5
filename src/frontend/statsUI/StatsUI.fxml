@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -20,7 +21,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.delayedBooksUI.DelayedBooksController">
+<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.statsUI.StatsUI">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -66,7 +67,7 @@
       <items>
         <AnchorPane prefHeight="552.0" prefWidth="344.0" style="-fx-max-width: 500;">
           <children>
-           <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Library" textAlignment="CENTER" wrapText="false">
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Library" textAlignment="CENTER" wrapText="false">
               <font>
                 <Font size="18.0" fx:id="x1" />
               </font>
@@ -91,17 +92,17 @@
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
                         </Label>
-                        <Label id="menuDelayed" fx:id="menuDelayed" layoutX="22.0" layoutY="120.0" prefHeight="27.0" prefWidth="162.0" text="Delayed" textFill="#727272" underline="true">
+                        <Label id="menuDelayed" fx:id="menuDelayed" layoutX="22.0" layoutY="120.0" onMouseClicked="#openDelayedBooks" prefHeight="27.0" prefWidth="162.0" text="Delayed" textFill="#727272">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
                         </Label>
-                        <Label id="menuRegister" layoutX="22.0" layoutY="154.0" onMouseClicked="#openRegister" prefHeight="27.0" prefWidth="162.0" text="Register User" textFill="#727272">
+                        <Label id="menuRegister" fx:id="menuRegister1" layoutX="22.0" layoutY="154.0" onMouseClicked="#openRegister" prefHeight="27.0" prefWidth="162.0" text="Register User" textFill="#727272">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="22.0" layoutY="187.0" onMouseClicked="#openStats" prefHeight="27.0" prefWidth="162.0" text="Statistics" textFill="#727272">
+                        <Label id="statsLabel" fx:id="statsLabel" layoutX="22.0" layoutY="187.0" prefHeight="27.0" prefWidth="162.0" text="Statistics" textFill="#727272" underline="true">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
@@ -114,20 +115,26 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="547.0" prefWidth="1001.0">
               <children>
-               <Label fx:id="topMenu1" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="170.0" style="&#10;" text="Delayed Books" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                         <Group layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0" />
-                        <TableView fx:id="delayedBook" layoutX="35.0" layoutY="57.0" onContextMenuRequested="#gridLeftCLick" onMousePressed="#gridClick" prefHeight="467.0" prefWidth="935.0">
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                           <columns>
-                              <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
-                              <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name of User" />
-                              <TableColumn fx:id="userIdColumn" prefWidth="75.0" text="User ID" />
-                              <TableColumn fx:id="debtColumn" prefWidth="75.0" text="Debt Accumulated" />
-                              <TableColumn fx:id="dateLoanedColumn" prefWidth="75.0" text="Date Loaned" />
-                           </columns>
+                        <BarChart fx:id="LoanChart" layoutX="33.0" layoutY="32.0" prefHeight="255.0" prefWidth="945.0" title="Most lent out books">
+                          <xAxis>
+                            <CategoryAxis label="Name" side="BOTTOM" fx:id="xBookName" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="yLoaned" label="Loaned" side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <TableView fx:id="tableUser" layoutX="94.0" layoutY="340.0" prefHeight="203.0" prefWidth="480.0">
+                          <columns>
+                            <TableColumn fx:id="nameColumn" prefWidth="158.0" text="Name" />
+                            <TableColumn fx:id="surnameColumn" prefWidth="137.0" text="Surname" />
+                              <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID" />
+                              <TableColumn fx:id="loanColumn" prefWidth="100.0" text="Loan Count" />
+                          </columns>
                         </TableView>
+                        <Label fx:id="userDebt" layoutX="640.0" layoutY="340.0" prefHeight="27.0" prefWidth="280.0" text="Total User Debt:" />
+                        <Label fx:id="totalBooks" layoutX="640.0" layoutY="383.0" prefHeight="25.0" prefWidth="292.0" text="Total Books:" />
+                        <Label fx:id="totalUsers" layoutX="640.0" layoutY="425.0" prefHeight="17.0" prefWidth="272.0" text="Total Users:" />
               </children>
             </AnchorPane>
           </content>

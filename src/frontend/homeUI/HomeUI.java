@@ -1,18 +1,20 @@
 package frontend.homeUI;
 
 
-import frontend.booksUI.*;
-import frontend.*;
-import frontend.aboutUI.AboutUI;
-import frontend.bookViewUI.BookViewUI;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import frontend.registerUserUI.*;
+
+import frontend.MainWindow;
+import frontend.aboutUI.AboutUI;
+import frontend.bookViewUI.BookViewUI;
+import frontend.booksUI.BooksUI;
+import frontend.delayedBooksUI.DelayedBook;
+import frontend.newBookUI.NewBookUI;
+import frontend.preferencesUI.PreferencesUI;
+import frontend.registerUserUI.RegisterUserUI;
+import frontend.statsUI.StatsUI;
 import frontend.userListUI.UserListUI;
-import frontend.delayedBooksUI.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,8 +23,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import frontend.newBookUI.*;
-import frontend.preferencesUI.PreferencesUI;
 import program.Book;
 
 
@@ -95,5 +95,8 @@ public class HomeUI implements Initializable{
 	}	
 	public void openRegister() {
 		RegisterUserUI.display();
+	}
+	public void openStats() {
+		StatsUI.display();
 	}
 }

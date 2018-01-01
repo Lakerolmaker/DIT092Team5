@@ -1,25 +1,26 @@
 package frontend.userprofileUI;
 
-import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
 
 /** 
  * Description: 
  * 
  * @author Tihana Causevic
  */
-import frontend.*;
-import frontend.emptyTemplateUI.*;
+import frontend.MainWindow;
+import frontend.booksUI.BooksUI;
+import frontend.delayedBooksUI.DelayedBook;
+import frontend.emptyTemplateUI.EmptyTemplateUI;
 import frontend.homeUI.HomeUI;
+import frontend.newBookUI.NewBookUI;
+import frontend.registerUserUI.RegisterUserUI;
+import frontend.statsUI.StatsUI;
 import frontend.userListUI.UserListUI;
-
-import java.io.IOException;
-import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import javax.swing.JOptionPane;
-import frontend.delayedBooksUI.*;
-import frontend.booksUI.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -27,11 +28,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import frontend.newBookUI.*;
-import frontend.registerUserUI.RegisterUserUI;
 import javafx.util.Callback;
 import program.LoanInstance;
 import program.User;
@@ -226,5 +230,8 @@ public class UserProfileUI implements Initializable{
 		}	
 		public void openRegister() {
 			RegisterUserUI.display();
+		}
+		public void openStats() {
+			StatsUI.display();
 		}
 	}

@@ -1,26 +1,25 @@
 package frontend.emptyTemplateUI;
 
 
-import frontend.booksUI.*;
-import frontend.homeUI.HomeUI;
-import frontend.*;
-import frontend.bookViewUI.BookViewUI;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import frontend.registerUserUI.*;
+
+import frontend.MainWindow;
+import frontend.bookViewUI.BookViewUI;
+import frontend.booksUI.BooksUI;
+import frontend.delayedBooksUI.DelayedBook;
+import frontend.homeUI.HomeUI;
+import frontend.newBookUI.NewBookUI;
+import frontend.registerUserUI.RegisterUserUI;
+import frontend.statsUI.StatsUI;
 import frontend.userListUI.UserListUI;
-import frontend.delayedBooksUI.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import frontend.newBookUI.*;
 import program.Book;
 
 
@@ -91,6 +90,9 @@ public class EmptyTemplateUI implements Initializable{
 	}	
 	public void openRegister() {
 		RegisterUserUI.display();
+	}
+	public void openStats() {
+		StatsUI.display();
 	}
 
 }

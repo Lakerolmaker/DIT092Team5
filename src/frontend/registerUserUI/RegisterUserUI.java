@@ -1,6 +1,10 @@
 package frontend.registerUserUI;
 
-import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
 
 /** 
  * Description: 
@@ -8,18 +12,14 @@ import java.io.File;
  * phone number, zip code, street and city.
  * @author Tihana Causevic
  */
-import frontend.*;
-import frontend.bookViewUI.BookViewUI;
-import frontend.emptyTemplateUI.*;
+import frontend.MainWindow;
+import frontend.booksUI.BooksUI;
+import frontend.delayedBooksUI.DelayedBook;
+import frontend.emptyTemplateUI.EmptyTemplateUI;
 import frontend.homeUI.HomeUI;
+import frontend.newBookUI.NewBookUI;
+import frontend.statsUI.StatsUI;
 import frontend.userListUI.UserListUI;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javax.swing.JOptionPane;
-import frontend.delayedBooksUI.*;
-import frontend.booksUI.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +28,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import frontend.newBookUI.*;
-import program.*;
+import program.Library;
+import program.User;
 
 public class RegisterUserUI implements Initializable{
 	private static Library lib = MainWindow.lib;
@@ -121,6 +121,9 @@ public class RegisterUserUI implements Initializable{
 	}	
 	public void openRegister() {
 		RegisterUserUI.display();
+	}
+	public void openStats() {
+		StatsUI.display();
 	}
 	
 	

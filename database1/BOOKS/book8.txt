@@ -1,1 +1,1 @@
-{"id":1,"isbn":"1234567891221","title":"Test Book","author":"Test author","year":2017,"category":"Test Category","shelf":0,"quantity":1,"loaned":0,"image":"genericBookCover.jpg"}
+{"id":1,"isbn":"1234567891221","title":"Test Book","author":"Test author","year":2017,"category":"Test Category","shelf":0,"quantity":1,"loaned":0,"image":"genericBookCover.jpg","loanTotal":0}

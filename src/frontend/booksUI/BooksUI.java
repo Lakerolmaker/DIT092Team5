@@ -7,27 +7,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.*;
-import javafx.util.Callback;
-import frontend.newBookUI.*;
-import frontend.preferencesUI.PreferencesUI;
-import frontend.delayedBooksUI.*;
-import frontend.homeUI.HomeUI;
+
 import frontend.MainWindow;
 import frontend.aboutUI.AboutUI;
-import frontend.registerUserUI.*;
-import frontend.userListUI.*;
-import frontend.bookViewUI.*;
+import frontend.bookViewUI.BookViewUI;
+import frontend.delayedBooksUI.DelayedBook;
+import frontend.homeUI.HomeUI;
+import frontend.newBookUI.NewBookUI;
+import frontend.preferencesUI.PreferencesUI;
+import frontend.registerUserUI.RegisterUserUI;
+import frontend.statsUI.StatsUI;
+import frontend.userListUI.UserListUI;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
@@ -44,7 +42,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import program.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
+import program.Book;
+import program.Functions;
+import program.Library;
+import program.LoanInstance;
+import program.User;
 
 
 public class BooksUI implements Initializable {
@@ -640,6 +646,10 @@ public class BooksUI implements Initializable {
 	}	
 	public void openRegister() {
 		RegisterUserUI.display();
+	}
+	
+	public void openStats() {
+		StatsUI.display();
 	}
 	
 	
