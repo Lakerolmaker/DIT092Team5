@@ -72,6 +72,7 @@ public class UserProfileUI implements Initializable{
 		city.setText(tmpuser.getCity());
 		debt.setText(tmpuser.getDebt() + "");
 
+		// load the list of borrowed books
 		try {
 			ObservableList<UserBookList> b = FXCollections.observableArrayList();
 			for(LoanInstance book : tmpuser.getBookList()) {
@@ -113,7 +114,7 @@ public class UserProfileUI implements Initializable{
 								setGraphic(null);
 								setText(null);
 							} else {
-								returnBtn.setOnAction(event -> {
+								returnBtn.setOnAction(event -> {  // return the book when the return button is clicked
 									UserBookList book = getTableView().getItems().get(getIndex());
 									MainWindow.lib.returnBook(tmpuser, book.getBook());
 

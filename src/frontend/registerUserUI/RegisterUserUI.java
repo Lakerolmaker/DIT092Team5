@@ -75,7 +75,7 @@ public class RegisterUserUI implements Initializable{
 
 
 	@FXML
-	public void submitButtonAction(Event event)  //
+	public void submitButtonAction(Event event)  // registers a new user when the button is clicked
 	{
 		if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
 			try {
