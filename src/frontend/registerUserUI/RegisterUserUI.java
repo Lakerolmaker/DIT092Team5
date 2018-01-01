@@ -13,11 +13,13 @@ import javax.swing.JOptionPane;
  * @author Tihana Causevic
  */
 import frontend.MainWindow;
+import frontend.aboutUI.AboutUI;
 import frontend.booksUI.BooksUI;
 import frontend.delayedBooksUI.DelayedBook;
 import frontend.emptyTemplateUI.EmptyTemplateUI;
 import frontend.homeUI.HomeUI;
 import frontend.newBookUI.NewBookUI;
+import frontend.preferencesUI.PreferencesUI;
 import frontend.statsUI.StatsUI;
 import frontend.userListUI.UserListUI;
 import javafx.event.Event;
@@ -25,8 +27,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import program.Library;
 import program.User;
@@ -102,10 +108,23 @@ public class RegisterUserUI implements Initializable{
 	public void newBook(){
 		NewBookUI.display();
 	}
+	public void save() {
+		MainWindow.lib.save();
+
+		Alert alert = new Alert(AlertType.INFORMATION, "Library Saved", ButtonType.OK);
+		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		alert.show();
+		
+	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
 	}
-	
+	public void prefMenuBtnClick(){
+		PreferencesUI.display();
+	}
+	public void aboutMenuBtnClick() {
+		AboutUI.display();
+	}
 	/******** Main menu ********/
 	public void homeMenuAction(){
 		HomeUI.display();

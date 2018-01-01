@@ -11,6 +11,7 @@ public class DelayedBook{
 	public static Scene scene;
 	
 		public static void display() {
+			
 			Class context = DelayedBook.class;
 			try {
 

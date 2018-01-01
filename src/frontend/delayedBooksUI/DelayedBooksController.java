@@ -8,16 +8,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.userListUI.UserListUI;
 import frontend.userprofileUI.UserProfileUI;
 import frontend.MainWindow;
+import frontend.aboutUI.AboutUI;
 import frontend.booksUI.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -27,8 +33,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.Light.Point;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import frontend.newBookUI.*;
+import frontend.preferencesUI.PreferencesUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.statsUI.StatsUI;
 import program.Book;
@@ -131,13 +139,28 @@ public class DelayedBooksController {
 	}
 	
 		
-		/******** File MENU ********/
-		public void newBook(){
-			NewBookUI.display();	
-		}
-		public void quitMenuClick() {
-			MainWindow.closeProgram();
-		}
+	/******** File MENU ********/
+	public void newBook(){
+		NewBookUI.display();
+	}
+	public void save() {
+		MainWindow.lib.save();
+
+		Alert alert = new Alert(AlertType.INFORMATION, "Library Saved", ButtonType.OK);
+		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		alert.show();
+		
+	}
+	public void quitMenuClick() {
+		MainWindow.closeProgram();
+	}
+	public void prefMenuBtnClick(){
+		PreferencesUI.display();
+	}
+	public void aboutMenuBtnClick() {
+		AboutUI.display();
+	}
+	
 		/******** Main menu ********/
 		public void homeMenuAction(){
 			HomeUI.display();
@@ -154,4 +177,5 @@ public class DelayedBooksController {
 		public void openStats() {
 			StatsUI.display();
 		}
+
 }
