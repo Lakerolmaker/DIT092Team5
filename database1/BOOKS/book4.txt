@@ -1,1 +1,1 @@
-{"id":2,"isbn":"000000001","title":"The mystery of the School of Magic","author":"Jacob the one and only","year":1998,"category":"porn","shelf":2,"quantity":1,"loaned":0,"image":"genericBookCover.jpg","loanTotal":0}
+{"id":3,"isbn":"9780752832470","title":"The Godfather","author":"Whittaker, Owen","year":1995,"category":"Drama","shelf":2,"quantity":5,"loaned":0,"image":"thegodfather.jpg","description":"The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.","loanTotal":0}

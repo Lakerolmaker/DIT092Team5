@@ -208,6 +208,22 @@ public class Library {
 		LOAN_ALLOWANCE = db.getLOAN_ALLOWANCE();
 		this.setID(db.getID());
 	}
+	
+	public void returnAllBooks(){
+		for (User user : userDirectory) {
+			ArrayList<LoanInstance> bookList;
+			
+		try {
+			bookList = user.getBookList();
+			for (int i = bookList.size() - 1 ; i >= 0 ; i--) {
+				this.returnBook(user, user.getBookList().get(i).getBook());
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		}
+	}
 
 	//: Removes all items in the library
 	public void clear() {
@@ -228,7 +244,7 @@ public class Library {
 		
 	}
 	
-	//: Removes the 
+	//: deletes the saved copy of the library
 	public void purge() {
 		DatabaseHelper db = new DatabaseHelper();
 		db.deleteDatabase(this.name);

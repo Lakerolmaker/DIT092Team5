@@ -1,7 +1,5 @@
 package frontend.bookViewUI;
 
-<<<<<<< HEAD
-=======
 import frontend.*;
 import frontend.aboutUI.AboutUI;
 import frontend.bookEditUI.BookEditUI;
@@ -10,8 +8,6 @@ import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.userListUI.UserListUI;
-
->>>>>>> 23ae4e3c49d4b71d1e0479cf756569eb8f8d7985
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,10 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
-
-<<<<<<< HEAD
 import frontend.statsUI.*;
 import frontend.MainWindow;
 import frontend.aboutUI.AboutUI;
@@ -35,12 +28,9 @@ import frontend.newBookUI.NewBookUI;
 import frontend.preferencesUI.PreferencesUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.userListUI.UserListUI;
-=======
 import java.util.Map.Entry;
 import java.util.Optional;
-
 import frontend.delayedBooksUI.*;
->>>>>>> 23ae4e3c49d4b71d1e0479cf756569eb8f8d7985
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -83,29 +73,12 @@ public class BookViewUI implements Initializable {
 	@FXML
 	private Label menuHome, menuBooks, menuUsers, menuDelayed;
 	// SidePanel
-<<<<<<< HEAD
-	@FXML
-	private Text nameText, streetText, cityText, balanceText, amountText, basketText, booksLoaningText,
-			booksLoaningAmount, enterIdText, currencyText;
-	@FXML
-	private Text onlyNumText, noUserFoundText, switchUserText, returnDateText, dateErrorText, basketTitleText,
-			basketQtyText;
-	@FXML
-	private Button goBtn, loanBtn, loanActionBtn, cancelBtn;
-	@FXML
-	private TextField userIdField;
-	@FXML
-	private DatePicker datePicker;
-	@FXML
-	private ListView<HBox> basketList;
-=======
 	@FXML private Text nameText,streetText,cityText,balanceText,amountText,basketText,booksLoaningText,booksLoaningAmount,enterIdText, currencyText;
 	@FXML private Text onlyNumText,noUserFoundText,switchUserText,returnDateText,dateErrorText, basketTitleText, basketQtyText;
 	@FXML private Button goBtn,loanBtn,loanActionBtn,cancelBtn, editBookBtn, removeBookBtn;
 	@FXML private TextField userIdField;
 	@FXML private DatePicker datePicker;
 	@FXML private ListView<HBox> basketList;
->>>>>>> 23ae4e3c49d4b71d1e0479cf756569eb8f8d7985
 	private ContextMenu cm2; // BasketList context menu
 
 	private static Book selectedBook;
@@ -229,10 +202,7 @@ public class BookViewUI implements Initializable {
 			loanBtn2.setDisable(true);
 		}
 	}
-<<<<<<< HEAD
 
-=======
-	
 	public void editBookBtnClick(){
 		BookEditUI.display(selectedBook);
 	}
@@ -247,8 +217,6 @@ public class BookViewUI implements Initializable {
 		}	
 	}
 	
-	
->>>>>>> 23ae4e3c49d4b71d1e0479cf756569eb8f8d7985
 	/************************* SIDE PANEL ***************************/
 
 	/** Loan button **/
