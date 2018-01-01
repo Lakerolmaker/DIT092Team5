@@ -191,6 +191,7 @@
                         <CheckBox fx:id="showOnlyAv" layoutX="23.0" layoutY="96.0" mnemonicParsing="false" text="Show only availible" />
                         <Button id="SearchBtn" fx:id="searchBtn11" layoutX="552.0" layoutY="56.0" mnemonicParsing="false" onAction="#openDelayedBooks" prefHeight="31.0" prefWidth="121.0" text="Delayed Books" />
                         <Text fx:id="bookTableStatusBar" layoutX="220.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="table status bar" />
+                        <CheckBox fx:id="showBorrowed" layoutX="173.0" layoutY="96.0" mnemonicParsing="false" text="Show borrowed books" />
               </children>
             </AnchorPane>
           </content>

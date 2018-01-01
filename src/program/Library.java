@@ -28,17 +28,18 @@ public class Library {
 	}
 
 	/** Add book to library **/
-	public void addBook(String isbn, String title, String author, int year, String category, int shelf, int qty, String image, String publisher) throws Exception {
+	public boolean addBook(String isbn, String title, String author, int year, String category, int shelf, int qty, String image, String publisher) throws Exception {
 		for (Book book : bookDirectory) {
 			if (book.getIsbn().equals(isbn)) {
 				int currentQty = book.getQuantity();
 				book.setQuantity(currentQty + qty);
-				return;
+				return false;
 			}
 		}
 		try {
 			Book newbook = new Book(isbn, title, author, year, category, shelf, qty, image, publisher);
 			bookDirectory.add(newbook);
+			return true;
 		} catch (Exception e) {
 			throw e;
 		}
@@ -77,6 +78,17 @@ public class Library {
 			userDirectory.add(newUser);
 		}
 	}
+	
+	/** Register user **/
+	public void addUser(User user) throws Exception {
+		if (findUser(user.getSsn()) != null) {	// Search for duplicate using SSN
+			throw new Exception("Error: Customer with same SSN already exists in db");
+
+		}else {				// If no duplicate found - a new User are registered
+			userDirectory.add(user);
+		}
+	}
+	
 	
 	/** Remove user **/
 	public void removeUser(User user) throws Exception {

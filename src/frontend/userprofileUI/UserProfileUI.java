@@ -115,7 +115,8 @@ public class UserProfileUI implements Initializable{
 											returnBtn.setOnAction(event -> {
 												//tmpuser.removeBorrowedBook(book.getBookId());
 												//Remove book from list
-												tmpuser.removeBorrowedBook(tmpuser.getBookIndex(book.getBook()).get(0));
+												//: Don't know what you were trying to do here
+												//tmpuser.removeBorrowedBook(tmpuser.getBookIndex(book.getBook()).get(0));
 												
 												try {
 													ObservableList<UserBookList> b = FXCollections.observableArrayList();
@@ -129,7 +130,7 @@ public class UserProfileUI implements Initializable{
 												}
 												
 												
-												System.out.println("Try to remove the book: " + book.getBookId() + ", " + book.getTitle());
+												//System.out.println("Try to remove the book: " + book.getBookId() + ", " + book.getTitle());
 											});
 											returnBtn.setId("returnActionBtn");
 
@@ -180,10 +181,18 @@ public class UserProfileUI implements Initializable{
 				tmpuser.setCity(city.getText());
 				tmpuser.setPhoneNr(phoneNr.getText());
 
-				MainWindow.lib.updateUser(tmpuser);
-				MainWindow.lib.save();
+				User indexUser = MainWindow.lib.findUser(tmpuser.getSsn());
 				
-				JOptionPane.showMessageDialog(null, "Successfully saved!");
+				try {
+					MainWindow.lib.removeUser(indexUser);
+					
+				} catch (Exception e) {}
+				
+				try {
+					
+					MainWindow.lib.addUser(tmpuser);
+				} catch (Exception e) {}
+
 			}else {
 				JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
 			}

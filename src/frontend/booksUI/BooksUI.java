@@ -57,7 +57,7 @@ public class BooksUI implements Initializable {
 	public static HashMap<Book, Integer> booksInBasket;
 	
 	private static Scene bookScene;
-	private static boolean showOnlyAvailable;
+	private static boolean showOnlyAvailable, showBorrowedBooks;
 	private static String searchFieldString = "";
 	// Left Panel
 	@FXML private ImageView logoImage;
@@ -71,7 +71,7 @@ public class BooksUI implements Initializable {
 	@FXML private ListView<HBox> basketList;
 	private ContextMenu cm2; // BasketList context menu
 	// Class Main
-	@FXML private CheckBox showOnlyAv;
+	@FXML private CheckBox showOnlyAv, showBorrowed;
 	@FXML private TableView<Book> tableBook;
 	@FXML private TableColumn<Book, String> titleColumn,authorColumn,yearColumn,isbnColumn,qtyAvColumn;
 	@FXML private TableColumn<Button, String> loanActCol;
@@ -95,6 +95,12 @@ public class BooksUI implements Initializable {
 		showOnlyAv.setSelected(showOnlyAvailable);
 		showOnlyAv.setOnAction(e -> {
 			showOnlyAvailable = showOnlyAv.isSelected();
+			display();
+		});
+		
+		showBorrowed.setSelected(showBorrowedBooks);
+		showBorrowed.setOnAction(e -> {
+			showBorrowedBooks = showBorrowed.isSelected();
 			display();
 		});
 		
@@ -320,6 +326,10 @@ public class BooksUI implements Initializable {
 		if(showOnlyAv.isSelected()) {
 			books = showOnlyAvailable(books);
 		}
+		
+		if(showBorrowed.isSelected()) {
+			books = showBorrowed(books); // filter out only borrowed books 
+		}
 		return books; // Return the new composed list
 	}
 	
@@ -334,6 +344,15 @@ public class BooksUI implements Initializable {
 		return newBookList;
 	}
 	
+	public ObservableList<Book> showBorrowed(ObservableList<Book> bookList) {
+		ObservableList<Book> newBookList = FXCollections.observableArrayList();
+		for (Book book : bookList) {
+			if (book.getLoaned() > 0) { // borrowed books have loaned grater than 0
+				newBookList.add(book);
+			}
+		}
+		return newBookList;
+	}
 	
 	/************************* SIDE PANEL ***************************/
 
@@ -474,8 +493,8 @@ public class BooksUI implements Initializable {
 	// Add to basket
 	public void addToBasket(Book book){
 		if (book != null && MainWindow.user != null) {
-			if (booksInBasket.containsKey(book)) {
-				booksInBasket.put(book, booksInBasket.get(book) +1 );
+			if (booksInBasket.containsKey(book) == true) {
+				booksInBasket.put(book, booksInBasket.get(book) + 1 );
 			}else {
 				booksInBasket.put(book, 1);
 			}
