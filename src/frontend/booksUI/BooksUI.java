@@ -206,6 +206,7 @@ public class BooksUI implements Initializable {
 		shelfColumn = new TableColumn<>("Shelf");
 		shelfColumn.setCellValueFactory(new PropertyValueFactory<>("shelf"));
 		shelfColumn.setMaxWidth(2000);
+		shelfColumn.setStyle("-fx-alignment: CENTER;");
 		
 		
 		// Loan column
