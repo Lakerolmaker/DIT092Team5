@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /** 
- * Description: 
+ * Description: Allows a librarian to view or edit information about the user.Contains the list of borrowed books and allows returning of books.
  * 
  * @author Tihana Causevic
  */
@@ -43,204 +43,200 @@ import program.UserBookList;
 
 public class UserProfileUI implements Initializable{
 
-		private static VBox root;
-		private static Scene userScene;
-		private static User tmpuser;
-		
-		@FXML private Label topMenu1; // Link to the fx:id in scenebuilder
-		@FXML private TextField fName; 
-		@FXML private TextField lName;
-		@FXML private TextField SSN;
-		@FXML private TextField phoneNr;
-		@FXML private TextField zCode;
-		@FXML private TextField street;
-		@FXML private TextField city;
-		@FXML private TextField debt;
-		@FXML private TableView<UserBookList> borrowedBooks;
-		@FXML private Label booksBorrowed;
-		@FXML private Button edit;
-		
-		@Override
-		public void initialize(URL location, ResourceBundle resources) {
+	private static VBox root;
+	private static Scene userScene;
+	private static User tmpuser;
+
+	@FXML private Label topMenu1; // Link to the fx:id in scenebuilder
+	@FXML private TextField fName; 
+	@FXML private TextField lName;
+	@FXML private TextField SSN;
+	@FXML private TextField phoneNr;
+	@FXML private TextField zCode;
+	@FXML private TextField street;
+	@FXML private TextField city;
+	@FXML private TextField debt;
+	@FXML private TableView<UserBookList> borrowedBooks;
+	@FXML private Label booksBorrowed;
+	@FXML private Button edit;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+         // loads the user information into the text fields
+		fName.setText(tmpuser.getFirstName());    
+		lName.setText(tmpuser.getLastName());
+		SSN.setText(tmpuser.getSsn());
+		phoneNr.setText(tmpuser.getPhoneNr());
+		zCode.setText(tmpuser.getZipCode());
+		street.setText(tmpuser.getStreet());
+		city.setText(tmpuser.getCity());
+		debt.setText(tmpuser.getDebt() + "");
+
+		try {
+			ObservableList<UserBookList> b = FXCollections.observableArrayList();
+			for(LoanInstance book : tmpuser.getBookList()) {
+				b.add(new UserBookList(book));
+			}
+
+			borrowedBooks.setItems(b);
 			
-			fName.setText(tmpuser.getFirstName());
-			lName.setText(tmpuser.getLastName());
-			SSN.setText(tmpuser.getSsn());
-			phoneNr.setText(tmpuser.getPhoneNr());
-			zCode.setText(tmpuser.getZipCode());
-			street.setText(tmpuser.getStreet());
-			city.setText(tmpuser.getCity());
-			debt.setText(tmpuser.getDebt() + "");
 			
-			try {
-				ObservableList<UserBookList> b = FXCollections.observableArrayList();
-				for(LoanInstance book : tmpuser.getBookList()) {
-					b.add(new UserBookList(book));
-				}
-				
-				borrowedBooks.setItems(b);
-				
-				TableColumn titleCol = new TableColumn("Title");
-				titleCol.setMinWidth(220);
-		        titleCol.setCellValueFactory( new PropertyValueFactory<UserBookList, String>("title"));
-		        
-		        TableColumn authorCol = new TableColumn("Author");
-				authorCol.setMinWidth(120);
-		        authorCol.setCellValueFactory(new PropertyValueFactory<UserBookList, String>("author"));
-		        
-		        TableColumn dateCol = new TableColumn("Date");
-				dateCol.setMinWidth(50);
-		        dateCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("date"));
+            // table of borrowed books
+			TableColumn titleCol = new TableColumn("Title");               
+			titleCol.setMinWidth(220);
+			titleCol.setCellValueFactory( new PropertyValueFactory<UserBookList, String>("title"));
 
-				TableColumn returnCol = new TableColumn("");
-				returnCol.setCellValueFactory(new PropertyValueFactory<>("extraBtn"));
+			TableColumn authorCol = new TableColumn("Author");
+			authorCol.setMinWidth(120);
+			authorCol.setCellValueFactory(new PropertyValueFactory<UserBookList, String>("author"));
 
-				Callback<TableColumn<UserBookList, String>, TableCell<UserBookList, String>> cellFactory
-						=
-						new Callback<TableColumn<UserBookList, String>, TableCell<UserBookList, String>>() {
-							@Override
-							public TableCell call(final TableColumn<UserBookList, String> param) {
-								final TableCell<UserBookList, String> cell = new TableCell<UserBookList, String>() {
+			TableColumn dateCol = new TableColumn("Date");
+			dateCol.setMinWidth(50);
+			dateCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("date"));
 
-									final Button returnBtn = new Button("Return");
+			TableColumn returnCol = new TableColumn("");
+			returnCol.setCellValueFactory(new PropertyValueFactory<>("extraBtn"));
 
-									@Override
-									public void updateItem(String item, boolean empty) {
-										super.updateItem(item, empty);
-										if (empty) {
-											setGraphic(null);
-											setText(null);
-										} else {
-											returnBtn.setOnAction(event -> {
-												//tmpuser.removeBorrowedBook(book.getID());
-												//Remove book from list
-												//: Don't know what you were trying to do here
-												UserBookList book = getTableView().getItems().get(getIndex());
-												MainWindow.lib.returnBook(tmpuser, book.getBook());
-												
-												try {
-													ObservableList<UserBookList> b = FXCollections.observableArrayList();
-													for(LoanInstance book2 : tmpuser.getBookList()) {
-														b.add(new UserBookList(book2));
-													}
-													borrowedBooks.setItems(b);
-												} catch (Exception e) {
-													// TODO Auto-generated catch block
-													e.printStackTrace();
-												}
-												
-												
-												//System.out.println("Try to remove the book: " + book.getBookId() + ", " + book.getTitle());
-											});
-											returnBtn.setId("returnActionBtn");
+			Callback<TableColumn<UserBookList, String>, TableCell<UserBookList, String>> cellFactory
+			=
+			new Callback<TableColumn<UserBookList, String>, TableCell<UserBookList, String>>() {
+				@Override
+				public TableCell call(final TableColumn<UserBookList, String> param) {
+					final TableCell<UserBookList, String> cell = new TableCell<UserBookList, String>() {
 
-											setGraphic(returnBtn);
-											setText(null);
+						final Button returnBtn = new Button("Return");   //creating the return button for the table
+
+						@Override
+						public void updateItem(String item, boolean empty) { 
+							super.updateItem(item, empty);
+							if (empty) {
+								setGraphic(null);
+								setText(null);
+							} else {
+								returnBtn.setOnAction(event -> {
+									UserBookList book = getTableView().getItems().get(getIndex());
+									MainWindow.lib.returnBook(tmpuser, book.getBook());
+
+									try {
+										ObservableList<UserBookList> b = FXCollections.observableArrayList();
+										for(LoanInstance book2 : tmpuser.getBookList()) {
+											b.add(new UserBookList(book2));
 										}
+										borrowedBooks.setItems(b);
+									} catch (Exception e) {
+										e.printStackTrace();
 									}
-								};
-								return cell;
+
+
+								});
+								returnBtn.setId("returnActionBtn");
+
+								setGraphic(returnBtn);       // adds the return button to the table
+								setText(null);
 							}
-						};
-	 					
-						returnCol.setCellFactory(cellFactory);
-				        returnCol.setStyle("-fx-alignment: CENTER;");
-				        returnCol.setMaxWidth(2000);
-		         
-		        borrowedBooks.getColumns().addAll(titleCol, authorCol, dateCol, returnCol);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		public static void display(User user) {
-			tmpuser = user;
-			Class context = UserProfileUI.class;
-			try {
-				// This is the scene that is going to be shown inside the window ( Main window in this case )
-				VBox userView = (VBox)FXMLLoader.load(context.getResource("UserProfileUI.fxml")); 
-				userScene = new Scene(userView,1192,650);
-				userScene.getStylesheets().add(MainWindow.css);
+						}
+					};
+					return cell;
+				}
+			};
 
-				// Set the main window to show this scene
-				MainWindow.window.setScene(userScene);
-				MainWindow.window.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		@FXML
-		public void submitButtonAction(Event event)
-		{
-			if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
-				tmpuser.setFirstName(fName.getText());
-				tmpuser.setLastName(lName.getText());
-				tmpuser.setStreet(street.getText());
-				tmpuser.setZipCode(zCode.getText());
-				tmpuser.setCity(city.getText());
-				tmpuser.setPhoneNr(phoneNr.getText());
+			returnCol.setCellFactory(cellFactory);
+			returnCol.setStyle("-fx-alignment: CENTER;");
+			returnCol.setMaxWidth(2000);
 
-				User indexUser = MainWindow.lib.findUser(tmpuser.getSsn());
-				
-				try {
-					MainWindow.lib.removeUser(indexUser);
-					
-				} catch (Exception e) {}
-				
-				try {
-					
-					MainWindow.lib.addUser(tmpuser);
-				} catch (Exception e) {}
-
-			}else {
-				JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
-			}
-		}
-		
-		@FXML
-		public void cancelButtonAction(Event event)
-		{
-			EmptyTemplateUI.display(); // displays the empty template (instead of the home screen, for now)
-		}
-
-		@FXML
-		public void editButtonClick(Event event) {
-			fName.setDisable(false);
-			lName.setDisable(false);
-			SSN.setDisable(false);
-			phoneNr.setDisable(false);
-			street.setDisable(false);
-			city.setDisable(false);
-			zCode.setDisable(false);
-		}
-		
-		
-		/******** File MENU ********/
-		public void newBook(){
-			NewBookUI.display();
-		}
-		public void quitMenuClick() {
-			MainWindow.closeProgram();
-		}
-		
-		/******** Main menu ********/
-		public void homeMenuAction(){
-			HomeUI.display();
-		}
-		public void booksMenuAction(){
-			BooksUI.display();
-		}
-		public void usersMenuAction() {
-			UserListUI.display();
-		}
-		public void openDelayedBooks() {
-			DelayedBook.display();
-		}	
-		public void openRegister() {
-			RegisterUserUI.display();
-		}
-		public void openStats() {
-			StatsUI.display();
+			borrowedBooks.getColumns().addAll(titleCol, authorCol, dateCol, returnCol);  //adds all the columns to the table
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
+
+	public static void display(User user) {
+		tmpuser = user;
+		Class context = UserProfileUI.class;
+		try {
+			// This is the scene that is going to be shown inside the window ( Main window in this case )
+			VBox userView = (VBox)FXMLLoader.load(context.getResource("UserProfileUI.fxml")); 
+			userScene = new Scene(userView,1192,650);
+			userScene.getStylesheets().add(MainWindow.css);
+
+			// Set the main window to show this scene
+			MainWindow.window.setScene(userScene);
+			MainWindow.window.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void submitButtonAction(Event event) { // if the first name field and the last name field are not empty then create a new user 
+		if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  
+			tmpuser.setFirstName(fName.getText());
+			tmpuser.setLastName(lName.getText());
+			tmpuser.setStreet(street.getText());
+			tmpuser.setZipCode(zCode.getText());
+			tmpuser.setCity(city.getText());
+			tmpuser.setPhoneNr(phoneNr.getText());
+
+			User indexUser = MainWindow.lib.findUser(tmpuser.getSsn());
+
+			try {
+				MainWindow.lib.removeUser(indexUser);
+
+			} catch (Exception e) {}
+
+			try {
+
+				MainWindow.lib.addUser(tmpuser);
+			} catch (Exception e) {}
+
+		}else {
+			JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
+		}
+	}
+
+	@FXML
+	public void cancelButtonAction(Event event)
+	{
+		EmptyTemplateUI.display(); // displays the empty template (instead of the home screen, for now)
+	}
+
+	@FXML
+	public void editButtonClick(Event event) {  // allows the librarian to edit the user information
+		fName.setDisable(false);
+		lName.setDisable(false);
+		SSN.setDisable(false);
+		phoneNr.setDisable(false);
+		street.setDisable(false);
+		city.setDisable(false);
+		zCode.setDisable(false);
+	}
+
+
+	/******** File MENU ********/
+	public void newBook(){
+		NewBookUI.display();
+	}
+	public void quitMenuClick() {
+		MainWindow.closeProgram();
+	}
+
+	/******** Main menu ********/
+	public void homeMenuAction(){
+		HomeUI.display();
+	}
+	public void booksMenuAction(){
+		BooksUI.display();
+	}
+	public void usersMenuAction() {
+		UserListUI.display();
+	}
+	public void openDelayedBooks() {
+		DelayedBook.display();
+	}	
+	public void openRegister() {
+		RegisterUserUI.display();
+	}
+	public void openStats() {
+		StatsUI.display();
+	}
+}
