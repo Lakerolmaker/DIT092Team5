@@ -77,7 +77,7 @@ public class BooksUI implements Initializable {
 	// Class Main
 	@FXML private CheckBox showOnlyAv, showBorrowed;
 	@FXML private TableView<Book> tableBook;
-	@FXML private TableColumn<Book, String> titleColumn,authorColumn,yearColumn,isbnColumn,qtyAvColumn;
+	@FXML private TableColumn<Book, String> titleColumn,authorColumn,yearColumn,isbnColumn,qtyAvColumn,shelfColumn;
 	@FXML private TableColumn<Button, String> loanActCol;
 	@FXML private TextField searchField;
 	@FXML private Text bookTableStatusBar;
@@ -206,6 +206,13 @@ public class BooksUI implements Initializable {
 		qtyAvColumn.setMaxWidth(2500);
 		qtyAvColumn.setId("qtyAvColumn");
 		qtyAvColumn.setStyle("-fx-alignment: CENTER;");
+		// Shelf column
+		shelfColumn = new TableColumn<>("Shelf");
+		shelfColumn.setCellValueFactory(new PropertyValueFactory<>("shelf"));
+		shelfColumn.setMaxWidth(2000);
+		shelfColumn.setStyle("-fx-alignment: CENTER;");
+		
+		
 		// Loan column
 
         TableColumn loanActCol = new TableColumn("");
@@ -257,7 +264,7 @@ public class BooksUI implements Initializable {
 		ObservableList<Book> bookList = getBooks();
 		tableBook.setItems(bookList);
 		showingCounter = bookList.size();
-		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn, loanActCol);
+		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn, shelfColumn, loanActCol);
 		updateStatusBar	(bookList.size());
 		}
 

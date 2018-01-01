@@ -81,14 +81,13 @@ public class RegisterUserUI implements Initializable{
 
 
 	@FXML
-	public void submitButtonAction(Event event)
+	public void submitButtonAction(Event event)  //
 	{
 		if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
 			try {
 				lib.addUser(fName.getText(), lName.getText(), SSN.getText(), phoneNr.getText(), street.getText(), zCode.getText(), city.getText());
 				lib.save();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else {
