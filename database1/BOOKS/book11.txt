@@ -1,1 +1,1 @@
-{"id":1,"isbn":"123454321","title":"The Alchemist","author":"Paulo Coelho","year":1980,"category":"Drama","shelf":6,"quantity":3,"loaned":0,"image":"genericBookCover.jpg","description":""}
+{"id":1,"isbn":"123454321","title":"The Alchemist","author":"Paulo Coelho","year":1980,"category":"Drama","shelf":6,"quantity":3,"loaned":0,"image":"genericBookCover.jpg","description":"","loanTotal":0}

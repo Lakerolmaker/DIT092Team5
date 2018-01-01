@@ -30,6 +30,7 @@ public class Book {
 	private String image;
 	private String description;
 	private String publisher;
+	public int loanTotal;
 
 
 	static private AtomicInteger idGen = new AtomicInteger(); // it generates new ID 

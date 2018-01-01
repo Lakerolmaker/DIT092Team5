@@ -17,47 +17,37 @@ package frontend.userListUI;
 
 
         import java.io.IOException;
-        import java.net.URL;
-        import java.util.ArrayList;
-        import java.util.HashMap;
-        import java.util.Map.Entry;
-        import java.util.ResourceBundle;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-        import frontend.booksUI.BooksUI;
-        import frontend.userprofileUI.UserProfileUI;
-        import javafx.fxml.FXMLLoader;
-        import javafx.scene.Scene;
-        import javafx.scene.image.Image;
-        import javafx.scene.image.ImageView;
-        import javafx.scene.layout.HBox;
-        import javafx.scene.layout.VBox;
-        import javafx.scene.text.*;
-        import frontend.newBookUI.*;
-        import frontend.delayedBooksUI.*;
-        import frontend.homeUI.HomeUI;
-        import frontend.MainWindow;
-        import frontend.registerUserUI.*;
-        import frontend.userListUI.*;
-        import frontend.bookViewUI.*;
-        import javafx.beans.property.SimpleStringProperty;
-        import javafx.collections.FXCollections;
-        import javafx.collections.ObservableList;
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.fxml.Initializable;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.CheckBox;
-        import javafx.scene.control.ContextMenu;
-        import javafx.scene.control.Label;
-        import javafx.scene.control.ListView;
-        import javafx.scene.control.MenuItem;
-        import javafx.scene.control.TableColumn;
-        import javafx.scene.control.TableView;
-        import javafx.scene.control.TextField;
-        import javafx.scene.control.cell.PropertyValueFactory;
-        import javafx.scene.input.MouseButton;
-        import javafx.scene.input.MouseEvent;
-        import program.*;
+import frontend.MainWindow;
+import frontend.bookViewUI.BookViewUI;
+import frontend.booksUI.BooksUI;
+import frontend.delayedBooksUI.DelayedBook;
+import frontend.homeUI.HomeUI;
+import frontend.newBookUI.NewBookUI;
+import frontend.registerUserUI.RegisterUserUI;
+import frontend.statsUI.StatsUI;
+import frontend.userprofileUI.UserProfileUI;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import program.Book;
+import program.User;
 
 
 
@@ -288,6 +278,9 @@ public class UserListUI implements Initializable {
     public void goToUserView(User user){
         UserProfileUI.display(user);
     }
+    public void openStats() {
+		StatsUI.display();
+	}
 
 
 }

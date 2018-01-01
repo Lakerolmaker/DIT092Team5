@@ -30,6 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import frontend.newBookUI.*;
 import frontend.registerUserUI.RegisterUserUI;
+import frontend.statsUI.StatsUI;
 import program.Book;
 import program.LoanInstance;
 import program.User;
@@ -149,5 +150,8 @@ public class DelayedBooksController {
 		}
 		public void openRegister() {
 			RegisterUserUI.display();
+		}
+		public void openStats() {
+			StatsUI.display();
 		}
 }

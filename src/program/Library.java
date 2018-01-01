@@ -126,6 +126,8 @@ public class Library {
 	public void loanBook(User user, Book book, LocalDate returnDate) throws Exception {
 		if (book.getAvailableQuantity() > 0) {
 			user.borrowBook(book, returnDate);
+			book.loanTotal++;
+			user.setLoanedBooksTotal(user.getLoanedBooksTotal() + 1);
 		}else {
 			throw new Exception("Error: The book is not avalaible.");
 		}

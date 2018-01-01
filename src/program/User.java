@@ -23,6 +23,7 @@ public class User {
 	private String street;
 	private String zipCode;
 	private String city;
+	private int loanedBooksTotal;
 	private ArrayList<LoanInstance> bookList = new ArrayList<>();
 	static AtomicInteger nextId = new AtomicInteger();
 
@@ -215,4 +216,14 @@ public class User {
 	public static void setNextId(AtomicInteger nextId) {
 		User.nextId = nextId;
 	}
+
+	public int getLoanedBooksTotal() {
+		return loanedBooksTotal;
+	}
+
+	public void setLoanedBooksTotal(int loanedBooksTotal) {
+		this.loanedBooksTotal = loanedBooksTotal;
+	}
+	
+	
 }
