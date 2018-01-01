@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 {"id":2,"isbn":"000000001","title":"The mystery of the School of Magic","author":"Jacob the one and only","year":1998,"category":"porn","shelf":2,"quantity":1,"loaned":0,"image":"genericBookCover.jpg","loanTotal":0}
-=======
-{"id":4,"isbn":"000003","title":"Fifty Shades of Grey","author":"E. L. James","year":2011,"category":"Erotic romance","shelf":3,"quantity":10,"loaned":0,"image":"genericBookCover.jpg"}
->>>>>>> 23ae4e3c49d4b71d1e0479cf756569eb8f8d7985
