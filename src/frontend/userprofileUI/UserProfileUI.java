@@ -13,11 +13,13 @@ import javax.swing.JOptionPane;
  * @author Tihana Causevic
  */
 import frontend.MainWindow;
+import frontend.aboutUI.AboutUI;
 import frontend.booksUI.BooksUI;
 import frontend.delayedBooksUI.DelayedBook;
 import frontend.emptyTemplateUI.EmptyTemplateUI;
 import frontend.homeUI.HomeUI;
 import frontend.newBookUI.NewBookUI;
+import frontend.preferencesUI.PreferencesUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.statsUI.StatsUI;
 import frontend.userListUI.UserListUI;
@@ -28,13 +30,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import program.LoanInstance;
@@ -141,6 +147,51 @@ public class UserProfileUI implements Initializable{
 				}
 			};
 
+<<<<<<< HEAD
+		@FXML
+		public void editButtonClick(Event event) {
+			fName.setDisable(false);
+			lName.setDisable(false);
+			SSN.setDisable(false);
+			phoneNr.setDisable(false);
+			street.setDisable(false);
+			city.setDisable(false);
+			zCode.setDisable(false);
+		}
+		
+		
+		/******** File MENU ********/
+		public void newBook(){
+			NewBookUI.display();
+		}
+		public void save() {
+			MainWindow.lib.save();
+
+			Alert alert = new Alert(AlertType.INFORMATION, "Library Saved", ButtonType.OK);
+			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+			alert.show();
+			
+		}
+		public void quitMenuClick() {
+			MainWindow.closeProgram();
+		}
+		public void prefMenuBtnClick(){
+			PreferencesUI.display();
+		}
+		public void aboutMenuBtnClick() {
+			AboutUI.display();
+		}
+		
+		/******** Main menu ********/
+		public void homeMenuAction(){
+			HomeUI.display();
+		}
+		public void booksMenuAction(){
+			BooksUI.display();
+		}
+		public void usersMenuAction() {
+			UserListUI.display();
+=======
 			returnCol.setCellFactory(cellFactory);
 			returnCol.setStyle("-fx-alignment: CENTER;");
 			returnCol.setMaxWidth(2000);
@@ -148,6 +199,7 @@ public class UserProfileUI implements Initializable{
 			borrowedBooks.getColumns().addAll(titleCol, authorCol, dateCol, returnCol);  //adds all the columns to the table
 		} catch (Exception e) {
 			e.printStackTrace();
+>>>>>>> 0732e36eb814b312e0dd5d9397b7cb4f330f3598
 		}
 	}
 

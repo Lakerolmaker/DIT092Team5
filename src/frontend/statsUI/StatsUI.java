@@ -8,11 +8,13 @@ import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import frontend.MainWindow;
+import frontend.aboutUI.AboutUI;
 import frontend.bookViewUI.BookViewUI;
 import frontend.booksUI.BooksUI;
 import frontend.delayedBooksUI.DelayedBook;
 import frontend.homeUI.HomeUI;
 import frontend.newBookUI.NewBookUI;
+import frontend.preferencesUI.PreferencesUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.userListUI.UserListUI;
 import javafx.collections.FXCollections;
@@ -25,10 +27,14 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import program.Book;
 import program.Library;
@@ -118,14 +124,27 @@ public class StatsUI implements Initializable {
 	}
 
 	/******** File MENU ********/
-	public void newBook() {
+	public void newBook(){
 		NewBookUI.display();
 	}
+	public void save() {
+		MainWindow.lib.save();
 
+		Alert alert = new Alert(AlertType.INFORMATION, "Library Saved", ButtonType.OK);
+		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		alert.show();
+		
+	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
 	}
-
+	public void prefMenuBtnClick(){
+		PreferencesUI.display();
+	}
+	public void aboutMenuBtnClick() {
+		AboutUI.display();
+	}
+	
 	/******** Main menu ********/
 	public void homeMenuAction() {
 		HomeUI.display();

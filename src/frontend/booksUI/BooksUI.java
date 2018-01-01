@@ -26,7 +26,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
@@ -37,12 +39,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
@@ -73,7 +77,7 @@ public class BooksUI implements Initializable {
 	// Class Main
 	@FXML private CheckBox showOnlyAv, showBorrowed;
 	@FXML private TableView<Book> tableBook;
-	@FXML private TableColumn<Book, String> titleColumn,authorColumn,yearColumn,isbnColumn,qtyAvColumn;
+	@FXML private TableColumn<Book, String> titleColumn,authorColumn,yearColumn,isbnColumn,qtyAvColumn,shelfColumn,categoryColumn;
 	@FXML private TableColumn<Button, String> loanActCol;
 	@FXML private TextField searchField;
 	@FXML private Text bookTableStatusBar;
@@ -186,6 +190,10 @@ public class BooksUI implements Initializable {
 		// Author column
 		authorColumn = new TableColumn<>("Author");
 		authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+		// Category column
+		categoryColumn = new TableColumn<>("Genre");
+		categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+		categoryColumn.setMaxWidth(2700);
 		// Year column
 		yearColumn = new TableColumn<>("Year");
 		yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
@@ -199,9 +207,16 @@ public class BooksUI implements Initializable {
 		// Available quantity
 		qtyAvColumn = new TableColumn<>("Available");
 		qtyAvColumn.setCellValueFactory(c-> new SimpleStringProperty(Integer.toString(c.getValue().getAvailableQuantity())));
-		qtyAvColumn.setMaxWidth(2500);
+		qtyAvColumn.setMaxWidth(1500);
 		qtyAvColumn.setId("qtyAvColumn");
 		qtyAvColumn.setStyle("-fx-alignment: CENTER;");
+		// Shelf column
+		shelfColumn = new TableColumn<>("Shelf");
+		shelfColumn.setCellValueFactory(new PropertyValueFactory<>("shelf"));
+		shelfColumn.setMaxWidth(2000);
+		shelfColumn.setStyle("-fx-alignment: CENTER;");
+		
+		
 		// Loan column
 
         TableColumn loanActCol = new TableColumn("");
@@ -253,7 +268,7 @@ public class BooksUI implements Initializable {
 		ObservableList<Book> bookList = getBooks();
 		tableBook.setItems(bookList);
 		showingCounter = bookList.size();
-		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn, loanActCol);
+		tableBook.getColumns().addAll(titleColumn, authorColumn, categoryColumn, yearColumn, isbnColumn, qtyAvColumn, shelfColumn, loanActCol);
 		updateStatusBar	(bookList.size());
 		}
 
@@ -319,7 +334,7 @@ public class BooksUI implements Initializable {
 		}
 		ObservableList<Book> books = FXCollections.observableArrayList(); // Create new list
 		for (Book book : MainWindow.lib.getBookList()) {
-			if (Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
+			if (Functions.compareStrings(Integer.toString(book.getShelf()), search) || Functions.compareStrings(book.getCategory(), search) || Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
 				books.add(book); // If match add the book to list
 			}
 		}
@@ -634,11 +649,16 @@ public class BooksUI implements Initializable {
 	public void newBook(){
 		NewBookUI.display();
 	}
+	public void save() {
+		MainWindow.lib.save();
+
+		Alert alert = new Alert(AlertType.INFORMATION, "Library Saved", ButtonType.OK);
+		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		alert.show();
+		
+	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
-	}
-	public void saveMenuBtnClick() {
-		MainWindow.lib.save();
 	}
 	public void prefMenuBtnClick(){
 		PreferencesUI.display();
@@ -666,10 +686,10 @@ public class BooksUI implements Initializable {
 	public void openRegister() {
 		RegisterUserUI.display();
 	}
-	
 	public void openStats() {
 		StatsUI.display();
 	}
+
 	
 	
 	// for DEBUGGING

@@ -46,11 +46,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import program.Book;
@@ -494,26 +496,26 @@ public class BookViewUI implements Initializable {
 	}
 
 	/******** File MENU ********/
-	public void newBook() {
+	public void newBook(){
 		NewBookUI.display();
 	}
+	public void save() {
+		MainWindow.lib.save();
 
+		Alert alert = new Alert(AlertType.INFORMATION, "Library Saved", ButtonType.OK);
+		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		alert.show();
+		
+	}
 	public void quitMenuClick() {
 		MainWindow.closeProgram();
 	}
-
-	public void saveMenuBtnClick() {
-		MainWindow.lib.save();
-	}
-
-	public void prefMenuBtnClick() {
+	public void prefMenuBtnClick(){
 		PreferencesUI.display();
 	}
-
 	public void aboutMenuBtnClick() {
 		AboutUI.display();
 	}
-
 	/******** Main menu ********/
 	public void homeMenuAction() {
 		HomeUI.display();
@@ -542,5 +544,6 @@ public class BookViewUI implements Initializable {
 	public void openStats() {
 		StatsUI.display();
 	}
+
 
 }
