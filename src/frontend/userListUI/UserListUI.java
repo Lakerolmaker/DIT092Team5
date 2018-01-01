@@ -209,9 +209,10 @@ public class UserListUI implements Initializable {
 
         if (event.getClickCount() == 2) {
             User selectedUser = tableUser.getSelectionModel().getSelectedItem(); // Retrieve selected cell
-            MainWindow.user = selectedUser;
             if (selectedUser != null) {
+            	  MainWindow.user = selectedUser;
                 goToUserView(selectedUser);
+   
             }
         }
     }

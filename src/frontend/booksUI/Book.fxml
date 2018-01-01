@@ -147,7 +147,7 @@
                                           <Font name="EXCESS" size="21.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="booksLoaningAmount" fill="#000000a6" layoutX="217.0" layoutY="165.0" onMouseClicked="#returnAllBooks" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                    <Text fx:id="booksLoaningAmount" fill="#000000a6" layoutX="217.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                        <font>
                                           <Font name="EXCESS" size="21.0" />
                                        </font>

@@ -1,1 +1,1 @@
-{"id":3,"isbn":"0000002","title":"Don Quixote","author":"Miguel de Cervantes","year":1605,"category":"historical fiction","shelf":3,"quantity":10,"loaned":2,"image":"genericBookCover.jpg","loanTotal":30}
+{"id":3,"isbn":"0000002","title":"Don Quixote","author":"Miguel de Cervantes","year":1605,"category":"historical fiction","shelf":3,"quantity":10,"loaned":1,"image":"genericBookCover.jpg","loanTotal":32}

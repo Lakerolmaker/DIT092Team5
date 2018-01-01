@@ -1,1 +1,0 @@
-{"firstName":"abc","lastName":"zaaad","ssn":"12121","userId":4,"debt":0.0,"phoneNr":"2323","street":"adads","zipCode":"232323","city":"adasd","loanedBooksTotal":0,"bookList":[]}
