@@ -21,11 +21,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import frontend.MainWindow;
+import frontend.aboutUI.AboutUI;
 import frontend.bookViewUI.BookViewUI;
 import frontend.booksUI.BooksUI;
 import frontend.delayedBooksUI.DelayedBook;
 import frontend.homeUI.HomeUI;
 import frontend.newBookUI.NewBookUI;
+import frontend.preferencesUI.PreferencesUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.statsUI.StatsUI;
 import frontend.userprofileUI.UserProfileUI;
@@ -35,16 +37,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import program.Book;
 import program.User;
@@ -249,14 +255,28 @@ public class UserListUI implements Initializable {
     }
 
 
-        /******** File MENU ********/
-    public void newBook(){
-        NewBookUI.display();
-    }
-    public void quitMenuClick() {
-        MainWindow.closeProgram();
-    }
+	/******** File MENU ********/
+	public void newBook(){
+		NewBookUI.display();
+	}
+	public void save() {
+		MainWindow.lib.save();
 
+		Alert alert = new Alert(AlertType.INFORMATION, "Library Saved", ButtonType.OK);
+		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		alert.show();
+		
+	}
+	public void quitMenuClick() {
+		MainWindow.closeProgram();
+	}
+	public void prefMenuBtnClick(){
+		PreferencesUI.display();
+	}
+	public void aboutMenuBtnClick() {
+		AboutUI.display();
+	}
+	
     /******** Main menu ********/
     public void homeMenuAction(){
         HomeUI.display();
@@ -282,6 +302,7 @@ public class UserListUI implements Initializable {
     public void openStats() {
 		StatsUI.display();
 	}
+
 
 
 }

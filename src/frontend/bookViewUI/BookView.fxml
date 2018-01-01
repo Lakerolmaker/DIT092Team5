@@ -42,7 +42,7 @@
           <items>
             <MenuItem fx:id="MenuFileBtn1" mnemonicParsing="false" onAction="#newBook" text="New Book" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="saveMenuBtn" mnemonicParsing="false" onAction="#saveMenuBtnClick" text="Save" />
+            <MenuItem fx:id="saveMenuBtn" mnemonicParsing="false" onAction="#save" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#prefMenuBtnClick" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
