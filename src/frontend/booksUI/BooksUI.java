@@ -73,7 +73,7 @@ public class BooksUI implements Initializable {
 	// Class Main
 	@FXML private CheckBox showOnlyAv, showBorrowed;
 	@FXML private TableView<Book> tableBook;
-	@FXML private TableColumn<Book, String> titleColumn,authorColumn,yearColumn,isbnColumn,qtyAvColumn,shelfColumn;
+	@FXML private TableColumn<Book, String> titleColumn,authorColumn,yearColumn,isbnColumn,qtyAvColumn,shelfColumn,categoryColumn;
 	@FXML private TableColumn<Button, String> loanActCol;
 	@FXML private TextField searchField;
 	@FXML private Text bookTableStatusBar;
@@ -186,6 +186,10 @@ public class BooksUI implements Initializable {
 		// Author column
 		authorColumn = new TableColumn<>("Author");
 		authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+		// Category column
+		categoryColumn = new TableColumn<>("Genre");
+		categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+		categoryColumn.setMaxWidth(2700);
 		// Year column
 		yearColumn = new TableColumn<>("Year");
 		yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
@@ -199,7 +203,7 @@ public class BooksUI implements Initializable {
 		// Available quantity
 		qtyAvColumn = new TableColumn<>("Available");
 		qtyAvColumn.setCellValueFactory(c-> new SimpleStringProperty(Integer.toString(c.getValue().getAvailableQuantity())));
-		qtyAvColumn.setMaxWidth(2500);
+		qtyAvColumn.setMaxWidth(1500);
 		qtyAvColumn.setId("qtyAvColumn");
 		qtyAvColumn.setStyle("-fx-alignment: CENTER;");
 		// Shelf column
@@ -260,7 +264,7 @@ public class BooksUI implements Initializable {
 		ObservableList<Book> bookList = getBooks();
 		tableBook.setItems(bookList);
 		showingCounter = bookList.size();
-		tableBook.getColumns().addAll(titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn, shelfColumn, loanActCol);
+		tableBook.getColumns().addAll(titleColumn, authorColumn, categoryColumn, yearColumn, isbnColumn, qtyAvColumn, shelfColumn, loanActCol);
 		updateStatusBar	(bookList.size());
 		}
 
@@ -326,7 +330,7 @@ public class BooksUI implements Initializable {
 		}
 		ObservableList<Book> books = FXCollections.observableArrayList(); // Create new list
 		for (Book book : MainWindow.lib.getBookList()) {
-			if (Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
+			if (Functions.compareStrings(Integer.toString(book.getShelf()), search) || Functions.compareStrings(book.getCategory(), search) || Functions.compareStrings(book.getTitle(), search) || Functions.compareStrings(book.getAuthor(), search) || Functions.compareStrings(book.getIsbn(), search) || Functions.compareStrings(Integer.toString(book.getYear()), search)) {
 				books.add(book); // If match add the book to list
 			}
 		}
