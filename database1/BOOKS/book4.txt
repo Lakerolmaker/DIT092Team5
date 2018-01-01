@@ -1,1 +1,1 @@
-{"id":2,"isbn":"000000001","title":"The mystery of the School of Magic","author":"Jacob the one and only","year":1998,"category":"porn","shelf":2,"quantity":1,"loaned":1,"image":"genericBookCover.jpg","loanTotal":0}
+{"id":2,"isbn":"000000001","title":"The mystery of the School of Magic","author":"Jacob the one and only","year":1998,"category":"porn","shelf":2,"quantity":1,"loaned":0,"image":"genericBookCover.jpg","loanTotal":0}

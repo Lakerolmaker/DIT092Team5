@@ -225,5 +225,8 @@ public class User {
 		this.loanedBooksTotal = loanedBooksTotal;
 	}
 	
+	public void clearBookList() {
+		this.bookList.clear();
+	}
 	
 }

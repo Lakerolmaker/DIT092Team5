@@ -215,6 +215,19 @@ public class Library {
 		bookDirectory.clear();
 	}
 	
+	//: Reset all loaned books 
+	public void reset() {
+		
+		for (Book book : bookDirectory) {
+			book.setLoaned(0);
+		}
+		
+		for (User user : userDirectory) {
+			user.clearBookList();
+		}
+		
+	}
+	
 	//: Removes the 
 	public void purge() {
 		DatabaseHelper db = new DatabaseHelper();

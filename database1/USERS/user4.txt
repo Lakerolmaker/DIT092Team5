@@ -1,1 +1,0 @@
-{"firstName":"dsdsd","lastName":"ssasa","ssn":"232323","userId":5,"debt":0.0,"phoneNr":"232332","street":"dsdsdsd","zipCode":"2323","city":"sdsdsd","loanedBooksTotal":0,"bookList":[]}
