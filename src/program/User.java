@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import frontend.MainWindow;
 
 /**
- * Description: User class with attributes (first name, last name, ssn, user ID (library card number), dept, 
+ * Description: User class with attributes (first name, last name, ssn, user ID (library card number), debt, 
  * phone number, street, zip code and city) and getters/setters.
  * @author Tihana Causevic
  */
@@ -189,6 +189,14 @@ public class User {
 		}
 		bookList.remove(bookListIndex);
 	}
+//	
+//	public void removeBorrowedBook2 (int bookID){
+//		for(LoanInstance lI : bookList) {
+//			if(lI.getBook().getId() == bookID) {
+//				
+//			}
+//		}
+//	}
 	
 	public ArrayList<Integer> getBookIndex(Book book) {
 		ArrayList<Integer> tmp = new ArrayList<>();

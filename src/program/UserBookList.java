@@ -6,17 +6,17 @@ public class UserBookList {
 	private String title;
 	private String author;
 	private LocalDate date;
+	private Book book;
 	
 	public UserBookList(LoanInstance lI) {
 		this.title = lI.getBook().getTitle();
 		this.author = lI.getBook().getAuthor();
 		this.date = lI.getDate();
+		this.book = lI.getBook();
 	}
 	
-	public UserBookList(String title, String author, LocalDate date) {
-		this.title = title;
-		this.author = author;
-		this.date = date;
+	public Book getBook() {
+		return this.book;
 	}
 	
 	public String getTitle(){

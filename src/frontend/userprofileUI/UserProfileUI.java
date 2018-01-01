@@ -107,12 +107,12 @@ public class UserProfileUI implements Initializable{
 											setGraphic(null);
 											setText(null);
 										} else {
-											UserBookList book = getTableView().getItems().get(getIndex());
 											returnBtn.setOnAction(event -> {
-												//tmpuser.removeBorrowedBook(book.getBookId());
+												//tmpuser.removeBorrowedBook(book.getID());
 												//Remove book from list
 												//: Don't know what you were trying to do here
-												//tmpuser.removeBorrowedBook(tmpuser.getBookIndex(book.getBook()).get(0));
+												UserBookList book = getTableView().getItems().get(getIndex());
+												MainWindow.lib.returnBook(tmpuser, book.getBook());
 												
 												try {
 													ObservableList<UserBookList> b = FXCollections.observableArrayList();
