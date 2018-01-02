@@ -105,12 +105,12 @@
                             <NumberAxis fx:id="yLoaned" label="Loaned" side="LEFT" />
                           </yAxis>
                         </BarChart>
-                        <TableView fx:id="tableUser" layoutX="94.0" layoutY="340.0" prefHeight="203.0" prefWidth="480.0">
+                        <TableView fx:id="tableUser" layoutX="94.0" layoutY="340.0" prefHeight="203.0" prefWidth="490.0">
                           <columns>
                             <TableColumn fx:id="nameColumn" prefWidth="158.0" text="Name" />
                             <TableColumn fx:id="surnameColumn" prefWidth="137.0" text="Surname" />
                               <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID" />
-                              <TableColumn fx:id="loanColumn" prefWidth="100.0" text="Loan Count" />
+                              <TableColumn fx:id="loanColumn" prefWidth="109.0" text="Loan Count" />
                           </columns>
                         </TableView>
                         <Label fx:id="userDebt" layoutX="640.0" layoutY="340.0" prefHeight="27.0" prefWidth="280.0" text="Total User Debt:" />

@@ -186,7 +186,7 @@ public class BooksUI implements Initializable {
 		// Title column
 		titleColumn = new TableColumn<>("Title");
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-		titleColumn.setMaxWidth(8000);
+		titleColumn.setMaxWidth(5000);
 		// Author column
 		authorColumn = new TableColumn<>("Author");
 		authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
