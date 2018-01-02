@@ -107,14 +107,15 @@
                         </BarChart>
                         <TableView fx:id="tableUser" layoutX="94.0" layoutY="340.0" prefHeight="203.0" prefWidth="490.0">
                           <columns>
-                            <TableColumn fx:id="nameColumn" prefWidth="158.0" text="Name" />
-                            <TableColumn fx:id="surnameColumn" prefWidth="137.0" text="Surname" />
-                              <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID" />
-                              <TableColumn fx:id="loanColumn" prefWidth="109.0" text="Loan Count" />
+                            <TableColumn fx:id="nameColumn" prefWidth="113.0" text="Name" />
+                            <TableColumn fx:id="surnameColumn" prefWidth="108.0" text="Surname" />
+                              <TableColumn fx:id="idColumn" prefWidth="52.0" text="ID" />
+                              <TableColumn fx:id="debtColumn" prefWidth="114.0" text="Total Debt (SEK)" />
+                              <TableColumn fx:id="loanColumn" prefWidth="102.0" text="Loan Count" />
                           </columns>
                         </TableView>
                         <Label fx:id="userDebt" layoutX="640.0" layoutY="340.0" prefHeight="27.0" prefWidth="280.0" text="Total User Debt:" />
-                        <Label fx:id="totalBooks" layoutX="640.0" layoutY="383.0" prefHeight="25.0" prefWidth="292.0" text="Total Books:" />
+                        <Label fx:id="totalBooks" layoutX="640.0" layoutY="383.0" prefHeight="25.0" prefWidth="292.0" text="Total Physical Books:" />
                         <Label fx:id="totalUsers" layoutX="640.0" layoutY="425.0" prefHeight="17.0" prefWidth="272.0" text="Total Users:" />
               </children>
             </AnchorPane>

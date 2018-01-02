@@ -62,6 +62,8 @@ public class StatsUI implements Initializable {
 	@FXML
 	private TableColumn<User, Integer> idColumn, loanColumn;
 	@FXML
+	private TableColumn<User, Double> debtColumn;
+	@FXML
 	private Label userDebt, totalBooks, totalUsers;
 
 	@Override
@@ -69,6 +71,7 @@ public class StatsUI implements Initializable {
 
 		ArrayList<Book> books = new ArrayList<Book>();
 		double sum = 0;
+		int sum1 = 0;
 		int booksCount = 0;
 
 		ObservableList<User> users = FXCollections.observableArrayList(lib.getUserList());
@@ -91,6 +94,7 @@ public class StatsUI implements Initializable {
 		surnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
 		loanColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("loanedBooksTotal"));
 		idColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("userId"));
+		debtColumn.setCellValueFactory(new PropertyValueFactory<User, Double>("debt"));
 
 		tableUser.setItems(users);
 
@@ -99,9 +103,15 @@ public class StatsUI implements Initializable {
 			sum += user.getDebt();
 
 		}
+		
+		for (Book book : lib.getBookList()) {
+
+			sum1 += book.getQuantity();
+
+		}
 
 		userDebt.setText(userDebt.getText() + "   " + sum + "  SEK");
-		totalBooks.setText(totalBooks.getText() + "   " + lib.getBookList().size());
+		totalBooks.setText(totalBooks.getText() + "   " + sum1);
 		totalUsers.setText(totalUsers.getText() + "   " + lib.getUserList().size());
 
 	}
