@@ -87,7 +87,7 @@ public class UserProfileUI implements Initializable{
 				borrowedBooks.setItems(b);
 				
 				TableColumn titleCol = new TableColumn("Title");
-				titleCol.setMinWidth(220);
+				titleCol.setMinWidth(200);
 		        titleCol.setCellValueFactory( new PropertyValueFactory<UserBookList, String>("title"));
 		        
 		        TableColumn authorCol = new TableColumn("Author");
