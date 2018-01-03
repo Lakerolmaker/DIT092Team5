@@ -8,18 +8,38 @@ public class DelayedPerson {
 	public String Name;
 	public int userId;
 	public double debt;
+	public double allDebt;
 	public String date;
 	public String returndate;
+	public String ISBN;
 	
-	public DelayedPerson(String title, String Name, int userId, double debt, String date , String returndate ) {
+	public DelayedPerson(String title, String Name, int userId, double debt, double allDebt, String date , String returndate, String ISBN ) {
 		super();
 		this.title = title;
 		this.Name = Name;
 		this.userId = userId;
 		this.debt = debt;
+		this.allDebt = allDebt;
 		this.date = date;
 		this.returndate = returndate;
+		this.ISBN = ISBN;
 		
+	}
+
+	public String getISBN() {
+		return ISBN;
+	}
+
+	public void setISBN(String iSBN) {
+		ISBN = iSBN;
+	}
+
+	public double getAllDebt() {
+		return allDebt;
+	}
+
+	public void setAllDebt(double allDebt) {
+		this.allDebt = allDebt;
 	}
 
 	public String getReturndate() {

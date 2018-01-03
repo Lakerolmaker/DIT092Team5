@@ -16,6 +16,7 @@ import frontend.userListUI.UserListUI;
 import frontend.userprofileUI.UserProfileUI;
 import frontend.MainWindow;
 import frontend.aboutUI.AboutUI;
+import frontend.bookViewUI.BookViewUI;
 import frontend.booksUI.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,6 +52,7 @@ public class DelayedBooksController {
 	@FXML public TableColumn<DelayedPerson, String> titleColumn;
 	@FXML public TableColumn<DelayedPerson, String> NameColumn;
 	@FXML public TableColumn<DelayedPerson, Double > debtColumn;
+	@FXML public TableColumn<DelayedPerson, Double > allDebtColumn;
 	@FXML public TableColumn<DelayedPerson, Integer>  userIdColumn; 
 	@FXML public TableColumn<DelayedPerson, String>  dateLoanedColumn; 
 	@FXML public TableColumn<DelayedPerson, String>  returnDateColumn; 
@@ -63,6 +65,7 @@ public class DelayedBooksController {
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 		debtColumn.setCellValueFactory(new PropertyValueFactory<>("debt"));
+		allDebtColumn.setCellValueFactory(new PropertyValueFactory<>("allDebt"));
 		userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 		dateLoanedColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 		returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returndate"));
@@ -76,10 +79,13 @@ public class DelayedBooksController {
 	      
 	        mi1.setOnAction(e -> {
 	        	User forwardUser = MainWindow.lib.getUser(selectedPerson.getUserId());
-	        	//UserProfileUI.SetUser(forwardUser);
 	        	UserProfileUI.display(forwardUser);
 	        });
-	        mi2.setOnAction(e -> System.out.println("Delete"));
+	        mi2.setOnAction(e ->{
+	        	Book forwardUser = MainWindow.lib.findBookByIsbn(selectedPerson.getISBN());
+	        	BookViewUI.display(forwardUser);
+	        	
+	        });
 	        cm.setAutoHide(true);
 	        cm.setHideOnEscape(true);
 	        
@@ -109,8 +115,10 @@ public class DelayedBooksController {
 						user.getFirstName() + user.getLastName() ,
 						user.getUserId(), 
 						debtForBook,
+						user.getDebt(),
 						loanInst.getDate().toString(),
-						date.toString());
+						date.toString(),
+						book.getIsbn());
 				
 				persons.add(newdelay);
 			}
