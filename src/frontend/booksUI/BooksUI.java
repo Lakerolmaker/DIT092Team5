@@ -138,16 +138,14 @@ public class BooksUI implements Initializable {
 			try {
 				ArrayList<LoanInstance> loanList = MainWindow.user.getBookList();
 
-			} catch (Exception e) {
-				// User is not currently loaning any books
-			}
+			} catch (Exception e) {}
 
 		}
 
 		try {
 			initTable();
-		} catch (NullPointerException e) {
-		}
+		} catch (NullPointerException e) {}
+		
 	}
 
 	public static void display() {

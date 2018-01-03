@@ -49,7 +49,6 @@ public class AboutUI implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 
 }
