@@ -9,14 +9,25 @@ public class DelayedPerson {
 	public int userId;
 	public double debt;
 	public String date;
+	public String returndate;
 	
-	public DelayedPerson(String title, String Name, int userId, double debt, String date ) {
+	public DelayedPerson(String title, String Name, int userId, double debt, String date , String returndate ) {
 		super();
 		this.title = title;
 		this.Name = Name;
 		this.userId = userId;
 		this.debt = debt;
 		this.date = date;
+		this.returndate = returndate;
+		
+	}
+
+	public String getReturndate() {
+		return returndate;
+	}
+
+	public void setReturndate(String returndate) {
+		this.returndate = returndate;
 	}
 
 	public String getDate() {

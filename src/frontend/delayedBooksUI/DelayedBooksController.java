@@ -53,6 +53,7 @@ public class DelayedBooksController {
 	@FXML public TableColumn<DelayedPerson, Double > debtColumn;
 	@FXML public TableColumn<DelayedPerson, Integer>  userIdColumn; 
 	@FXML public TableColumn<DelayedPerson, String>  dateLoanedColumn; 
+	@FXML public TableColumn<DelayedPerson, String>  returnDateColumn; 
 	
 	private ContextMenu cm = new ContextMenu();
 	DelayedPerson selectedPerson;
@@ -64,6 +65,7 @@ public class DelayedBooksController {
 		debtColumn.setCellValueFactory(new PropertyValueFactory<>("debt"));
 		userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 		dateLoanedColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+		returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returndate"));
 
 		
 
@@ -98,13 +100,16 @@ public class DelayedBooksController {
 			for (LoanInstance loanInst : delayedbooks ) {
 				Book book =  loanInst.getBook();
 				
-				LocalDate date = loanInst.getDate();
+				LocalDate date = loanInst.getReturnDate();
+				LocalDate today = LocalDate.now();
+				double debtForBook = (today.toEpochDay() - date.toEpochDay());
 
 				DelayedPerson newdelay = new DelayedPerson(
 						book.getTitle(),
 						user.getFirstName() + user.getLastName() ,
 						user.getUserId(), 
-						user.getDebt(),
+						debtForBook,
+						loanInst.getDate().toString(),
 						date.toString());
 				
 				persons.add(newdelay);

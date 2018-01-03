@@ -105,8 +105,9 @@
                               <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
                               <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name of User" />
                               <TableColumn fx:id="userIdColumn" prefWidth="75.0" text="User ID" />
-                              <TableColumn fx:id="debtColumn" prefWidth="75.0" text="Debt Accumulated" />
+                              <TableColumn fx:id="debtColumn" prefWidth="75.0" text="Debt for Book" />
                               <TableColumn fx:id="dateLoanedColumn" prefWidth="75.0" text="Date Loaned" />
+                              <TableColumn fx:id="returnDateColumn" prefWidth="75.0" text="Return Date" />
                            </columns>
                         </TableView>
               </children>
