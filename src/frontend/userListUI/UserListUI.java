@@ -248,18 +248,17 @@ public class UserListUI implements Initializable {
         // Name column
         nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameColumn.setMaxWidth(8000);
+       
 
         // Surname column
         surnameColumn = new TableColumn<>("Surname");
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-        surnameColumn.setMaxWidth(9000);
+       
 
         // ID column
 
         idColumn = new TableColumn<>("Id");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        idColumn.setMaxWidth(2500);
         idColumn.setStyle("-fx-alignment: CENTER;");
 
         //amount of borrowed books column
