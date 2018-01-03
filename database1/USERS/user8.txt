@@ -1,0 +1,1 @@
+{"firstName":"dd","lastName":"dd","ssn":"dd","userId":9,"debt":0.0,"phoneNr":"","street":"","zipCode":"","city":"","loanedBooksTotal":0,"bookList":[]}
