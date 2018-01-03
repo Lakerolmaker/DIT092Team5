@@ -195,6 +195,7 @@ public class Library {
 		DatabaseHelper db = new DatabaseHelper();
 		db.setLOAN_ALLOWANCE(LOAN_ALLOWANCE);
 		db.setID(this.getID());
+		db.deleteDatabase(this.name);
 		db.saveLibrary(this);
 		System.out.println("Session saved");
 	
