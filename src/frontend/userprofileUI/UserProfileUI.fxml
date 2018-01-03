@@ -112,7 +112,7 @@
                         </SplitPane>
                         <Group layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0" />
                         <Button layoutX="55.0" layoutY="441.0" mnemonicParsing="false" onAction="#cancelButtonAction" text="Cancel" />
-                        <Button layoutX="420.0" layoutY="441.0" mnemonicParsing="false" onAction="#submitButtonAction" text="Save" />
+                        <Button layoutX="410.0" layoutY="441.0" mnemonicParsing="false" onAction="#submitButtonAction" prefHeight="25.0" prefWidth="51.0" text="Save" />
                         <GridPane layoutX="55.0" layoutY="56.0" prefHeight="373.0" prefWidth="419.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.9999796549479" minWidth="10.0" prefWidth="179.9999796549479" />
@@ -195,7 +195,8 @@
                               </Label>
                            </children>
                         </GridPane>
-                        <Button fx:id="edit" layoutX="342.0" layoutY="441.0" mnemonicParsing="false" onAction="#editButtonClick" text="Edit" />
+                        <Button fx:id="edit" layoutX="342.0" layoutY="441.0" mnemonicParsing="false" onAction="#editButtonClick" prefHeight="25.0" prefWidth="49.0" text="Edit" />
+                        <Button fx:id="deleteUserbtn" layoutX="342.0" layoutY="483.0" mnemonicParsing="false" onAction="#deleteUserbtnAction" prefHeight="25.0" prefWidth="92.0" text="Delete User" />
               </children>
             </AnchorPane>
           </content>

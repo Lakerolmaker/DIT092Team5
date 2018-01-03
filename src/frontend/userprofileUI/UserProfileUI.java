@@ -3,6 +3,7 @@ package frontend.userprofileUI;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -65,6 +66,7 @@ public class UserProfileUI implements Initializable{
 		@FXML private TableView<UserBookList> borrowedBooks;
 		@FXML private Label booksBorrowed;
 		@FXML private Button edit;
+		@FXML private Button deleteUserbtn;
 		
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
@@ -208,6 +210,29 @@ public class UserProfileUI implements Initializable{
 		public void cancelButtonAction(Event event)
 		{
 			EmptyTemplateUI.display(); // displays the empty template (instead of the home screen, for now)
+		}
+		
+		@FXML
+		public void deleteUserbtnAction(Event event)
+		{
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this user?");
+			Optional <ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK ) {
+				
+				try {
+					frontend.MainWindow.lib.removeUser(tmpuser);
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
+				
+				new Alert(Alert.AlertType.INFORMATION, "User: " + tmpuser.getName() + " has been removed!").showAndWait();
+				UserListUI.display();
+			}
+			
+			
+			
+			
 		}
 
 		@FXML
