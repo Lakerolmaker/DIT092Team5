@@ -53,6 +53,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import program.Book;
+import program.Functions;
 import program.User;
 
 
@@ -176,37 +177,55 @@ public class UserListUI implements Initializable {
 
 //_____________________________________________________________________________    button click functions
 
-    public void BtnShowUsersWithBooksClick(MouseEvent event) {                       // btn: users with books
+    public void BtnShowUsersWithBooksClick() {// btn: users with books
         // table - with books
-        if (event.getButton() == MouseButton.SECONDARY) {
             tableUser.setItems(getUsersWithBooks());
             //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
-        }
-    }
-    
-    public void NewBookButtonClicked(MouseEvent event) {
-    	//TODO
+        
     }
 
     public void btnSearchUserAction() {
-    	//TODO
+    
+    	String searchTest = searchFieldUser.getText();
+    	 tableUser.setItems(getMatchingBooks(searchTest));
     }
+    
+    
+ // Return matching list of books
+ 	public ObservableList<User> getMatchingBooks(String search) {
+ 		if (search.length() < 1) {
+ 			return FXCollections.observableArrayList(MainWindow.lib.getUserList());
+ 		}
+ 		ObservableList<User> users = FXCollections.observableArrayList(); // Create a new list
+ 																			
+ 		for (User user : MainWindow.lib.getUserList()) {
+ 			if (Functions.compareStrings(user.getFirstName(), search)
+ 				|| Functions.compareStrings(user.getLastName(), search)
+ 				|| Functions.compareStrings(user.getFirstName() + user.getLastName(), search)
+
+ 					) {
+ 				users.add(user); // If match add the book to list
+ 			}
+ 		}
+
+ 		return users; // Return the new composed list
+ 	}
 
 
-    public void BtnShowUsersWithDebtsClick(MouseEvent event) {                    // btn: users with debts
+    public void BtnShowUsersWithDebtsClick() { // btn: users with debts
         // table - with debts
-        if (event.getButton() == MouseButton.SECONDARY) {
+        
             tableUser.setItems(getUsersWithDebts());
             //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
-        }
+        
     }
 
 
-     public void BtnShowAllUsersClick(MouseEvent event){                            // btn: all users
-        if (event.getButton() == MouseButton.SECONDARY) {                           // table - all users
+     public void BtnShowAllUsersClick(){ // btn: all users
+    	 		// table - all users
             tableUser.setItems(getUsers());
             //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
-        }
+      
         }
 
     // _____________________________________________________________________    table click functions

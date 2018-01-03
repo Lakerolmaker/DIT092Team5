@@ -1,1 +1,0 @@
-{"id":1,"isbn":"123456789087","title":"aaaaaaa","author":"bbbbbb","year":2014,"category":"Comics","shelf":34,"quantity":5,"loaned":0,"image":"genericBookCover.jpg","description":"","publisher":"cccccc","loanTotal":0}

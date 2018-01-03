@@ -1,1 +1,1 @@
-{"id":2,"isbn":"000000001","title":"The mystery of the School of Magic","author":"Jacob the one and only","year":1998,"category":"porn","shelf":2,"quantity":1,"loaned":0,"image":"genericBookCover.jpg","loanTotal":0}
+{"id":1,"isbn":"9789146234746","title":"The Remains of the Day","author":"Kazuo Ishiguro","year":2017,"category":"Novel","shelf":4,"quantity":2,"loaned":0,"image":"aterstoden-av-dagen.jpg","loanTotal":0}
