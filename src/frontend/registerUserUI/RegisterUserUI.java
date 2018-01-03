@@ -86,19 +86,12 @@ public class RegisterUserUI implements Initializable{
 		if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
 			try {
 				lib.addUser(fName.getText(), lName.getText(), SSN.getText(), phoneNr.getText(), street.getText(), zCode.getText(), city.getText());
-				Alert alert = new Alert(AlertType.INFORMATION, "User created", ButtonType.OK);
-				alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-				alert.show();
 				lib.save();
 			} catch (Exception e) {
-				Alert alert = new Alert(AlertType.ERROR, "Customer with same Social Security number already exists in the library", ButtonType.OK);
-				alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-				alert.show();
+				e.printStackTrace();
 			}
 		}else {
-			Alert alert = new Alert(AlertType.ERROR, "Please enter a first name and a last name to continue", ButtonType.OK);
-			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-			alert.show();
+			JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
 		}
 	}
 	
@@ -119,7 +112,7 @@ public class RegisterUserUI implements Initializable{
 
 		Alert alert = new Alert(AlertType.INFORMATION, "Library Saved", ButtonType.OK);
 		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-		alert.show();	
+		alert.show();
 		
 	}
 	public void quitMenuClick() {

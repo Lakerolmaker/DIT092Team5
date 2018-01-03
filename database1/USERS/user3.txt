@@ -1,1 +1,0 @@
-{"firstName":"Daniel ","lastName":"Jansson","ssn":"19990706XXXX","userId":4,"debt":0.0,"phoneNr":"0763747421","street":"Almåsvägen 23b","zipCode":"42496","city":"Gothenburg","loanedBooksTotal":0,"bookList":[]}

@@ -1,1 +1,0 @@
-{"firstName":"Jonatan ","lastName":"Karlsson","ssn":"19980305XXXX","userId":6,"debt":0.0,"phoneNr":"","street":"073344211","zipCode":"43497","city":"Borås","loanedBooksTotal":0,"bookList":[]}
