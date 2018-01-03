@@ -102,7 +102,7 @@ public class DelayedBooksController {
 				
 				LocalDate date = loanInst.getReturnDate();
 				LocalDate today = LocalDate.now();
-				double debtForBook = (today.toEpochDay() - date.toEpochDay());
+				double debtForBook = 2 * (today.toEpochDay() - date.toEpochDay());
 
 				DelayedPerson newdelay = new DelayedPerson(
 						book.getTitle(),
