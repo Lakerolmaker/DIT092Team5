@@ -305,6 +305,11 @@ public class BookEditUI implements Initializable{
 		String publisher = publisherText.getText().trim();
 		description = descriptionText.getText().trim();
 		
+		if (isbn.length() != 10 && isbn.length() != 13) {
+			new Alert(Alert.AlertType.NONE, "Isbn must be either 10 or 13 digits", ButtonType.OK).showAndWait();
+			return;
+		}
+		
 		// handles exceptions from addBook method
 		try {
 			String bookImage = "genericBookCover.jpg";
