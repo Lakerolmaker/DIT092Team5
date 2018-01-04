@@ -91,6 +91,11 @@
                      </children>
                   </Pane>
                   <ImageView fx:id="logoImage" fitHeight="117.0" fitWidth="138.0" layoutX="28.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label id="menuRegister" layoutX="28.0" layoutY="326.0" onMouseClicked="#openStats" prefHeight="27.0" prefWidth="162.0" text="Statistics" textFill="#727272">
+                     <font>
+                        <Font name="MS Reference Sans Serif" size="20.0" />
+                     </font>
+                  </Label>
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="517.0" prefWidth="1003.0">

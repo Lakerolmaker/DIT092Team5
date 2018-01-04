@@ -1,35 +1,33 @@
 package frontend.bookEditUI;
 
-import frontend.*;
-import frontend.aboutUI.AboutUI;
-import frontend.bookViewUI.BookViewUI;
-import frontend.booksUI.*;
-import frontend.emptyTemplateUI.*;
-import frontend.homeUI.HomeUI;
-import frontend.registerUserUI.RegisterUserUI;
-import frontend.userListUI.UserListUI;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import java.util.Map.Entry;
-
-import frontend.delayedBooksUI.*;
+import frontend.MainWindow;
+import frontend.aboutUI.AboutUI;
+import frontend.bookViewUI.BookViewUI;
+import frontend.booksUI.BooksUI;
+import frontend.delayedBooksUI.DelayedBook;
+import frontend.homeUI.HomeUI;
+import frontend.newBookUI.NewBookUI;
+import frontend.preferencesUI.PreferencesUI;
+import frontend.registerUserUI.RegisterUserUI;
+import frontend.statsUI.StatsUI;
+import frontend.userListUI.UserListUI;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,8 +51,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import frontend.newBookUI.*;
-import frontend.preferencesUI.PreferencesUI;
 import program.Book;
 import program.Functions;
 import program.Library;
@@ -676,6 +672,9 @@ public class BookEditUI implements Initializable{
 	}	
 	public void openRegister() {
 		RegisterUserUI.display();
+	}
+	public void openStats() {
+		StatsUI.display();
 	}
 
 }

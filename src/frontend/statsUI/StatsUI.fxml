@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
@@ -48,7 +49,7 @@
       <items>
         <AnchorPane prefHeight="552.0" prefWidth="344.0" style="-fx-max-width: 500;">
           <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Library" textAlignment="CENTER" wrapText="false">
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" textAlignment="CENTER" wrapText="false">
               <font>
                 <Font size="18.0" fx:id="x1" />
               </font>
@@ -90,6 +91,7 @@
                         </Label>
                      </children>
                   </Pane>
+                  <ImageView fx:id="logoImage" fitHeight="117.0" fitWidth="138.0" layoutX="28.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="517.0" prefWidth="1003.0">

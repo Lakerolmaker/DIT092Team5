@@ -34,6 +34,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import program.Book;
@@ -46,7 +48,9 @@ public class StatsUI implements Initializable {
 	private static Scene stats;
 
 	private static Library lib = MainWindow.lib;
-
+	
+	@FXML
+	private ImageView logoImage;
 	@FXML
 	private Label statsLabel; // Link to the fx:id in scenebuilder
 	@FXML
@@ -68,6 +72,9 @@ public class StatsUI implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		Image logo = new Image("resources/logo.png");
+		logoImage.setImage(logo);
 
 		ArrayList<Book> books = new ArrayList<Book>();
 		double sum = 0;

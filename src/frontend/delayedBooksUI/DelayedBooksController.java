@@ -33,6 +33,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.Light.Point;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
@@ -55,12 +57,17 @@ public class DelayedBooksController {
 	@FXML public TableColumn<DelayedPerson, Double > allDebtColumn;
 	@FXML public TableColumn<DelayedPerson, Integer>  userIdColumn; 
 	@FXML public TableColumn<DelayedPerson, String>  dateLoanedColumn; 
-	@FXML public TableColumn<DelayedPerson, String>  returnDateColumn; 
+	@FXML public TableColumn<DelayedPerson, String>  returnDateColumn;
+	@FXML private ImageView logoImage;
 	
 	private ContextMenu cm = new ContextMenu();
 	DelayedPerson selectedPerson;
 	 
 	public void initialize() {
+		
+		Image logo = new Image("resources/logo.png");
+		logoImage.setImage(logo);
+		
 		
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
