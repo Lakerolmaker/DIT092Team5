@@ -1,3 +1,4 @@
+
 /**
  * Description: Allows a librarian to view or edit information about the user.Contains the list of borrowed books and allows returning of books.
  *
@@ -18,6 +19,7 @@ import frontend.booksUI.BooksUI;
 import frontend.delayedBooksUI.DelayedBook;
 import frontend.emptyTemplateUI.EmptyTemplateUI;
 import frontend.homeUI.HomeUI;
+import frontend.loanhistoryUI.loanHistoryUI;
 import frontend.newBookUI.NewBookUI;
 import frontend.preferencesUI.PreferencesUI;
 import frontend.registerUserUI.RegisterUserUI;
@@ -40,8 +42,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -68,13 +68,10 @@ public class UserProfileUI implements Initializable{
 		@FXML private Label booksBorrowed;
 		@FXML private Button edit;
 		@FXML private Button deleteUserbtn;
-		@FXML private ImageView logoImage;
+		@FXML private Button btnHistory;
 		
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			
-			Image logo = new Image("resources/logo.png");
-			logoImage.setImage(logo);
 
             // loads the user information into the text fields
 			fName.setText(tmpuser.getFirstName());
@@ -205,6 +202,12 @@ public class UserProfileUI implements Initializable{
 				JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
 			}
 		}
+
+        @FXML
+        public void historyBtnClick(Event event)
+        {
+            loanHistoryUI.display(tmpuser);
+        }
 		
 		@FXML
 		public void cancelButtonAction(Event event)
@@ -288,4 +291,4 @@ public class UserProfileUI implements Initializable{
 		public void openStats() {
 			StatsUI.display();
 		}
-}
+	}

@@ -1,1 +1,1 @@
-{"firstName":"James","lastName":"Bond","ssn":"201712059999","userId":0,"debt":0.0,"phoneNr":"123456789","street":"5th Aveneue","zipCode":"99930","city":"Los Angeles","loanedBooksTotal":1,"bookList":[]}
+{"firstName":"James","lastName":"Bond","ssn":"201712059999","userId":0,"debt":0.0,"phoneNr":"123456789","street":"5th Aveneue","zipCode":"99930","city":"Los Angeles","loanedBooksTotal":1,"bookList":[], "historyBookList":[]}

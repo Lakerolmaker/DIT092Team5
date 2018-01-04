@@ -25,6 +25,8 @@ public class User {
 	private String city;
 	private int loanedBooksTotal;
 	private ArrayList<LoanInstance> bookList = new ArrayList<>();
+	private ArrayList<LoanInstance> historyBookList = new ArrayList<>();
+
 	static AtomicInteger nextId = new AtomicInteger();
 
 	public User(String firstName, String lastName, String ssn, String phoneNr, String street, String zipCode, String city) {
@@ -158,9 +160,18 @@ public class User {
 		}
 	}
 
+	public ArrayList<LoanInstance> getBookHistoryList() throws Exception {   // returns book list
+		if (historyBookList == null) {
+			throw new Exception("Users BookList is empty");
+		}else {
+			return historyBookList;
+		}
+	}
+
 	public void borrowBook(Book book, LocalDate returnDate) throws Exception {  // adds the book to the list of borrowed books
 		LoanInstance tmp = new LoanInstance(book, returnDate);
 		bookList.add(tmp);
+		historyBookList.add(tmp);
 		book.loan();
 	}
 	
