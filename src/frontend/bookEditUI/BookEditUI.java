@@ -7,6 +7,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
@@ -89,7 +90,7 @@ public class BookEditUI implements Initializable{
 	@FXML private TextField titleText,shelfText, quantityText, publisherText, authorText, isbnText, yearText;
 	@FXML private ComboBox categoryText;
 	@FXML private TextArea descriptionText;
-	@FXML private Button saveBtn,backBtn;
+	@FXML private Button saveBtn,backBtn, removeBookBtn;
 	@FXML public Label bookTitle;
 	@FXML private ImageView bookImageView;
 	private Image bookImage;
@@ -101,6 +102,7 @@ public class BookEditUI implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		removeBookBtn.setId("removeButton");
 		
 		// use regular expression to force user to enter valid input
 		
@@ -251,6 +253,16 @@ public class BookEditUI implements Initializable{
 			}
 			
 		}
+	}
+	
+	public void removeBookBtnClick(){
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this book?");
+		Optional <ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK ) {
+			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
+			new Alert(Alert.AlertType.INFORMATION, "Book: " + selectedBook.getTitle() + " has been removed!").showAndWait();
+			BooksUI.display();
+		}	
 	}
 	
 	public static void display(Book book)  {

@@ -8,6 +8,8 @@ import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.userListUI.UserListUI;
+import frontend.userprofileUI.UserProfileUI;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -112,6 +114,9 @@ public class BookViewUI implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		description = selectedBook.getDescription();
+		booksLoaningText.setOnMouseClicked(e -> {
+			UserProfileUI.display(MainWindow.user);
+		});
 		if (description != null && description.length() > 0) {
 			descriptionText.setText(description);
 		} else {
@@ -209,16 +214,7 @@ public class BookViewUI implements Initializable {
 		BookEditUI.display(selectedBook);
 	}
 	
-	public void removeBookBtnClick() {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this book?");
-		Optional <ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK ) {
-			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
-			new Alert(Alert.AlertType.INFORMATION, "Book: " + selectedBook.getTitle() + " has been removed!").showAndWait();
-			BooksUI.display();
-		}	
-	}
-	
+
 	/************************* SIDE PANEL ***************************/
 
 	/** Loan button **/

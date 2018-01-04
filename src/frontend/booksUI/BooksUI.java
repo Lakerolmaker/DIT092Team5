@@ -18,6 +18,7 @@ import frontend.preferencesUI.PreferencesUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.statsUI.StatsUI;
 import frontend.userListUI.UserListUI;
+import frontend.userprofileUI.UserProfileUI;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -106,7 +107,13 @@ public class BooksUI implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		booksLoaningText.setId("booksLoaningText");
+		booksLoaningText.setOnMouseClicked(e -> {
+			UserProfileUI.display(MainWindow.user);
+		});
+		if (MainWindow.user != null && booksInBasket == null) {
+			newBasket();
+		}
 		switchUserText.setId("switchUserText");
 		Image logo = new Image("resources/logo.png");
 		logoImage.setImage(logo);
@@ -160,7 +167,6 @@ public class BooksUI implements Initializable {
 			bookView.getStyleClass().add("bookView");
 
 			MainWindow.window.setScene(bookScene);
-			// MainWindow.window.setResizable(false);
 			MainWindow.window.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -218,24 +224,14 @@ public class BooksUI implements Initializable {
 		qtyAvColumn.setMaxWidth(1500);
 		qtyAvColumn.setId("qtyAvColumn");
 		qtyAvColumn.setStyle("-fx-alignment: CENTER;");
-		// Shelf column
-		shelfColumn = new TableColumn<>("Shelf");
-		shelfColumn.setCellValueFactory(new PropertyValueFactory<>("shelf"));
-		shelfColumn.setMaxWidth(2000);
-		shelfColumn.setStyle("-fx-alignment: CENTER;");
-
 		// Loan column
-
 		TableColumn loanActCol = new TableColumn("");
 		loanActCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
-
 		Callback<TableColumn<Book, String>, TableCell<Book, String>> cellFactory = new Callback<TableColumn<Book, String>, TableCell<Book, String>>() {
 			@Override
 			public TableCell call(final TableColumn<Book, String> param) {
 				final TableCell<Book, String> cell = new TableCell<Book, String>() {
-
 					final Button loanActionBtn = new Button("Loan");
-
 					@Override
 					public void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
@@ -272,8 +268,7 @@ public class BooksUI implements Initializable {
 		ObservableList<Book> bookList = getBooks();
 		tableBook.setItems(bookList);
 		showingCounter = bookList.size();
-		tableBook.getColumns().addAll(titleColumn, authorColumn, categoryColumn, yearColumn, isbnColumn, qtyAvColumn,
-				shelfColumn, loanActCol);
+		tableBook.getColumns().addAll(titleColumn, authorColumn, categoryColumn, yearColumn, isbnColumn, qtyAvColumn, loanActCol);
 		updateStatusBar(bookList.size());
 	}
 
@@ -723,21 +718,4 @@ public class BooksUI implements Initializable {
 		StatsUI.display();
 	}
 
-	// for DEBUGGING
-	public void returnAllBooks() {
-		User user = MainWindow.user;
-		ArrayList<LoanInstance> bookList;
-		try {
-			bookList = user.getBookList();
-			for (int i = bookList.size() - 1; i >= 0; i--) {
-				MainWindow.lib.returnBook(user, user.getBookList().get(i).getBook());
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("All books returned for : " + user.getName());
-		display();
-
-	}
 }
