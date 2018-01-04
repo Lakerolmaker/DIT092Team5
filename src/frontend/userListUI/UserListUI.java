@@ -67,7 +67,7 @@ public class UserListUI implements Initializable {
     @FXML public TableColumn<User, String> nameColumn;
     @FXML public TableColumn<User, String> surnameColumn;
     @FXML public TableColumn<User, String> idColumn;
-    @FXML public TableColumn<User, String> amountBooksColumn;
+    //@FXML public TableColumn<User, String> amountBooksColumn; this coulumn needs fixing
     @FXML public TableColumn<User, String> amountDebtColumn;
 
     @FXML public Label menuHome;
@@ -129,7 +129,7 @@ public class UserListUI implements Initializable {
     public void initTable() {                                                       //table - all users
         createTable();
         tableUser.setItems(getUsers());
-        tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+        tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountDebtColumn);
     }
 
     //_____________________________________________________________                     list - all users
@@ -247,25 +247,25 @@ public class UserListUI implements Initializable {
 
         // Name column
         nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         nameColumn.setMaxWidth(8000);
 
         // Surname column
         surnameColumn = new TableColumn<>("Surname");
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         surnameColumn.setMaxWidth(9000);
 
         // ID column
 
-        idColumn = new TableColumn<>("Id");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn = new TableColumn<>("ID");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         idColumn.setMaxWidth(2500);
         idColumn.setStyle("-fx-alignment: CENTER;");
 
         //amount of borrowed books column
-        amountBooksColumn = new TableColumn<>("Books borrowed");
-        amountBooksColumn.setCellValueFactory(new PropertyValueFactory<>("books borrowed"));
-        amountBooksColumn.setStyle("-fx-alignment: CENTER;");
+        //amountBooksColumn = new TableColumn<>("Books borrowed");
+        //amountBooksColumn.setCellValueFactory(new PropertyValueFactory<>("books borrowed"));
+        //amountBooksColumn.setStyle("-fx-alignment: CENTER;");
 
         // amount debt column
         amountDebtColumn = new TableColumn<>("Debt");
