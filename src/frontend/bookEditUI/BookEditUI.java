@@ -1,34 +1,36 @@
 package frontend.bookEditUI;
 
+import frontend.*;
+import frontend.aboutUI.AboutUI;
+import frontend.bookViewUI.BookViewUI;
+import frontend.booksUI.*;
+import frontend.emptyTemplateUI.*;
+import frontend.homeUI.HomeUI;
+import frontend.registerUserUI.RegisterUserUI;
+import frontend.userListUI.UserListUI;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import frontend.MainWindow;
-import frontend.aboutUI.AboutUI;
-import frontend.bookViewUI.BookViewUI;
-import frontend.booksUI.BooksUI;
-import frontend.delayedBooksUI.DelayedBook;
-import frontend.homeUI.HomeUI;
-import frontend.newBookUI.NewBookUI;
-import frontend.preferencesUI.PreferencesUI;
-import frontend.registerUserUI.RegisterUserUI;
-import frontend.statsUI.StatsUI;
-import frontend.userListUI.UserListUI;
+import java.util.Map.Entry;
+
+import frontend.delayedBooksUI.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,6 +54,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import frontend.newBookUI.*;
+import frontend.preferencesUI.PreferencesUI;
 import program.Book;
 import program.Functions;
 import program.Library;
@@ -90,7 +94,7 @@ public class BookEditUI implements Initializable{
 	@FXML private TextField titleText,shelfText, quantityText, publisherText, authorText, isbnText, yearText;
 	@FXML private ComboBox categoryText;
 	@FXML private TextArea descriptionText;
-	@FXML private Button saveBtn,backBtn, removeBookBtn;
+	@FXML private Button saveBtn,backBtn, removeBtn;
 	@FXML public Label bookTitle;
 	@FXML private ImageView bookImageView;
 	private Image bookImage;
@@ -102,7 +106,7 @@ public class BookEditUI implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		removeBookBtn.setId("removeButton");
+		removeBtn.setId("removeButton");
 		
 		// use regular expression to force user to enter valid input
 		
@@ -255,16 +259,6 @@ public class BookEditUI implements Initializable{
 		}
 	}
 	
-	public void removeBookBtnClick(){
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this book?");
-		Optional <ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK ) {
-			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
-			new Alert(Alert.AlertType.INFORMATION, "Book: " + selectedBook.getTitle() + " has been removed!").showAndWait();
-			BooksUI.display();
-		}	
-	}
-	
 	public static void display(Book book)  {
 		Class context = BookEditUI.class;
 		selectedBook = book;
@@ -375,6 +369,16 @@ public class BookEditUI implements Initializable{
 	
 	public void backBtnClick() {
 		BookViewUI.display(selectedBook);
+	}
+	
+	public void removeBookBtnClick() {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this book?");
+		Optional <ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK ) {
+			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
+			new Alert(Alert.AlertType.INFORMATION, "Book: " + selectedBook.getTitle() + " has been removed!").showAndWait();
+			BooksUI.display();
+		}	
 	}
 	
 	/************************* SIDE PANEL ***************************/
@@ -684,9 +688,6 @@ public class BookEditUI implements Initializable{
 	}	
 	public void openRegister() {
 		RegisterUserUI.display();
-	}
-	public void openStats() {
-		StatsUI.display();
 	}
 
 }

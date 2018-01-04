@@ -80,11 +80,6 @@
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
                         </Label>
-                        <Label id="menuRegister" layoutX="22.0" layoutY="187.0" onMouseClicked="#openStats" prefHeight="27.0" prefWidth="162.0" text="Statistics" textFill="#727272">
-                           <font>
-                              <Font name="MS Reference Sans Serif" size="20.0" />
-                           </font>
-                        </Label>
                      </children>
                   </Pane>
                   <ImageView fx:id="logoImage" fitHeight="117.0" fitWidth="138.0" layoutX="28.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
@@ -186,19 +181,19 @@
                         </TextField>
                         <Text fill="#000000a6" layoutX="269.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" />
                         <ComboBox fx:id="categoryText" layoutX="339.0" layoutY="203.0" prefHeight="25.0" prefWidth="321.0" />
-                        <Text fill="#000000a6" layoutX="269.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shelf:" />
-                        <TextField fx:id="shelfText" layoutX="339.0" layoutY="267.0" prefHeight="25.0" prefWidth="97.0" text="1" />
+                        <Text fill="#000000a6" layoutX="269.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shelf:" />
+                        <TextField fx:id="shelfText" layoutX="339.0" layoutY="269.0" prefHeight="25.0" prefWidth="97.0" text="1" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eeeeee" height="147.0" layoutX="38.0" layoutY="360.0" stroke="#00000033" strokeType="INSIDE" width="629.0" />
                         <Button fx:id="saveBtn" layoutX="592.0" layoutY="527.0" mnemonicParsing="false" onAction="#saveBtnClick" prefHeight="31.0" prefWidth="74.0" text="Save" />
                         <Button fx:id="backBtn" layoutX="39.0" layoutY="527.0" mnemonicParsing="false" onAction="#backBtnClick" prefHeight="31.0" prefWidth="74.0" text="Back" />
                         <Text fill="#000000a6" layoutX="269.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Publisher" />
                         <TextField fx:id="publisherText" layoutX="339.0" layoutY="236.0" prefHeight="25.0" prefWidth="320.0" text="Publisher" />
                         <TextArea fx:id="descriptionText" layoutX="45.0" layoutY="367.0" prefHeight="134.0" prefWidth="614.0" wrapText="true" />
-                        <Button fx:id="imageBtn" layoutX="601.0" layoutY="299.0" mnemonicParsing="false" onAction="#imageBtnClick" text="Image..." />
-                        <Text fill="#000000a6" layoutX="269.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image: " />
-                        <TextField fx:id="imageText" editable="false" layoutX="339.0" layoutY="299.0" prefHeight="25.0" prefWidth="251.0" />
-                        <Text fill="#000000a6" layoutX="501.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:" />
-                        <TextField fx:id="quantityText" layoutX="565.0" layoutY="267.0" prefHeight="25.0" prefWidth="94.0" text="1" />
+                        <Button fx:id="imageBtn" layoutX="601.0" layoutY="302.0" mnemonicParsing="false" onAction="#imageBtnClick" text="Image..." />
+                        <Text fill="#000000a6" layoutX="269.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image: " />
+                        <TextField fx:id="imageText" editable="false" layoutX="339.0" layoutY="302.0" prefHeight="25.0" prefWidth="251.0" />
+                        <Text fill="#000000a6" layoutX="501.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:" />
+                        <TextField fx:id="quantityText" layoutX="565.0" layoutY="269.0" prefHeight="25.0" prefWidth="94.0" text="1" />
                         <Label layoutX="663.0" layoutY="65.0" text="*" textFill="#e30e0e">
                            <font>
                               <Font size="18.0" />
@@ -224,12 +219,12 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="436.0" layoutY="266.0" text="*" textFill="#e30e0e">
+                        <Label layoutX="436.0" layoutY="268.0" text="*" textFill="#e30e0e">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="removeBookBtn" layoutX="608.0" layoutY="15.0" mnemonicParsing="false" onAction="#removeBookBtnClick" text="Remove" />
+                        <Button fx:id="removeBtn" layoutX="612.0" layoutY="15.0" mnemonicParsing="false" onAction="#removeBookBtnClick" text="Remove" />
               </children>
             </AnchorPane>
           </content>
