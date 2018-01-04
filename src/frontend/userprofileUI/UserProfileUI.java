@@ -40,6 +40,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -66,9 +68,13 @@ public class UserProfileUI implements Initializable{
 		@FXML private Label booksBorrowed;
 		@FXML private Button edit;
 		@FXML private Button deleteUserbtn;
+		@FXML private ImageView logoImage;
 		
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
+			
+			Image logo = new Image("resources/logo.png");
+			logoImage.setImage(logo);
 
             // loads the user information into the text fields
 			fName.setText(tmpuser.getFirstName());
