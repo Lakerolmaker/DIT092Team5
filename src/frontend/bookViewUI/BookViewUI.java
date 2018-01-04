@@ -79,7 +79,7 @@ public class BookViewUI implements Initializable {
 	// SidePanel
 	@FXML private Text nameText,streetText,cityText,balanceText,amountText,basketText,booksLoaningText,booksLoaningAmount,enterIdText, currencyText;
 	@FXML private Text onlyNumText,noUserFoundText,switchUserText,returnDateText,dateErrorText, basketTitleText, basketQtyText;
-	@FXML private Button goBtn,loanBtn,loanActionBtn,cancelBtn, editBookBtn, removeBookBtn;
+	@FXML private Button goBtn,loanBtn,loanActionBtn,cancelBtn, editBookBtn, removeBtn;
 	@FXML private TextField userIdField;
 	@FXML private DatePicker datePicker;
 	@FXML private ListView<HBox> basketList;
@@ -113,6 +113,7 @@ public class BookViewUI implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		removeBtn.setId("removeButton");
 		booksLoaningText.setOnMouseClicked(e -> {
 			UserProfileUI.display(MainWindow.user);
 		});
@@ -214,6 +215,15 @@ public class BookViewUI implements Initializable {
 		BookEditUI.display(selectedBook);
 	}
 	
+	public void removeBookBtnClick() {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this book?");
+		Optional <ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK ) {
+			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
+			new Alert(Alert.AlertType.INFORMATION, "Book: " + selectedBook.getTitle() + " has been removed!").showAndWait();
+			BooksUI.display();
+		}	
+	}
 	
 	/************************* SIDE PANEL ***************************/
 

@@ -224,7 +224,6 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="removeBtn" layoutX="612.0" layoutY="15.0" mnemonicParsing="false" onAction="#removeBookBtnClick" text="Remove" />
               </children>
             </AnchorPane>
           </content>
