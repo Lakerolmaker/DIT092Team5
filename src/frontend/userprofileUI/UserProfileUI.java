@@ -1,3 +1,9 @@
+/**
+ * Description: Allows a librarian to view or edit information about the user.Contains the list of borrowed books and allows returning of books.
+ *
+ * @author Tihana Causevic
+ */
+
 package frontend.userprofileUI;
 
 import java.io.IOException;
@@ -5,14 +11,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
-/** 
- * Description: 
- * 
- * @author Tihana Causevic
- */
 import frontend.MainWindow;
 import frontend.aboutUI.AboutUI;
 import frontend.booksUI.BooksUI;
@@ -70,7 +69,8 @@ public class UserProfileUI implements Initializable{
 		
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			
+
+            // loads the user information into the text fields
 			fName.setText(tmpuser.getFirstName());
 			lName.setText(tmpuser.getLastName());
 			SSN.setText(tmpuser.getSsn());
@@ -81,13 +81,15 @@ public class UserProfileUI implements Initializable{
 			debt.setText(tmpuser.getDebt() + "");
 			
 			try {
+                // load the list of borrowed books
 				ObservableList<UserBookList> b = FXCollections.observableArrayList();
 				for(LoanInstance book : tmpuser.getBookList()) {
 					b.add(new UserBookList(book));
 				}
 				
 				borrowedBooks.setItems(b);
-				
+
+                // table of borrowed books
 				TableColumn titleCol = new TableColumn("Title");
 				titleCol.setMinWidth(200);
 		        titleCol.setCellValueFactory( new PropertyValueFactory<UserBookList, String>("title"));
@@ -110,7 +112,7 @@ public class UserProfileUI implements Initializable{
 							public TableCell call(final TableColumn<UserBookList, String> param) {
 								final TableCell<UserBookList, String> cell = new TableCell<UserBookList, String>() {
 
-									final Button returnBtn = new Button("Return");
+									final Button returnBtn = new Button("Return"); //creating the return button for the table
 
 									@Override
 									public void updateItem(String item, boolean empty) {
@@ -120,11 +122,10 @@ public class UserProfileUI implements Initializable{
 											setText(null);
 										} else {
 											returnBtn.setOnAction(event -> {
-												//tmpuser.removeBorrowedBook(book.getID());
-												//Remove book from list
-												//: Don't know what you were trying to do here
-												UserBookList book = getTableView().getItems().get(getIndex());
-												MainWindow.lib.returnBook(tmpuser, book.getBook());
+                                                // return the book when the return button is clicked
+
+                                                UserBookList book = getTableView().getItems().get(getIndex());
+                                                MainWindow.lib.returnBook(tmpuser, book.getBook());
 												
 												try {
 													ObservableList<UserBookList> b = FXCollections.observableArrayList();
@@ -133,16 +134,12 @@ public class UserProfileUI implements Initializable{
 													}
 													borrowedBooks.setItems(b);
 												} catch (Exception e) {
-													// TODO Auto-generated catch block
 													e.printStackTrace();
 												}
-												
-												
-												//System.out.println("Try to remove the book: " + book.getBookId() + ", " + book.getTitle());
 											});
 											returnBtn.setId("returnActionBtn");
 
-											setGraphic(returnBtn);
+											setGraphic(returnBtn); // adds the return button to the table
 											setText(null);
 										}
 									}
@@ -193,13 +190,10 @@ public class UserProfileUI implements Initializable{
 				
 				try {
 					MainWindow.lib.removeUser(indexUser);
-					
-				} catch (Exception e) {}
-				
-				try {
-					
-					MainWindow.lib.addUser(tmpuser);
-				} catch (Exception e) {}
+                    MainWindow.lib.addUser(tmpuser);
+				} catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "An error occured while updating the user, please try again.");
+                }
 
 			}else {
 				JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
@@ -288,4 +282,4 @@ public class UserProfileUI implements Initializable{
 		public void openStats() {
 			StatsUI.display();
 		}
-	}
+}
