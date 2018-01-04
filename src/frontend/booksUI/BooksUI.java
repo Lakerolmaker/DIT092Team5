@@ -18,6 +18,7 @@ import frontend.preferencesUI.PreferencesUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.statsUI.StatsUI;
 import frontend.userListUI.UserListUI;
+import frontend.userprofileUI.UserProfileUI;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -106,7 +107,10 @@ public class BooksUI implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		booksLoaningText.setId("booksLoaningText");
+		booksLoaningText.setOnMouseClicked(e -> {
+			UserProfileUI.display(MainWindow.user);
+		});
 		switchUserText.setId("switchUserText");
 		Image logo = new Image("resources/logo.png");
 		logoImage.setImage(logo);

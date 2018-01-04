@@ -8,6 +8,7 @@ import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.userListUI.UserListUI;
+import frontend.userprofileUI.UserProfileUI;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -107,6 +108,9 @@ public class BookEditUI implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		removeBtn.setId("removeButton");
+		booksLoaningText.setOnMouseClicked(e -> {
+			UserProfileUI.display(MainWindow.user);
+		});
 		
 		// use regular expression to force user to enter valid input
 		

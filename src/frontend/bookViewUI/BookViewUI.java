@@ -8,6 +8,8 @@ import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.userListUI.UserListUI;
+import frontend.userprofileUI.UserProfileUI;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -111,6 +113,9 @@ public class BookViewUI implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		booksLoaningText.setOnMouseClicked(e -> {
+			UserProfileUI.display(MainWindow.user);
+		});
 		description = selectedBook.getDescription();
 		if (description != null && description.length() > 0) {
 			descriptionText.setText(description);
