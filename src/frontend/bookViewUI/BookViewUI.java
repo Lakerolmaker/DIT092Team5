@@ -179,7 +179,7 @@ public class BookViewUI implements Initializable {
 			// This is the scene that is going to be shown inside the window 
 			VBox bookViewContainer = (VBox) FXMLLoader.load(context.getResource("BookView.fxml"));
 			bookView = new Scene(bookViewContainer, 1192, 650);
-			bookView.getStylesheets().add(MainWindow.css);
+			bookView.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
 
 			// Set the main window to show this scene
 			MainWindow.window.setScene(bookView);

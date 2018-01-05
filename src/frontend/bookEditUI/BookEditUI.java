@@ -273,7 +273,7 @@ public class BookEditUI implements Initializable{
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
 			VBox bookViewContainer = (VBox)FXMLLoader.load(context.getResource("BookEdit.fxml")); 
 			bookView = new Scene(bookViewContainer,1192,650);
-			bookView.getStylesheets().add(MainWindow.css);
+			bookView.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
 
 			// Set the main window to show this scene
 			MainWindow.window.setScene(bookView);

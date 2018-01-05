@@ -88,7 +88,7 @@ public class loanHistoryUI implements Initializable {
             // This is the scene that is going to be shown inside the window ( Main window in this case )
             VBox homeView = (VBox) FXMLLoader.load(context.getResource("loanHistoryUI.fxml"));
             historyScene = new Scene(homeView);
-            historyScene.getStylesheets().add(MainWindow.css);
+            historyScene.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
 
             // Set the main window to show this scene
             window.setScene(historyScene);

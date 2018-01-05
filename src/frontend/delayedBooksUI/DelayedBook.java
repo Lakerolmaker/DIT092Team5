@@ -17,7 +17,7 @@ public class DelayedBook {
 
 				VBox bookView = (VBox)FXMLLoader.load(context.getResource("DelayedBook.fxml"));
 				scene = new Scene(bookView,1192,650);
-				scene.getStylesheets().add(MainWindow.css);
+				scene.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
 	
 				MainWindow.window.setScene(scene);
 				MainWindow.window.show();

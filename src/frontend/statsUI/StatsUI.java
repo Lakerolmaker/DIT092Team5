@@ -138,7 +138,7 @@ public class StatsUI implements Initializable {
 			// Main window in this case )
 			VBox homeView = (VBox) FXMLLoader.load(context.getResource("StatsUI.fxml"));
 			stats = new Scene(homeView, 1192, 650);
-			stats.getStylesheets().add(MainWindow.css);
+			stats.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
 
 			// Set the main window to show this scene
 			MainWindow.window.setScene(stats);

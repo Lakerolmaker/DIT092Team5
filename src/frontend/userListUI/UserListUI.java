@@ -118,7 +118,7 @@ public class UserListUI implements Initializable {
             Class<UserListUI> context = UserListUI.class;
             VBox userListView = (VBox)FXMLLoader.load(context.getResource("UserListFxml.fxml"));
             userListScene = new Scene(userListView,1192,650);
-            userListScene.getStylesheets().add(MainWindow.css);
+            userListScene.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
 
             MainWindow.window.setScene(userListScene);
             MainWindow.window.show();

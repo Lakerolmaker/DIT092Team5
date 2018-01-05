@@ -55,7 +55,7 @@ public class NewBookUI2 implements Initializable{
 			Class context = NewBookUI2.class;
 			AnchorPane homeView = (AnchorPane)FXMLLoader.load(context.getResource("NewBook2.fxml"));
 			scene = new Scene(homeView);
-			scene.getStylesheets().add(MainWindow.css);
+			scene.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
 		
 			NewBookUI.window.setScene(scene);
 			NewBookUI.window.show();

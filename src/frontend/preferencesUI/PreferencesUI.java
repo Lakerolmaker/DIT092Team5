@@ -40,7 +40,7 @@ public class PreferencesUI implements Initializable {
 			Class<PreferencesUI> context = PreferencesUI.class;
 			rootView = (AnchorPane)FXMLLoader.load(context.getResource("PreferencesUI.fxml"));
 			preferencesUI = new Scene(rootView);
-			preferencesUI.getStylesheets().add(MainWindow.css);
+			preferencesUI.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
 
 			// Set the main window to show this scene
 			window.initModality(Modality.APPLICATION_MODAL); // Block other windows as long this one is open part1
