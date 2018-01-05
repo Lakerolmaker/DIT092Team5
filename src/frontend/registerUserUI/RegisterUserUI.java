@@ -110,7 +110,7 @@ public class RegisterUserUI implements Initializable{
 	@FXML
 	public void cancelButtonAction(Event event)
 	{
-		EmptyTemplateUI.display(); // displays the empty template (instead of the home screen, for now)
+		UserListUI.display(); // displays the empty template (instead of the home screen, for now)
 	}
 
 	
