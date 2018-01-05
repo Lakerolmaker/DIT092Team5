@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
-
-import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.userListUI.UserListUI;
 import frontend.userprofileUI.UserProfileUI;

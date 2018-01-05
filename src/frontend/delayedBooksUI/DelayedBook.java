@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
-public class DelayedBook{
+public class DelayedBook {
 	
 	public static Scene scene;
 	

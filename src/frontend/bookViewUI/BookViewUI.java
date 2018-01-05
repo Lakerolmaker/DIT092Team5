@@ -4,7 +4,6 @@ import frontend.*;
 import frontend.aboutUI.AboutUI;
 import frontend.bookEditUI.BookEditUI;
 import frontend.booksUI.*;
-import frontend.emptyTemplateUI.*;
 import frontend.homeUI.HomeUI;
 import frontend.registerUserUI.RegisterUserUI;
 import frontend.userListUI.UserListUI;

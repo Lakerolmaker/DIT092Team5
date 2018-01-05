@@ -17,7 +17,6 @@ import frontend.MainWindow;
 import frontend.aboutUI.AboutUI;
 import frontend.booksUI.BooksUI;
 import frontend.delayedBooksUI.DelayedBook;
-import frontend.emptyTemplateUI.EmptyTemplateUI;
 import frontend.homeUI.HomeUI;
 import frontend.loanhistoryUI.loanHistoryUI;
 import frontend.newBookUI.NewBookUI;
