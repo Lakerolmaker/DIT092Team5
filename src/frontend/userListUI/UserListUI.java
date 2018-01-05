@@ -18,6 +18,7 @@ package frontend.userListUI;
 
         import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import frontend.MainWindow;
@@ -235,6 +236,9 @@ public class UserListUI implements Initializable {
         if (event.getClickCount() == 2) {
             User selectedUser = tableUser.getSelectionModel().getSelectedItem(); // Retrieve selected cell
             if (selectedUser != null) {
+            	if(MainWindow.user != selectedUser) {
+            		BooksUI.booksInBasket = new HashMap<>(); // Clears basket when user is changed
+            	}
             	  MainWindow.user = selectedUser;
                 goToUserView(selectedUser);
    
