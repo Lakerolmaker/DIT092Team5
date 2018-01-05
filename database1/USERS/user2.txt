@@ -1,1 +1,1 @@
-{"firstName":"Tarik ","lastName":"Durakovic","ssn":"19900740XXXX","userId":3,"debt":0.0,"phoneNr":"070777771","street":"that streat in bosnia","zipCode":"7777","city":"Bosnia town","loanedBooksTotal":0,"bookList":[],"historyBookList":[]}
+{"firstName":"Tarik","lastName":"Durakovic","ssn":"121213-4344","userId":12,"debt":0.0,"phoneNr":"22332332","street":"SomeStreet","zipCode":"121333","city":"Gothenburg","loanedBooksTotal":0,"bookList":[],"historyBookList":[]}
