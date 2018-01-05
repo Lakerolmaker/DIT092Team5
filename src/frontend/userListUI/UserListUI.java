@@ -68,9 +68,9 @@ public class UserListUI implements Initializable {
     @FXML public TableColumn<User, String> nameColumn;
     @FXML public TableColumn<User, String> surnameColumn;
     @FXML public TableColumn<User, String> idColumn;
-    @FXML public TableColumn<User, String> amountBooksColumn; 
+    //@FXML public TableColumn<User, String> amountBooksColumn; this coulumn needs fixing
     @FXML public TableColumn<User, String> amountDebtColumn;
-    
+
     @FXML public Label menuHome;
     @FXML public Label menuBooks;
     @FXML public Label menuUsers;
@@ -130,7 +130,7 @@ public class UserListUI implements Initializable {
     public void initTable() {                                                       //table - all users
         createTable();
         tableUser.setItems(getUsers());
-        tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn , amountDebtColumn);
+        tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountDebtColumn);
     }
 
     //_____________________________________________________________                     list - all users
@@ -155,6 +155,13 @@ public class UserListUI implements Initializable {
         } catch (Exception exception){ }
         return usersWithBooks;
     }
+    /*
+    public void initTableWithBooks() {
+
+       createTable();
+       tableUserWithBooks.setItems(getUsersWithBooks());
+       tableUserWithBooks.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
+     }*/
     //______________________________________________________________________________ list -  users with debts
 
     public ObservableList<User> getUsersWithDebts(){
@@ -174,6 +181,7 @@ public class UserListUI implements Initializable {
     public void BtnShowUsersWithBooksClick() {// btn: users with books
         // table - with books
             tableUser.setItems(getUsersWithBooks());
+            //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
         
     }
 
@@ -209,6 +217,7 @@ public class UserListUI implements Initializable {
         // table - with debts
         
             tableUser.setItems(getUsersWithDebts());
+            //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
         
     }
 
@@ -216,6 +225,7 @@ public class UserListUI implements Initializable {
      public void BtnShowAllUsersClick(){ // btn: all users
     	 		// table - all users
             tableUser.setItems(getUsers());
+            //tableUser.getColumns().addAll(nameColumn, surnameColumn, idColumn, amountBooksColumn, amountDebtColumn);
       
         }
 
@@ -256,10 +266,10 @@ public class UserListUI implements Initializable {
         idColumn.setMaxWidth(2500);
         idColumn.setStyle("-fx-alignment: CENTER;");
 
-       // amount of borrowed books column
-        amountBooksColumn = new TableColumn<>("Books borrowed");
-        amountBooksColumn.setCellValueFactory(new PropertyValueFactory<>("loanedBooksTotal"));
-        amountBooksColumn.setStyle("-fx-alignment: CENTER;");
+        //amount of borrowed books column
+        //amountBooksColumn = new TableColumn<>("Books borrowed");
+        //amountBooksColumn.setCellValueFactory(new PropertyValueFactory<>("books borrowed"));
+        //amountBooksColumn.setStyle("-fx-alignment: CENTER;");
 
         // amount debt column
         amountDebtColumn = new TableColumn<>("Debt");

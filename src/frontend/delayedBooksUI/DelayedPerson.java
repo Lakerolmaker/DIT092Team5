@@ -2,16 +2,6 @@ package frontend.delayedBooksUI;
 
 import java.time.LocalDate;
 
-
-/*
- * This is a class created by Jacob Olsson
- * 
- * This class is mix between both the user class and the book class.
- * 
- * It keeps track of relavant informaiton, in order to display it in the delayed book scree.
- * 
- */
-
 public class DelayedPerson {
 
 	public String title;
@@ -23,7 +13,6 @@ public class DelayedPerson {
 	public String returndate;
 	public String ISBN;
 	
-	//:Constructor for the class
 	public DelayedPerson(String title, String Name, int userId, double debt, double allDebt, String date , String returndate, String ISBN ) {
 		super();
 		this.title = title;

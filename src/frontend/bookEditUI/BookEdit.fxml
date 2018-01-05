@@ -239,8 +239,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="removeBtn" layoutX="500.0" layoutY="529.0" mnemonicParsing="false" onAction="#removeBookBtnClick" prefHeight="27.0" prefWidth="70.0" text="Remove" />
-                        <Button fx:id="editBookBtn" layoutX="600.0" layoutY="21.0" mnemonicParsing="false" onAction="#backBtnClick" prefHeight="27.0" prefWidth="70.0" text="Cancel" />
+                        <Button fx:id="removeBtn" layoutX="601.0" layoutY="13.0" mnemonicParsing="false" onAction="#removeBookBtnClick" prefHeight="27.0" prefWidth="70.0" text="Remove" />
               </children>
             </AnchorPane>
           </content>

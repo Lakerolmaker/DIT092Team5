@@ -45,18 +45,10 @@ import program.LoanInstance;
 import program.User;
 import sun.util.resources.LocaleData;
 
-/*
- *  This is a class created by Jacob Olsson
- * 
- * This class handles all events related to the delayed book view.
- * It get's all the information about the delayed books from the other classes, it then combines the informaion and displayes it in the table.
- * 
- */
-
 public class DelayedBooksController {
 
-	//: all the controls on the screen
-	@FXML public TableView<DelayedPerson> delayedBook;	
+	@FXML public TableView<DelayedPerson> delayedBook;
+
 	@FXML public TableColumn<DelayedPerson, String> titleColumn;
 	@FXML public TableColumn<DelayedPerson, String> NameColumn;
 	@FXML public TableColumn<DelayedPerson, Double > debtColumn;
@@ -69,14 +61,12 @@ public class DelayedBooksController {
 	private ContextMenu cm = new ContextMenu();
 	DelayedPerson selectedPerson;
 	 
-	//: adds all the delayed book to the table
 	public void initialize() {
 		
-		//: adds a logo in the top left cornet
 		Image logo = new Image("resources/logo.png");
 		logoImage.setImage(logo);
 		
-		//: configures all the collums.
+		
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 		debtColumn.setCellValueFactory(new PropertyValueFactory<>("debt"));
@@ -86,13 +76,12 @@ public class DelayedBooksController {
 		returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returndate"));
 
 		
-			//: configures the contect menu for the table
+
 			MenuItem mi1 = new MenuItem("Go to User");
 	        	MenuItem mi2 = new MenuItem("Go to Book");
 	        cm.getItems().add(mi1);
 	        cm.getItems().add(mi2);
 	      
-	        //: events for the contects menu.
 	        mi1.setOnAction(e -> {
 	        	User forwardUser = MainWindow.lib.getUser(selectedPerson.getUserId());
 	        	UserProfileUI.display(forwardUser);
@@ -105,12 +94,14 @@ public class DelayedBooksController {
 	        cm.setAutoHide(true);
 	        cm.setHideOnEscape(true);
 	        
-	     //: Adds all the delayed books to the table
 	    	delayedBook.setItems(getBooks());
 	    
 	}
-
-	// Return a list of delayed books
+	/**
+	 * User class has been rewritten. It don't uses the book's id any more instead it uses the index the book has in the users bookList.
+	 * Commented out to keep the program from errors when calling the view
+	 */
+	// Return list of books TODO:
 	public ObservableList<DelayedPerson> getBooks() {
 		ObservableList<DelayedPerson> persons = FXCollections.observableArrayList();
 		
@@ -142,7 +133,7 @@ public class DelayedBooksController {
 			
 	}
 	
-	//: a function that's being called if someone left clicks on the table
+	
 	public void gridLeftCLick() {
 		 if (delayedBook.getSelectionModel().getSelectedItem() != null) { // Check if selected cell contains a book
 			 	
@@ -166,7 +157,6 @@ public class DelayedBooksController {
 	}
 	
 		
-	//: all the event functions for the screen.
 	/******** File MENU ********/
 	public void newBook(){
 		NewBookUI.display();
