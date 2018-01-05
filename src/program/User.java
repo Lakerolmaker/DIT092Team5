@@ -57,11 +57,16 @@ public class User {
 		return this.userId;
 	}
 
-	//: Gets the total debt fromt he book that you are borrowing.
+	//: Gets the total debt , from both the debt from previously borrowed books and currently borrowed books.
 	public double getDebt() {
-		return calculateDebt();
+		double returbDebt = this.debt + calculateDebt();
+		return returbDebt;
 	}
-		
+	
+	public double getOldDebt() {
+		return this.debt;
+	}
+	
 	
 	public void setDebt(double debt) {
 		this.debt = debt;

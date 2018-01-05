@@ -138,6 +138,7 @@ public class Library {
 		ArrayList<Integer> list = user.getBookIndex(book);
 		
 		if(list.size() == 1) {
+			user.setDebt( user.getOldDebt() +  user.getDelayfee(list.get(0)) );
 			user.removeBorrowedBook(list.get(0));
 			
 		}else {
@@ -150,6 +151,7 @@ public class Library {
 					firstToReturn = list.get(i);
 				}
 			}
+			user.setDebt( user.getOldDebt() + user.getDelayfee(firstToReturn) );
 			user.removeBorrowedBook(firstToReturn);
 		}
 	}

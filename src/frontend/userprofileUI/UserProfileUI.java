@@ -106,7 +106,7 @@ public class UserProfileUI implements Initializable{
 				authorCol.setMinWidth(120);
 		        authorCol.setCellValueFactory(new PropertyValueFactory<UserBookList, String>("author"));
 		        
-		        TableColumn dateCol = new TableColumn("Return Date");
+		        TableColumn dateCol = new TableColumn("Date");
 				dateCol.setMinWidth(50);
 		        dateCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("returnDate"));
 
