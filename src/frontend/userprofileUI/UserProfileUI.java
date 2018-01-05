@@ -128,6 +128,11 @@ public class UserProfileUI implements Initializable{
                                                 // return the book when the return button is clicked
 
                                                 UserBookList book = getTableView().getItems().get(getIndex());
+                                                
+                                                if (LocalDate.now().isAfter(book.getReturnDate())) {
+                                                	JOptionPane.showMessageDialog(null, "This book has been delayed");
+                                                }
+                                                
                                                 MainWindow.lib.returnBook(tmpuser, book.getBook());
 												
 												try {
@@ -214,7 +219,7 @@ public class UserProfileUI implements Initializable{
 		@FXML
 		public void cancelButtonAction(Event event)
 		{
-			EmptyTemplateUI.display(); // displays the empty template (instead of the home screen, for now)
+			UserListUI.display(); // displays the user list
 		}
 		
 		@FXML
