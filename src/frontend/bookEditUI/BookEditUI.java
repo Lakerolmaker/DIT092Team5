@@ -314,37 +314,42 @@ public class BookEditUI implements Initializable{
 			return;
 		}
 		
-		for (Book book : MainWindow.lib.getBookList()) {
-			if (selectedBook.getIsbn().equals(book.getIsbn())) {
-				book.setIsbn(isbn);
-				book.setTitle(title);
-				book.setAuthor(author);
-				book.setYear(year);
-				book.setCategory(category);
-				book.setShelf(shelf);
-				book.setQuantity(qty);
-				book.setPublisher(publisher);
-				book.setDescription(description);
-				String bookImage = book.getImage();
-				if(bufferedImage != null) {
-					try {
-			            File outputfile = new File("bookimages/" + imageName);
-			            ImageIO.write(bufferedImage, "png", outputfile);
-			            bookImage = imageName;
-			            book.setImage(bookImage);
-			            new Alert(Alert.AlertType.NONE, "Book edited successfully!", ButtonType.OK).showAndWait();
-					}catch (Exception c) {
-						c.printStackTrace();
-					}
+		// handles exceptions from addBook method
+		try {
+			String bookImage = "genericBookCover.jpg";
+			if(bufferedImage != null) {
+				try {
+		            File outputfile = new File("bookimages/" + imageName);
+		            ImageIO.write(bufferedImage, "png", outputfile);
+		            System.out.println(outputfile.getAbsolutePath());
+		            System.out.println(outputfile.toPath());
+		            System.out.println(outputfile.toURL());
+		            bookImage = imageName;
+				}catch (Exception c) {
+					c.printStackTrace();
 				}
-				break;
 			}
+			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
+			
+			// addBook can throw exception
+			boolean bookAdded = frontend.MainWindow.lib.addBook(isbn, title, author, year, category, shelf, qty, bookImage, publisher);
+			if (bookAdded == true)
+			{
+				new Alert(Alert.AlertType.NONE, "Book edited successfully!", ButtonType.OK).showAndWait();
+			}
+			else
+			{
+				new Alert(Alert.AlertType.NONE, "An error occured! Book was not edited!", ButtonType.OK).showAndWait();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			new Alert(Alert.AlertType.WARNING, "Failed to edit book! \n" + e.getMessage()).showAndWait();
 		}
 		
-		
-		
-			
-
+		// go back to book view
+		selectedBook = frontend.MainWindow.lib.findBookByIsbn(isbn);
+		selectedBook.setDescription(description);
 		
 		BookViewUI.display(selectedBook);
 	}
