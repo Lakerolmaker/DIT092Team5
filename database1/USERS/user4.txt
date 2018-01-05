@@ -1,1 +1,1 @@
-{"firstName":"Elsada ","lastName":"Felicitá","ssn":"18850101XXXX","userId":5,"debt":0.0,"phoneNr":"0720499365","street":"That other streat in Bosnia","zipCode":"1145","city":"Bosnia town","loanedBooksTotal":0,"bookList":[],"historyBookList":[]}
+{"firstName":"Jonatan ","lastName":"Karlsson","ssn":"19980305XXXX","userId":6,"debt":0.0,"phoneNr":"","street":"073344211","zipCode":"43497","city":"Borås","loanedBooksTotal":0,"bookList":[],"historyBookList":[]}
