@@ -479,6 +479,17 @@ public class BookViewUI implements Initializable {
 		goBtnClicked();
 	}
 
+	public void removeBookBtnClick() {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this book?");
+		Optional <ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK ) {
+			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
+			new Alert(Alert.AlertType.INFORMATION, "Book: " + selectedBook.getTitle() + " has been removed!").showAndWait();
+			BooksUI.display();
+		}	
+	}
+	
+	
 	/******** File MENU ********/
 	public void newBook(){
 		NewBookUI.display();
