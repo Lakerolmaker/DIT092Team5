@@ -65,11 +65,19 @@ public class loanHistoryUI implements Initializable {
         authorCol.setMinWidth(120);
         authorCol.setCellValueFactory(new PropertyValueFactory<UserBookList, String>("author"));
 
-        TableColumn dateCol = new TableColumn("Date");
+        TableColumn dateCol = new TableColumn("Borrowed");
         dateCol.setMinWidth(50);
         dateCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("date"));
+        
+        TableColumn dueCol = new TableColumn("Due");
+        dueCol.setMinWidth(50);
+        dueCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("returnDate"));
+        
+        TableColumn returnedCol = new TableColumn("Returned");
+        returnedCol.setMinWidth(50);
+        returnedCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("returnedDate"));
 
-        bookHistoryView.getColumns().addAll(titleCol, authorCol, dateCol);
+        bookHistoryView.getColumns().addAll(titleCol, authorCol, dateCol, dueCol, returnedCol);
     }
 
     public static void display(User user) {
