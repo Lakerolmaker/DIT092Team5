@@ -136,8 +136,8 @@ public class UserProfileUI implements Initializable{
                                                 
                                                 if (LocalDate.now().isAfter(book.getReturnDate())) {
                                                 	JOptionPane.showMessageDialog(null, "This book has been delayed");
+                                                	// TODO show delay fee
                                                 }
-                                                
                                                 MainWindow.lib.returnBook(tmpuser, book.getBook());
 												
 												try {

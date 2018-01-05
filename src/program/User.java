@@ -165,6 +165,11 @@ public class User {
 			return bookList;
 		}
 	}
+	
+	public double getDeptForBook(int BookListIndex) {
+		
+		return 0;
+	}
 
 	public ArrayList<LoanInstance> getBookHistoryList() throws Exception {   // returns book list
 		if (historyBookList == null) {
