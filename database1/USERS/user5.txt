@@ -1,1 +1,1 @@
-{"firstName":"Jonatan ","lastName":"Karlsson","ssn":"19980305XXXX","userId":6,"debt":0.0,"phoneNr":"","street":"073344211","zipCode":"43497","city":"Borås","loanedBooksTotal":0,"bookList":[],"historyBookList":[]}
+{"firstName":"Tihana","lastName":"Causevic ","ssn":"19940306XXX","userId":2,"debt":0.0,"phoneNr":"0733224433","street":"almstatts gatan 4","zipCode":"233 33","city":"Goteborg","loanedBooksTotal":0,"bookList":[],"historyBookList":[]}

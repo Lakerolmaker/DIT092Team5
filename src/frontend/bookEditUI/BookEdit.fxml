@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.bookEditUI.BookEditUI">
+<VBox prefHeight="620.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.bookEditUI.BookEditUI">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -76,6 +76,11 @@
                            </font>
                         </Label>
                         <Label id="menuRegister" fx:id="menuRegister1" layoutX="22.0" layoutY="154.0" onMouseClicked="#openRegister" prefHeight="27.0" prefWidth="162.0" text="Register User" textFill="#727272">
+                           <font>
+                              <Font name="MS Reference Sans Serif" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label id="menuRegister" fx:id="statisticsBtn" layoutX="22.0" layoutY="187.0" onMouseClicked="#openStats" prefHeight="27.0" prefWidth="162.0" text="Statistics" textFill="#727272">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
@@ -173,7 +178,7 @@
                         <Text fill="#000000a6" layoutX="268.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
                         <TextField fx:id="titleText" layoutX="339.0" layoutY="66.0" prefHeight="25.0" prefWidth="323.0" text="The Remains of the Day" />
                         <Text fill="#000000a6" layoutX="268.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author:" />
-                        <TextField fx:id="authorText" layoutX="339.0" layoutY="102.0" prefHeight="25.0" prefWidth="320.0" text="Kazuo Ishiguro" />
+                        <TextField fx:id="authorText" layoutX="339.0" layoutY="102.0" prefHeight="26.0" prefWidth="322.0" text="Kazuo Ishiguro" />
                         <Text fill="#000000a6" layoutX="269.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:" />
                         <TextField fx:id="isbnText" layoutX="339.0" layoutY="172.0" prefHeight="25.0" prefWidth="321.0" text="9789146234746" />
                         <Text fill="#000000a6" layoutX="269.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year:" />
@@ -199,12 +204,12 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="662.0" layoutY="101.0" text="*" textFill="#e30e0e">
+                        <Label layoutX="663.0" layoutY="100.0" text="*" textFill="#e30e0e">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="662.0" layoutY="144.0" text="*" textFill="#e30e0e">
+                        <Label layoutX="662.0" layoutY="134.0" text="*" textFill="#e30e0e">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -224,6 +229,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
+                        <Button fx:id="removeBtn" layoutX="601.0" layoutY="13.0" mnemonicParsing="false" onAction="#removeBookBtnClick" prefHeight="27.0" prefWidth="70.0" text="Remove" />
               </children>
             </AnchorPane>
           </content>

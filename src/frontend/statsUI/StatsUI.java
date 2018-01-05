@@ -73,6 +73,7 @@ public class StatsUI implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		// setting the logo
 		Image logo = new Image("resources/logo.png");
 		logoImage.setImage(logo);
 
@@ -81,10 +82,13 @@ public class StatsUI implements Initializable {
 		int sum1 = 0;
 		int booksCount = 0;
 
+		
+		// converting the userlist arraylist to observable list 
 		ObservableList<User> users = FXCollections.observableArrayList(lib.getUserList());
 
 		books = lib.getBookList();
-
+		
+		// getting the first 5 most popular books
 		Collections.sort(books, comp);
 
 		XYChart.Series set1 = new XYChart.Series<>();
@@ -94,9 +98,12 @@ public class StatsUI implements Initializable {
 			set1.getData().add(new XYChart.Data((books.get(i).getTitle()), (books.get(i).loanTotal)));
 
 		}
-
+		
+		
+		// adding data to the bar chart
 		LoanChart.getData().addAll(set1);
-
+		
+		//adding user data to rows in the table
 		nameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
 		surnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
 		loanColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("loanedBooksTotal"));
@@ -104,19 +111,20 @@ public class StatsUI implements Initializable {
 		debtColumn.setCellValueFactory(new PropertyValueFactory<User, Double>("debt"));
 
 		tableUser.setItems(users);
-
+		// calculating total user debt
 		for (User user : lib.getUserList()) {
 
 			sum += user.getDebt();
 
 		}
-		
+		// calculating total number of books in the library
 		for (Book book : lib.getBookList()) {
 
 			sum1 += book.getQuantity();
 
 		}
-
+		
+		// printing the data
 		userDebt.setText(userDebt.getText() + "   " + sum + "  SEK");
 		totalBooks.setText(totalBooks.getText() + "   " + sum1);
 		totalUsers.setText(totalUsers.getText() + "   " + lib.getUserList().size());
