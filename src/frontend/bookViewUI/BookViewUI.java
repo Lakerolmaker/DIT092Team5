@@ -86,30 +86,14 @@ public class BookViewUI implements Initializable {
 	private ContextMenu cm2; // BasketList context menu
 
 	private static Book selectedBook;
-	private String title;
-	private String author;
-	private String imageName;
-	private String isbn;
-	private int year;
-	private int availableQty;
+	private String title, author, imageName, isbn;
+	private int year, availableQty;
 	private String category, shelfText, quantity, description, publisher;
-	@FXML
-	private Text titleText, quantityText, availableText, descriptionText, publisherText;
-	@FXML
-	private Text authorText;
-	@FXML
-	private Text isbnText;
-	@FXML
-	private Text yearText;
-	@FXML
-	private Text categoryText;
-	@FXML
-	private Button loanBtn2, backBtn;
-	@FXML
-	public Label bookTitle;
-	@FXML
-	private ImageView bookImageView;
-	private Image bookImage;
+	@FXML private Text titleText, quantityText, availableText, descriptionText, publisherText, authorText, isbnText, yearText, categoryText;
+	@FXML private Button loanBtn2, backBtn;
+	@FXML public Label bookTitle;
+	@FXML private ImageView bookImageView;
+	@FXML private Image bookImage;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -193,8 +177,7 @@ public class BookViewUI implements Initializable {
 		Class context = BookViewUI.class;
 		selectedBook = book;
 		try {
-			// This is the scene that is going to be shown inside the window (
-			// Main window in this case )
+			// This is the scene that is going to be shown inside the window 
 			VBox bookViewContainer = (VBox) FXMLLoader.load(context.getResource("BookView.fxml"));
 			bookView = new Scene(bookViewContainer, 1192, 650);
 			bookView.getStylesheets().add(MainWindow.css);

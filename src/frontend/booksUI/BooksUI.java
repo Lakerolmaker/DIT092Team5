@@ -26,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -59,50 +60,33 @@ import program.User;
 
 public class BooksUI implements Initializable {
 	public static HashMap<Book, Integer> booksInBasket;
-
 	private static Scene bookScene;
 	private static boolean showOnlyAvailable, showBorrowedBooks;
 	private static String searchFieldString = "";
+	
 	// Left Panel
-	@FXML
-	private ImageView logoImage;
-	@FXML
-	private Label menuHome, menuBooks, menuUsers, menuDelayed;
+	@FXML private ImageView logoImage;
+	@FXML private Label menuHome, menuBooks, menuUsers, menuDelayed;
+	
 	// SidePanel
-	@FXML
-	private Text nameText, streetText, cityText, balanceText, basketText, booksLoaningText, booksLoaningAmount,
-			enterIdText, amountText, currencyText;
-	@FXML
-	private Text onlyNumText, noUserFoundText, switchUserText, returnDateText, dateErrorText, basketTitleText,
-			basketQtyText;
-	@FXML
-	private Button goBtn, loanBtn, loanActionBtn, cancelBtn;
-	@FXML
-	private TextField userIdField;
-	@FXML
-	private DatePicker datePicker;
-	@FXML
-	private ListView<HBox> basketList;
+	@FXML private Text nameText, streetText, cityText, balanceText, basketText, booksLoaningText, booksLoaningAmount,
+			enterIdText, amountText, currencyText, onlyNumText, noUserFoundText, switchUserText, returnDateText, dateErrorText,
+			basketTitleText, basketQtyText;
+	@FXML private Button goBtn, loanBtn, loanActionBtn, cancelBtn;
+	@FXML private TextField userIdField;
+	@FXML private DatePicker datePicker;
+	@FXML private ListView<HBox> basketList;
 	private ContextMenu cm2; // BasketList context menu
+	
 	// Class Main
-	@FXML
-	private CheckBox showOnlyAv, showBorrowed;
-	@FXML
-	private TableView<Book> tableBook;
-	@FXML
-	private TableColumn<Book, String> titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn, shelfColumn,
-			categoryColumn;
-	@FXML
-	private TableColumn<Button, String> loanActCol;
-	@FXML
-	private TextField searchField;
-	@FXML
-	private Text bookTableStatusBar;
-	@FXML
-	private int showingCounter = 0;
-	@FXML
-	private int totalBooks;
-
+	@FXML private CheckBox showOnlyAv, showBorrowed;
+	@FXML private TableView<Book> tableBook;
+	@FXML private TableColumn<Book, String> titleColumn, authorColumn, yearColumn, isbnColumn, qtyAvColumn, shelfColumn, categoryColumn;
+	@FXML private TableColumn<Button, String> loanActCol;
+	@FXML private TextField searchField;
+	@FXML private Text bookTableStatusBar;
+	@FXML private int showingCounter = 0;
+	@FXML private int totalBooks;
 	private ContextMenu cm;
 
 	@Override
@@ -144,14 +128,6 @@ public class BooksUI implements Initializable {
 
 		if (MainWindow.user == null) {
 			newBasket();
-		} else {
-			try {
-				ArrayList<LoanInstance> loanList = MainWindow.user.getBookList();
-
-			} catch (Exception e) {
-				// User is not currently loaning any books
-			}
-
 		}
 
 		try {
@@ -322,8 +298,8 @@ public class BooksUI implements Initializable {
 			}
 		}
 	}
-
-	// TODO
+	
+	// Returns an integer of how many copies of a book currently in basket
 	public static int bookInBasket(Book book) {
 		if (book != null && booksInBasket != null) {
 			if (booksInBasket.containsKey(book)) {
@@ -336,27 +312,21 @@ public class BooksUI implements Initializable {
 	// Return list of books
 	public ObservableList<Book> getBooks() {
 		ObservableList<Book> books = FXCollections.observableArrayList(MainWindow.lib.getBookList());
-
 		if (showOnlyAv.isSelected()) {
 			books = showOnlyAvailable(books);
 		}
-
 		if (showBorrowed.isSelected()) {
 			books = showBorrowed(books);
 		}
-
 		return books;
 	}
 
 	// Return matching list of books
 	public ObservableList<Book> getMatchingBooks(String search) {
 		if (search.length() < 1) {
-			return getBooks(); // If search is empty - returns a list of all
-								// books
+			return getBooks(); // If search is empty - returns a list of all books
 		}
-		ObservableList<Book> books = FXCollections.observableArrayList(); // Create
-																			// new
-																			// list
+		ObservableList<Book> books = FXCollections.observableArrayList(); // Create new list
 		for (Book book : MainWindow.lib.getBookList()) {
 			if (Functions.compareStrings(Integer.toString(book.getShelf()), search)
 					|| Functions.compareStrings(book.getCategory(), search)
@@ -370,7 +340,6 @@ public class BooksUI implements Initializable {
 		if (showOnlyAv.isSelected()) {
 			books = showOnlyAvailable(books);
 		}
-
 		if (showBorrowed.isSelected()) {
 			books = showBorrowed(books); // filter out only borrowed books
 		}
@@ -390,8 +359,7 @@ public class BooksUI implements Initializable {
 	public ObservableList<Book> showBorrowed(ObservableList<Book> bookList) {
 		ObservableList<Book> newBookList = FXCollections.observableArrayList();
 		for (Book book : bookList) {
-			if (book.getLoaned() > 0) { // borrowed books have loaned grater
-										// than 0
+			if (book.getLoaned() > 0) { // borrowed books have loaned greater than 0
 				newBookList.add(book);
 			}
 		}
@@ -402,7 +370,7 @@ public class BooksUI implements Initializable {
 
 	/** Loan button **/
 	public void loanBtnClicked() {
-		LocalDate returnDate = datePicker.getValue(); // TODO
+		LocalDate returnDate = datePicker.getValue();
 		if (returnDate == null) {
 			dateErrorText.setText("Please fill in return date");
 			return;
@@ -439,7 +407,7 @@ public class BooksUI implements Initializable {
 			cancelBtn.setDisable(true);
 		}
 	}
-
+	
 	public void goBtnClicked() {
 		String idStr = userIdField.getText();
 		if (Functions.isInt(idStr)) {
@@ -648,7 +616,8 @@ public class BooksUI implements Initializable {
 
 		}
 	}
-
+	
+	// Date picker helper ( Sets the loan date to the librarys loan allowance )
 	public void setDatePicker() {
 		int maxDays = Library.LOAN_ALLOWANCE;
 		if (maxDays < 14) {
@@ -725,23 +694,5 @@ public class BooksUI implements Initializable {
 
 	public void openStats() {
 		StatsUI.display();
-	}
-
-	// for DEBUGGING
-	public void returnAllBooks() {
-		User user = MainWindow.user;
-		ArrayList<LoanInstance> bookList;
-		try {
-			bookList = user.getBookList();
-			for (int i = bookList.size() - 1; i >= 0; i--) {
-				MainWindow.lib.returnBook(user, user.getBookList().get(i).getBook());
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("All books returned for : " + user.getName());
-		display();
-
 	}
 }
