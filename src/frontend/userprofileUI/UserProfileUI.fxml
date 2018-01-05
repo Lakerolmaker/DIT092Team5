@@ -84,7 +84,7 @@
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="menuHome" layoutX="22.0" layoutY="14.0" onMouseClicked="#booksMenuAction" prefHeight="27.0" prefWidth="162.0" text="Home" textFill="#727272">
+                        <Label fx:id="menuHome" layoutX="22.0" layoutY="14.0" prefHeight="27.0" prefWidth="162.0" textFill="#727272">
                            <font>
                               <Font name="MS Reference Sans Serif" size="20.0" />
                            </font>

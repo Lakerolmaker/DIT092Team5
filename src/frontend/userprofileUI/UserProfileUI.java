@@ -42,6 +42,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -55,6 +57,7 @@ public class UserProfileUI implements Initializable{
 		private static Scene userScene;
 		private static User tmpuser;
 		
+		@FXML private ImageView logoImage;
 		@FXML private Label topMenu1; // Link to the fx:id in scenebuilder
 		@FXML private TextField fName; 
 		@FXML private TextField lName;
@@ -72,6 +75,9 @@ public class UserProfileUI implements Initializable{
 		
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
+			
+			Image logo = new Image("resources/logo.png");
+			logoImage.setImage(logo);
 
             // loads the user information into the text fields
 			fName.setText(tmpuser.getFirstName());

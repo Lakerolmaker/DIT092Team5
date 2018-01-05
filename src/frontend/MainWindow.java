@@ -1,21 +1,13 @@
 package frontend;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
-import frontend.userListUI.*;
-import frontend.userprofileUI.UserProfileUI;
-import frontend.emptyTemplateUI.*;
-import frontend.homeUI.HomeUI;
-import frontend.newBookUI.NewBookUI2;
-import frontend.registerUserUI.RegisterUserUI;
+import frontend.booksUI.BooksUI;
 import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.stage.Stage;
-import program.*;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import program.Library;
+import program.User;
 
 
 public class MainWindow extends Application {
@@ -57,7 +49,7 @@ public class MainWindow extends Application {
 		}
 		
 		// Show first page
-		HomeUI.display();
+		BooksUI.display();
 		
 
 	}
