@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"id":3,"isbn":"9780752832470","title":"The Godfather","author":"Whittaker, Owen","year":1995,"category":"Drama","shelf":2,"quantity":5,"loaned":1,"image":"thegodfather.jpg","description":"The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.","loanTotal":4}
+=======
+{"id":3,"isbn":"9780752832470","title":"The Godfather","author":"Whittaker, Owen","year":1995,"category":"Drama","shelf":2,"quantity":5,"loaned":1,"image":"thegodfather.jpg","description":"The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.","loanTotal":1}
+>>>>>>> parent of 62dffe6... Moved back remove button. Fixed bug where you couldnt add to basket

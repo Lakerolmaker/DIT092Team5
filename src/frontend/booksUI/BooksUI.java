@@ -91,14 +91,8 @@ public class BooksUI implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		if(MainWindow.user != null && booksInBasket == null ) {
-			newBasket();
-		}
 		booksLoaningText.setId("booksLoaningText");
 		booksLoaningText.setOnMouseClicked(e -> {
-			UserProfileUI.display(MainWindow.user);
-		});
-		nameText.setOnMouseClicked(e -> {
 			UserProfileUI.display(MainWindow.user);
 		});
 		switchUserText.setId("switchUserText");

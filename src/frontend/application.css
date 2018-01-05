@@ -92,9 +92,6 @@
 #booksLoaningText:hover {
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 2, 0.0 , 0 , 1 );
 }
-#nameText:hover {
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 2, 0.0 , 0 , 1 );
-}
 
 #removeButton {
 	-fx-background-color: linear-gradient(#ff5400, #be1d00);
@@ -104,19 +101,6 @@
 }
 #removeButton:hover {
 	-fx-background-color: linear-gradient(#be1d00,#ff5400);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
-}
-
-#editBookBtn {
-	-fx-background-color: linear-gradient(#edb53d, #aa822a);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
-}
-#editBookBtn:hover {
-	-fx-background-color: linear-gradient(#aa822a,#edb53d);
     -fx-background-radius: 30;
     -fx-background-insets: 0;
     -fx-text-fill: white;
