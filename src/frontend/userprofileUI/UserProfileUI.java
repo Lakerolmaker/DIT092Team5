@@ -136,8 +136,8 @@ public class UserProfileUI implements Initializable{
                                                 
                                                 if (LocalDate.now().isAfter(book.getReturnDate())) {
                                                 	JOptionPane.showMessageDialog(null, "This book has been delayed");
+                                                	// TODO show delay fee
                                                 }
-                                                
                                                 MainWindow.lib.returnBook(tmpuser, book.getBook());
 												
 												try {
@@ -192,19 +192,14 @@ public class UserProfileUI implements Initializable{
 		public void submitButtonAction(Event event)
 		{
 			if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
-				tmpuser.setFirstName(fName.getText());
-				tmpuser.setLastName(lName.getText());
-				tmpuser.setStreet(street.getText());
-				tmpuser.setZipCode(zCode.getText());
-				tmpuser.setCity(city.getText());
-				tmpuser.setPhoneNr(phoneNr.getText());
-				
-				User indexUser = MainWindow.lib.findUser(tmpuser.getSsn());
-				
 				try {
-					MainWindow.lib.removeUser(indexUser);
-                    MainWindow.lib.addUser(tmpuser);
-                    
+					MainWindow.user.setFirstName(fName.getText());
+					MainWindow.user.setLastName(lName.getText());
+					MainWindow.user.setStreet(street.getText());
+					MainWindow.user.setZipCode(zCode.getText());
+					MainWindow.user.setCity(city.getText());
+					MainWindow.user.setPhoneNr(phoneNr.getText());
+				
     				JOptionPane.showMessageDialog(null, "User is updated");
 				} catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "An error occured while updating the user, please try again.");
