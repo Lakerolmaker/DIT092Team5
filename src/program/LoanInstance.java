@@ -8,7 +8,7 @@ public class LoanInstance {
 	private Book book;
 	private LocalDate date;
 	private LocalDate returnDate;
-	
+	private LocalDate returnedDate;
 	
 	public LoanInstance(Book book) {
 		this.book = book;
@@ -21,11 +21,26 @@ public class LoanInstance {
 		this.date = LocalDate.now();
 		setReturnDate(returnDate);
 	}
+
+	public LoanInstance(Book book, LocalDate returnDate, LocalDate returnedDate) throws Exception {
+		this.book = book;
+		this.date = LocalDate.now();
+		setReturnDate(returnDate);
+		this.returnedDate = returnedDate;
+	}
 	
 	public LocalDate getReturnDate() {
 		return returnDate;
 	}
 
+	public LocalDate getReturnedDate() {
+		return returnedDate;
+	}
+
+	public void setReturnedDate() {
+		this.returnedDate = LocalDate.now();
+	}
+	
 	public void setReturnDate(LocalDate returnDate) throws Exception {
 		LocalDate now = LocalDate.now();
 		if(returnDate.isAfter(now)) {

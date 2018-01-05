@@ -103,7 +103,7 @@ public class UserProfileUI implements Initializable{
 		        
 		        TableColumn dateCol = new TableColumn("Date");
 				dateCol.setMinWidth(50);
-		        dateCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("date"));
+		        dateCol.setCellValueFactory(new PropertyValueFactory<UserBookList, LocalDate>("returnDate"));
 
 				TableColumn returnCol = new TableColumn("");
 				returnCol.setCellValueFactory(new PropertyValueFactory<>("extraBtn"));
@@ -189,13 +189,13 @@ public class UserProfileUI implements Initializable{
 				tmpuser.setCity(city.getText());
 				tmpuser.setPhoneNr(phoneNr.getText());
 				
-				JOptionPane.showMessageDialog(null, "User is updated");
-
 				User indexUser = MainWindow.lib.findUser(tmpuser.getSsn());
 				
 				try {
 					MainWindow.lib.removeUser(indexUser);
                     MainWindow.lib.addUser(tmpuser);
+                    
+    				JOptionPane.showMessageDialog(null, "User is updated");
 				} catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "An error occured while updating the user, please try again.");
                 }

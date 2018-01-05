@@ -205,6 +205,13 @@ public class User {
 			}
 		}
 		bookList.remove(bookListIndex);
+		
+		for (int i = historyBookList.size() - 1; i >= 0; i--) {
+			if(historyBookList.get(i).getBook().getIsbn().equals(book.getIsbn())) {
+				historyBookList.get(i).setReturnedDate();
+				return;
+			}
+		}
 	}
 	
 	public ArrayList<Integer> getBookIndex(Book book) {  // returns the book index of a given book
