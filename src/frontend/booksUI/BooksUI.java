@@ -88,14 +88,9 @@ public class BooksUI implements Initializable {
 	@FXML private int showingCounter = 0;
 	@FXML private int totalBooks;
 	private ContextMenu cm;
-	private static int refreshStatus = 0;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		if(refreshStatus == 0) {
-			refreshStatus++;
-			display();
-		}
 		if(MainWindow.user != null && booksInBasket == null ) {
 			newBasket();
 		}
