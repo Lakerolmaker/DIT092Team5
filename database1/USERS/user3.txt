@@ -1,1 +1,1 @@
-{"firstName":"Nadja","lastName":"Kodir","ssn":"123133-434","userId":3,"debt":0.0,"phoneNr":"3232442","street":"SomeStreet2","zipCode":"2323244","city":"Gothenburg","loanedBooksTotal":0,"bookList":[],"historyBookList":[]}
+{"firstName":"Jonatan ","lastName":"Karlsson","ssn":"232324-4343","userId":14,"debt":0.0,"phoneNr":"23242424","street":"SomeStreet3","zipCode":"232323","city":"Gothenburg","loanedBooksTotal":0,"bookList":[],"historyBookList":[]}

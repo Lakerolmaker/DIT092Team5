@@ -135,9 +135,11 @@ public class UserProfileUI implements Initializable{
                                                 UserBookList book = getTableView().getItems().get(getIndex());
                                                 
                                                 if (LocalDate.now().isAfter(book.getReturnDate())) {
-                                                	JOptionPane.showMessageDialog(null, "This book has been delayed");
-                                                	// TODO show delay fee
+                                                	Alert alert = new Alert(AlertType.INFORMATION, "This book has been delayed", ButtonType.OK);
+                                                    alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                                                    alert.show();
                                                 }
+                                                
                                                 MainWindow.lib.returnBook(tmpuser, book.getBook());
 												
 												try {
@@ -178,7 +180,7 @@ public class UserProfileUI implements Initializable{
 				// This is the scene that is going to be shown inside the window ( Main window in this case )
 				VBox userView = (VBox)FXMLLoader.load(context.getResource("UserProfileUI.fxml")); 
 				userScene = new Scene(userView,1192,650);
-				userScene.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
+				userScene.getStylesheets().add(MainWindow.css);
 
 				// Set the main window to show this scene
 				MainWindow.window.setScene(userScene);
@@ -192,21 +194,34 @@ public class UserProfileUI implements Initializable{
 		public void submitButtonAction(Event event)
 		{
 			if(!fName.getText().equals("") || !lName.getText().equals("") || !SSN.getText().equals("")) {  // if the first name field and the last name field are not empty then create a new user 
-				try {
-					MainWindow.user.setFirstName(fName.getText());
-					MainWindow.user.setLastName(lName.getText());
-					MainWindow.user.setStreet(street.getText());
-					MainWindow.user.setZipCode(zCode.getText());
-					MainWindow.user.setCity(city.getText());
-					MainWindow.user.setPhoneNr(phoneNr.getText());
+				tmpuser.setFirstName(fName.getText());
+				tmpuser.setLastName(lName.getText());
+				tmpuser.setStreet(street.getText());
+				tmpuser.setZipCode(zCode.getText());
+				tmpuser.setCity(city.getText());
+				tmpuser.setPhoneNr(phoneNr.getText());
 				
-    				JOptionPane.showMessageDialog(null, "User is updated");
+				User indexUser = MainWindow.lib.findUser(tmpuser.getSsn());
+				
+				try {
+					MainWindow.lib.removeUser(indexUser);
+                    MainWindow.lib.addUser(tmpuser);
+                    
+                    Alert alert = new Alert(AlertType.INFORMATION, "User is updated", ButtonType.OK);
+                    alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                    alert.show();
+        			
 				} catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "An error occured while updating the user, please try again.");
+					Alert alert = new Alert(AlertType.ERROR, "An error occured while updating the user, please try again.", ButtonType.OK);
+                    alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                    alert.show();
+                   
                 }
 
 			}else {
-				JOptionPane.showMessageDialog(null, "Please enter a first name and a last name to continue"); // if the first name and the last name field are empty then display an error box
+				Alert alert = new Alert(AlertType.ERROR, "Please enter a first name and a last name to continue.", ButtonType.OK);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                alert.show();
 			}
 		}
 

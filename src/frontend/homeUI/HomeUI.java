@@ -50,7 +50,7 @@ public class HomeUI implements Initializable{
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
 			VBox homeView = (VBox)FXMLLoader.load(context.getResource("HomeUI.fxml")); 
 			homeScene = new Scene(homeView,1192,650);
-			homeScene.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
+			homeScene.getStylesheets().add(MainWindow.css);
 
 			// Set the main window to show this scene
 			MainWindow.window.setScene(homeScene);

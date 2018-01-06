@@ -6,10 +6,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
+
+/*
+This is a class created by Jacob Olsson
+
+This class only have function , it's to launch the Delayed book screen.
+
+
+*/
 public class DelayedBook {
 	
 	public static Scene scene;
 	
+		//: A function that launches the delayed book view
 		public static void display() {
 			
 			Class context = DelayedBook.class;
@@ -17,7 +26,7 @@ public class DelayedBook {
 
 				VBox bookView = (VBox)FXMLLoader.load(context.getResource("DelayedBook.fxml"));
 				scene = new Scene(bookView,1192,650);
-				scene.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
+				scene.getStylesheets().add(MainWindow.css);
 	
 				MainWindow.window.setScene(scene);
 				MainWindow.window.show();

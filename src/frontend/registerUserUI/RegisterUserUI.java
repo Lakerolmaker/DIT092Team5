@@ -73,7 +73,7 @@ public class RegisterUserUI implements Initializable{
 			// This is the scene that is going to be shown inside the window ( Main window in this case )
 			VBox userView = (VBox)FXMLLoader.load(context.getResource("RegisterUserUI.fxml")); 
 			userScene = new Scene(userView,1192,650);
-			userScene.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
+			userScene.getStylesheets().add(MainWindow.css);
 
 			// Set the main window to show this scene
 			MainWindow.window.setScene(userScene);

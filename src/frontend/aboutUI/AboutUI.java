@@ -33,7 +33,7 @@ public class AboutUI implements Initializable{
 			Class<AboutUI> context = AboutUI.class;
 			rootView = (AnchorPane)FXMLLoader.load(context.getResource("AboutUI.fxml"));
 			aboutUI = new Scene(rootView);
-			aboutUI.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
+			aboutUI.getStylesheets().add(MainWindow.css);
 			
 			logoImage =  (ImageView) aboutUI.lookup("#imagelogoID");
 			Image logo = new Image("resources/logo.png");

@@ -179,7 +179,7 @@ public class BookViewUI implements Initializable {
 			// This is the scene that is going to be shown inside the window 
 			VBox bookViewContainer = (VBox) FXMLLoader.load(context.getResource("BookView.fxml"));
 			bookView = new Scene(bookViewContainer, 1192, 650);
-			bookView.getStylesheets().add(MainWindow.class.getResource("application.css").toExternalForm());
+			bookView.getStylesheets().add(MainWindow.css);
 
 			// Set the main window to show this scene
 			MainWindow.window.setScene(bookView);
@@ -479,6 +479,17 @@ public class BookViewUI implements Initializable {
 		goBtnClicked();
 	}
 
+	public void removeBookBtnClick() {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure that you want to remove this book?");
+		Optional <ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK ) {
+			frontend.MainWindow.lib.removeBook(selectedBook, selectedBook.getQuantity());
+			new Alert(Alert.AlertType.INFORMATION, "Book: " + selectedBook.getTitle() + " has been removed!").showAndWait();
+			BooksUI.display();
+		}	
+	}
+	
+	
 	/******** File MENU ********/
 	public void newBook(){
 		NewBookUI.display();
